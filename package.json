@@ -1,4 +1,6 @@
 {
+  "name": "@angular-package/error",
+  "version": "1.0.0",
   "description": "Manages the callback function.",
   "author": "Angular Package <angular-package@wvvw.dev> (https://wvvw.dev)",
   "homepage": "https://github.com/angular-package/testing#readme",
@@ -31,6 +33,5 @@
   "bugs": {
     "url": "https://github.com/angular-package/error/issues"
   },
-  "license": "MIT",
-  "version": "1.0.0"
+  "license": "MIT"
 }
