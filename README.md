@@ -134,7 +134,7 @@ Manages an [`Error`][js-error] of the validation.
 
 ### `ValidationError.template`
 
-Template of the error message with the replaceable `[problem]` and `[fix]`.
+Template of the error message with the replaceable `[problem]` and `[fix]`. By default, it's set to `Problem: [problem] => Fix: [fix]`.
 
 ```typescript
 static template = `Problem: [problem] => Fix: [fix]`;
@@ -156,7 +156,7 @@ public fix = '';
 
 ### `ValidationError.prototype.name`
 
-Error name of a string type that is being thrown. By default, it's `ValidationError`.
+Error name of a [`string`][js-string] type that is being thrown. By default, it's [`ValidationError`](#validationerror).
 
 ```typescript
 public name = ValidationError.name;
@@ -166,7 +166,7 @@ public name = ValidationError.name;
 
 ### `ValidationError.prototype.problem`
 
-The validation problem of a [`string`][js-string] type. By default, it's an empty string.
+The validation problem of a [`string`][js-string] type. By default, it's an empty [`string`][js-string].
 
 ```typescript
 public problem = '';
@@ -181,11 +181,17 @@ public problem = '';
 Defines the validation error message of a [`string`][js-string] type from the provided `message` of the [`ErrorMessage`](#errormessage) interface.
 
 ```typescript
-static defineMessage(message: ErrorMessage): string {
-  if (is.objectKey(message, ['fix', 'problem'])) {
-    return `Problem: ${message.problem}. ${
-        is.string(message.fix) ? `Fix: ${message.fix}` : ''
-      }`;
+static defineMessage(
+  message: ErrorMessage,
+  template: string = ValidationError.template,
+  callback?: ResultCallback
+): string {
+  if (is.objectKey(message, ['fix', 'problem'], callback)) {
+    if (is.string(template)) {
+      return template
+        .replace(`[fix]`, message.fix)
+        .replace(`[problem]`, message.problem);
+    }
   }
   return '';
 }
@@ -193,13 +199,15 @@ static defineMessage(message: ErrorMessage): string {
 
 **Parameters:**
 
-| Name: type              | Description |
-| :---------------------- | :---------- |
-| `message: ErrorMessage` | An [`object`][js-object] of the [`ErrorMessage`](#errormessage) interface to build a message of a [`string`][js-string] type. The value is checked against the proper [`object`][js-object] |
+| Name: type                  | Description |
+| :-------------------------- | :---------- |
+| `message: ErrorMessage`     | An [`object`][js-object] of the [`ErrorMessage`](#errormessage) interface to build a message of a [`string`][js-string] type. The value is checked against the proper [`object`][js-object] |
+| `template: string`          | A message template of a [`string`][js-string] type with replaceable `[problem]` and `[fix]` from the given `message`. The value is checked against a [`string`][js-string]. By default, it's set to `Problem: [problem] => Fix: [fix]` |
+| `callback?: ResultCallback` | An optional callback function of [`ResultCallback`][package-type-resultcallback] type to handle the check whether the provided message contains required `problem` and `fix` properties |
 
 **Returns:**
 
-The **return value** is a message of a `string` type created from the provided `message` of [`ErrorMessage`](#errormessage) interface, or it's an empty `string` if the provided message object isn't proper.
+The **return value** is a message of a `string` type created from the provided `message` of [`ErrorMessage`](#errormessage) interface, or it's an empty [`string`][js-string] if the provided message [`object`][js-object] isn't proper.
 
 **Usage:**
 
@@ -209,6 +217,7 @@ import { ValidationError } from '@angular-package/core';
 
 const fix = 'There is no solution to the described problem.';
 const problem = 'The problem has no solution.';
+
 /**
  * Returns
  * --------
@@ -227,9 +236,14 @@ Creates a new instance with the message. If the provided `message` is an [`objec
 
 ```typescript
 new ValidationError(message: string | ErrorMessage) {
-  super(is.string(message) ? message : ValidationError.defineMessage(message));
+  super(
+    is.string(message) ? message : ValidationError.defineMessage(message)
+  );
   if (is.object(message)) {
-    Object.assign(this, getProperties(message, ['fix', 'problem']));
+    Object.assign(this, {
+      problem: message.problem,
+      fix: message.fix,
+    });
   }
 }
 ```
@@ -238,7 +252,7 @@ new ValidationError(message: string | ErrorMessage) {
 
 | Name: type                        | Description |
 | :-------------------------------- | :---------- |
-| `message: string \| ErrorMessage` | The message of a `string` type or of an [`ErrorMessage`](#errormessage) interface that is used to throw with an [`error`][js-error] |
+| `message: string \| ErrorMessage` | The message of a [`string`][js-string] type or of an [`ErrorMessage`](#errormessage) interface that is used to throw with an [`error`][js-error] |
 
 **Returns:**
 
@@ -274,14 +288,6 @@ interface ErrorMessage {
    */
   problem: string;
 }
-```
-
-### ResultHandler
-
-Function to handle the result of the [`ResultCallback`][package-type-resultcallback] [`function`][js-function] before its result returns.
-
-```typescript
-type ResultHandler = (result: boolean, value: any) => void;
 ```
 
 <br>
