@@ -42,6 +42,7 @@ Manages an [`Error`][js-error].
 * [Installation](#installation)
 * [Api](#api)
 * [`ValidationError`](#validationerror)
+* [Interface](#interface)
 * [Git](#git)
   * [Commit](#commit)
   * [Versioning](#versioning)
@@ -104,12 +105,186 @@ npm i --save @angular-package/error
 import {
   // Class.
   ValidationError,
+  // Interface.
+  ErrorMessage,
 } from '@angular-package/error';
 ```
 
 <br>
 
 ## `ValidationError`
+
+Manages an [`Error`][js-error] of the validation.
+
+**Static methods:**
+
+| Methods                                                            | Description |
+| :----------------------------------------------------------------- | :---------- |
+| [`ValidationError.defineMessage()`](#validationerrordefinemessage) | Defines the error message of a [`string`][js-string] type from the provided `message` of an [`object`][js-object] |
+
+**Constructor:**
+
+| Constructor                                         | Description |
+| :-------------------------------------------------- | :---------- |
+| [`ValidationError()`](#validationerror-constructor) | Creates a new instance with the message. If the provided `message` is an [`object`][js-object], then its properties are assigned to the instance |
+
+<br>
+
+## `ValidationError` static properties
+
+### `ValidationError.template`
+
+Template of the error message with the replaceable `[problem]` and `[fix]`.
+
+```typescript
+static template = `Problem: [problem] => Fix: [fix]`;
+```
+
+<br>
+
+## `ValidationError` instance public properties
+
+### `ValidationError.prototype.fix`
+
+A possible solution to the described problem of a [`string`][js-string] type. By default, it's an empty [`string`][js-string].
+
+```typescript
+public fix = '';
+```
+
+<br>
+
+### `ValidationError.prototype.name`
+
+Error name of a string type that is being thrown. By default, it's `ValidationError`.
+
+```typescript
+public name = ValidationError.name;
+```
+
+<br>
+
+### `ValidationError.prototype.problem`
+
+The validation problem of a [`string`][js-string] type. By default, it's an empty string.
+
+```typescript
+public problem = '';
+```
+
+<br>
+
+## `ValidationError` static methods
+
+### `ValidationError.defineMessage()`
+
+Defines the validation error message of a [`string`][js-string] type from the provided `message` of the [`ErrorMessage`](#errormessage) interface.
+
+```typescript
+static defineMessage(message: ErrorMessage): string {
+  if (is.objectKey(message, ['fix', 'problem'])) {
+    return `Problem: ${message.problem}. ${
+        is.string(message.fix) ? `Fix: ${message.fix}` : ''
+      }`;
+  }
+  return '';
+}
+```
+
+**Parameters:**
+
+| Name: type              | Description |
+| :---------------------- | :---------- |
+| `message: ErrorMessage` | An [`object`][js-object] of the [`ErrorMessage`](#errormessage) interface to build a message of a [`string`][js-string] type. The value is checked against the proper [`object`][js-object] |
+
+**Returns:**
+
+The **return value** is a message of a `string` type created from the provided `message` of [`ErrorMessage`](#errormessage) interface, or it's an empty `string` if the provided message object isn't proper.
+
+**Usage:**
+
+```typescript
+// Example usage.
+import { ValidationError } from '@angular-package/core';
+
+const fix = 'There is no solution to the described problem.';
+const problem = 'The problem has no solution.';
+/**
+ * Returns
+ * --------
+ * Problem: The problem has no solution. => Fix: There is no solution to the described problem.
+ */
+const errorMessage = ValidationError.defineMessage({ fix, problem });
+```
+
+<br>
+
+## `ValidationError` constructor
+
+### `ValidationError()`
+
+Creates a new instance with the message. If the provided `message` is an [`object`][js-object], then its properties are assigned to the instance.
+
+```typescript
+new ValidationError(message: string | ErrorMessage) {
+  super(is.string(message) ? message : ValidationError.defineMessage(message));
+  if (is.object(message)) {
+    Object.assign(this, getProperties(message, ['fix', 'problem']));
+  }
+}
+```
+
+**Parameters:**
+
+| Name: type                        | Description |
+| :-------------------------------- | :---------- |
+| `message: string \| ErrorMessage` | The message of a `string` type or of an [`ErrorMessage`](#errormessage) interface that is used to throw with an [`error`][js-error] |
+
+**Returns:**
+
+The **return value** is an instance of [`ValidationError`](#validationerror).
+
+**Usage:**
+
+```typescript
+// Example usage.
+import { ValidationError } from '@angular-package/core';
+
+const fix = 'There is no solution to the described problem.';
+const problem = 'The problem has no solution.';
+const validationError = new ValidationError({ fix, problem });
+```
+
+<br>
+
+## Interface
+
+### ErrorMessage
+
+The shape of an [`object`][js-object] for an [`error`][js-error] message that contains a possible solution to the described problem.
+
+```typescript
+interface ErrorMessage {
+  /**
+   * Possible solution to the described problem of a `string` type.
+   */
+  fix: string;
+  /**
+   * Error problem of a `string` type.
+   */
+  problem: string;
+}
+```
+
+### ResultHandler
+
+Function to handle the result of the [`ResultCallback`][package-type-resultcallback] [`function`][js-function] before its result returns.
+
+```typescript
+type ResultHandler = (result: boolean, value: any) => void;
+```
+
+<br>
 
 ## GIT
 
