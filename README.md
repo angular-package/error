@@ -120,7 +120,7 @@ Manages an [`Error`][js-error] of the validation.
 
 | Methods                                                            | Description |
 | :----------------------------------------------------------------- | :---------- |
-| [`ValidationError.defineMessage()`](#validationerrordefinemessage) | Defines the error message of a [`string`][js-string] type from the provided `message` of an [`object`][js-object] |
+| [`ValidationError.defineMessage()`](#validationerrordefinemessage) | Defines the validation error message of a [`string`][js-string] type from the provided `message` of the [`ErrorMessage`](#errormessage) interface |
 
 **Constructor:**
 
