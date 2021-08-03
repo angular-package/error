@@ -16,7 +16,7 @@ Useful and simple to use packages based on the [angular.io][angulario].
 | [type][type-github-readme]           | Common types, type guards, and type checkers.           | [![npm version][type-npm-badge-svg]][type-npm-badge] |
 | [ui][ui-github-readme]               | User interface.                                         | *In Progress* |
 
-> Click on the package name to visit the package.
+> Click on the package name to visit its [GitHub](https://github.com/) page.
 
 ## angular-package/error
 
