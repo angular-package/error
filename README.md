@@ -166,17 +166,18 @@ MIT © angular-package ([license][callback-license])
 [git-commit-karma]: http://karma-runner.github.io/0.10/dev/git-commit-msg.html
 [git-commit-conventional]: https://www.conventionalcommits.org/en/v1.0.0/
 
-<!-- Package: callback  -->
+<!-- This package: error  -->
   <!-- GitHub: badges -->
-  [callback-badge-issues]: https://img.shields.io/github/issues/angular-package/callback
-  [callback-badge-forks]: https://img.shields.io/github/forks/angular-package/callback
-  [callback-badge-stars]: https://img.shields.io/github/stars/angular-package/callback
-  [callback-badge-license]: https://img.shields.io/github/license/angular-package/callback
+  [error-badge-issues]: https://img.shields.io/github/issues/angular-package/error
+  [error-badge-forks]: https://img.shields.io/github/forks/angular-package/error
+  [error-badge-stars]: https://img.shields.io/github/stars/angular-package/error
+  [error-badge-license]: https://img.shields.io/github/license/angular-package/error
   <!-- GitHub: badges links -->
-  [callback-issues]: https://github.com/angular-package/callback/issues
-  [callback-forks]: https://github.com/angular-package/callback/network
-  [callback-license]: https://github.com/angular-package/callback/blob/master/LICENSE
-  [callback-stars]: https://github.com/angular-package/callback/stargazers
+  [error-issues]: https://github.com/angular-package/error/issues
+  [error-forks]: https://github.com/angular-package/error/network
+  [error-license]: https://github.com/angular-package/error/blob/master/LICENSE
+  [error-stars]: https://github.com/angular-package/error/stargazers
+<!-- This package -->
 
 <!-- Package: callback -->
   <!-- npm -->
