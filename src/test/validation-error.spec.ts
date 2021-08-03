@@ -5,7 +5,7 @@ import { ValidationError } from '../lib/validation-error.class';
 /**
  * Initialize `Testing`.
  */
-const testing = new Testing(false, true);
+const testing = new Testing(true, true);
 const toBe = new TestingToBeMatchers();
 /**
  * Tests.
