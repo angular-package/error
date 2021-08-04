@@ -2,19 +2,19 @@
 
 Useful and simple to use packages based on the [angular.io][angulario].
 
-| Package                              | Description                                             | Status |
-| :----------------------------------- | :------------------------------------------------------ | -----: |
-| [callback][callback-github-readme]   | Manages the callback [`function`][js-function].         | [![npm version][callback-npm-badge-svg]][callback-npm-badge] |
-| [change-detection][cd-github-readme] | Improves application performance.                       | [![npm version][cd-npm-badge-svg]][cd-npm-badge] |
-| [component-loader][cl-github-readme] | Handles dynamic loading components.                     | [![npm version][cl-npm-badge-svg]][cl-npm-badge] |
-| [core][core-github-readme]           | Core features.                                          | [![npm version][core-npm-badge-svg]][core-npm-badge] |
-| [error][error-github-readme]         | Manages an [`Error`][js-error].                         | [![npm version][error-npm-badge-svg]][error-npm-badge] |
-| [prism][prism-github-readme]         | [`Prism`][prism-js] highlighter module.                 | [![npm version][prism-npm-badge-svg]][prism-npm-badge] |
-| [property][property-github-readme]   | Handles object properties.                              | [![npm version][property-npm-badge-svg]][property-npm-badge] |
-| [reactive][reactive-github-readme]   | Automatize the process of creating some rxjs features.  | [![npm version][reactive-npm-badge-svg]][reactive-npm-badge] |
-| [testing][testing-github-readme]     | Support for testing other packages.                     | [![npm version][testing-npm-badge-svg]][testing-npm-badge] |
-| [type][type-github-readme]           | Common types, type guards, and type checkers.           | [![npm version][type-npm-badge-svg]][type-npm-badge] |
-| [ui][ui-github-readme]               | User interface.                                         | *In Progress* |
+| Package                              | Description                                            | Status |
+| :----------------------------------- | :----------------------------------------------------- | -----: |
+| [callback][callback-github-readme]   | Manages the callback [`function`][js-function].        | [![npm version][callback-npm-badge-png]][callback-npm-badge] |
+| [change-detection][cd-github-readme] | Improves application performance.                      | [![npm version][cd-npm-badge-png]][cd-npm-badge] |
+| [component-loader][cl-github-readme] | Handles dynamic loading components.                    | [![npm version][cl-npm-badge-png]][cl-npm-badge] |
+| [core][core-github-readme]           | Core features.                                         | [![npm version][core-npm-badge-png]][core-npm-badge] |
+| [error][error-github-readme]         | Manages an [`Error`][js-error].                        | [![npm version][error-npm-badge-png]][error-npm-badge] |
+| [prism][prism-github-readme]         | [`Prism`][prism-js] highlighter module.                | [![npm version][prism-npm-badge-png]][prism-npm-badge] |
+| [property][property-github-readme]   | Handles object properties.                             | [![npm version][property-npm-badge-png]][property-npm-badge] |
+| [reactive][reactive-github-readme]   | Automatize the process of creating some rxjs features. | [![npm version][reactive-npm-badge-png]][reactive-npm-badge] |
+| [testing][testing-github-readme]     | Support for testing other packages.                    | [![npm version][testing-npm-badge-png]][testing-npm-badge] |
+| [type][type-github-readme]           | Common types, type guards, and type checkers.          | [![npm version][type-npm-badge-png]][type-npm-badge] |
+| [ui][ui-github-readme]               | User interface.                                        | *In Progress* |
 
 > Click on the package name to visit its [GitHub](https://github.com/) page.
 
@@ -94,7 +94,7 @@ Run `ng test error` to execute the unit tests via [Karma](https://karma-runner.g
 Install `@angular-package/error` package with command:
 
 ```bash
-npm i --save @angular-package/error
+npm i @angular-package/error --save
 ```
 
 <br>
@@ -118,9 +118,9 @@ Manages an [`Error`][js-error] of the validation.
 
 **Static methods:**
 
-| Methods                                                            | Description |
-| :----------------------------------------------------------------- | :---------- |
-| [`ValidationError.defineMessage()`](#validationerrordefinemessage) | Defines the validation error message of a [`string`][js-string] type from the provided `message` of the [`ErrorMessage`](#errormessage) interface |
+| ValidationError.                                   | Description |
+| :------------------------------------------------- | :---------- |
+| [`defineMessage()`](#validationerrordefinemessage) | Defines the validation error message of a [`string`][js-string] type from the provided `message` of the [`ErrorMessage`](#errormessage) interface |
 
 **Constructor:**
 
@@ -130,9 +130,11 @@ Manages an [`Error`][js-error] of the validation.
 
 <br>
 
-## `ValidationError` static properties
+### `ValidationError` static properties
 
-### `ValidationError.template`
+----
+
+#### `ValidationError.template`
 
 Template of the error message with the replaceable `[problem]` and `[fix]`. By default, it's set to `Problem: [problem] => Fix: [fix]`.
 
@@ -142,9 +144,11 @@ static template = `Problem: [problem] => Fix: [fix]`;
 
 <br>
 
-## `ValidationError` instance public properties
+### `ValidationError` instance public properties
 
-### `ValidationError.prototype.fix`
+----
+
+#### `ValidationError.prototype.fix`
 
 A possible solution to the described problem of a [`string`][js-string] type. By default, it's an empty [`string`][js-string].
 
@@ -154,7 +158,7 @@ public fix = '';
 
 <br>
 
-### `ValidationError.prototype.name`
+#### `ValidationError.prototype.name`
 
 Error name of a [`string`][js-string] type that is being thrown. By default, it's [`ValidationError`](#validationerror).
 
@@ -164,7 +168,7 @@ public name = ValidationError.name;
 
 <br>
 
-### `ValidationError.prototype.problem`
+#### `ValidationError.prototype.problem`
 
 The validation problem of a [`string`][js-string] type. By default, it's an empty [`string`][js-string].
 
@@ -174,9 +178,11 @@ public problem = '';
 
 <br>
 
-## `ValidationError` static methods
+### `ValidationError` static methods
 
-### `ValidationError.defineMessage()`
+----
+
+#### `ValidationError.defineMessage()`
 
 Defines the validation error message of a [`string`][js-string] type from the provided `message` of the [`ErrorMessage`](#errormessage) interface.
 
@@ -228,9 +234,11 @@ const errorMessage = ValidationError.defineMessage({ fix, problem });
 
 <br>
 
-## `ValidationError` constructor
+### `ValidationError` constructor
 
-### `ValidationError()`
+----
+
+#### `ValidationError()`
 
 Creates a new instance with the message. If the provided `message` is an [`object`][js-object], then its properties are assigned to the instance.
 
@@ -273,7 +281,9 @@ const validationError = new ValidationError({ fix, problem });
 
 ## Interface
 
-### ErrorMessage
+### Common
+
+#### `ErrorMessage`
 
 The shape of an [`object`][js-object] for an [`error`][js-error] message that contains a possible solution to the described problem.
 
@@ -363,6 +373,7 @@ MIT © angular-package ([license][error-license])
 <!-- Package: callback -->
   <!-- npm -->
   [callback-npm-badge-svg]: https://badge.fury.io/js/%40angular-package%2Fcallback.svg
+  [callback-npm-badge-png]: https://badge.fury.io/js/%40angular-package%2Fcallback.png
   [callback-npm-badge]: https://badge.fury.io/js/%40angular-package%2Fcallback
   [callback-npm-readme]: https://www.npmjs.com/package/@angular-package/callback#readme
 
@@ -372,6 +383,7 @@ MIT © angular-package ([license][error-license])
 <!-- Package: change-detection -->
   <!-- npm -->
   [cd-npm-badge-svg]: https://badge.fury.io/js/%40angular-package%2Fchange-detection.svg
+  [cd-npm-badge-png]: https://badge.fury.io/js/%40angular-package%2Fchange-detection.png
   [cd-npm-badge]: https://badge.fury.io/js/%40angular-package%2Fchange-detection
   [cd-npm-readme]: https://www.npmjs.com/package/@angular-package/change-detection#readme
 
@@ -381,6 +393,7 @@ MIT © angular-package ([license][error-license])
 <!-- Package: component-loader -->
   <!-- npm -->
   [cl-npm-badge-svg]: https://badge.fury.io/js/%40angular-package%2Fcomponent-loader.svg
+  [cl-npm-badge-png]: https://badge.fury.io/js/%40angular-package%2Fcomponent-loader.png
   [cl-npm-badge]: https://badge.fury.io/js/%40angular-package%2Fcomponent-loader
   [cl-npm-readme]: https://www.npmjs.com/package/@angular-package/component-loader#readme
 
@@ -390,6 +403,7 @@ MIT © angular-package ([license][error-license])
 <!-- Package: core -->
   <!-- npm -->
   [core-npm-badge-svg]: https://badge.fury.io/js/%40angular-package%2Fcore.svg
+  [core-npm-badge-png]: https://badge.fury.io/js/%40angular-package%2Fcore.png
   [core-npm-badge]: https://badge.fury.io/js/%40angular-package%2Fcore
   [core-npm-readme]: https://www.npmjs.com/package/@angular-package/core#readme
 
@@ -399,6 +413,7 @@ MIT © angular-package ([license][error-license])
 <!-- Package: error -->
   <!-- npm -->
   [error-npm-badge-svg]: https://badge.fury.io/js/%40angular-package%2Ferror.svg
+  [error-npm-badge-png]: https://badge.fury.io/js/%40angular-package%2Ferror.png
   [error-npm-badge]: https://badge.fury.io/js/%40angular-package%2Ferror
   [error-npm-readme]: https://www.npmjs.com/package/@angular-package/error#readme
 
@@ -408,6 +423,7 @@ MIT © angular-package ([license][error-license])
 <!-- Package: prism -->
   <!-- npm -->
   [prism-npm-badge-svg]: https://badge.fury.io/js/%40angular-package%2Fprism.svg
+  [prism-npm-badge-png]: https://badge.fury.io/js/%40angular-package%2Fprism.png
   [prism-npm-badge]: https://badge.fury.io/js/%40angular-package%2Fprism
   [prism-npm-readme]: https://www.npmjs.com/package/@angular-package/prism#readme
 
@@ -417,6 +433,7 @@ MIT © angular-package ([license][error-license])
 <!-- Package: property -->
   <!-- npm -->
   [property-npm-badge-svg]: https://badge.fury.io/js/%40angular-package%2Fproperty.svg
+  [property-npm-badge-png]: https://badge.fury.io/js/%40angular-package%2Fproperty.png
   [property-npm-badge]: https://badge.fury.io/js/%40angular-package%2Fproperty
   [property-npm-readme]: https://www.npmjs.com/package/@angular-package/property#readme
 
@@ -426,6 +443,7 @@ MIT © angular-package ([license][error-license])
 <!-- Package: reactive -->
   <!-- npm -->
   [reactive-npm-badge-svg]: https://badge.fury.io/js/%40angular-package%2Freactive.svg
+  [reactive-npm-badge-png]: https://badge.fury.io/js/%40angular-package%2Freactive.png
   [reactive-npm-badge]: https://badge.fury.io/js/%40angular-package%2Freactive
   [reactive-npm-readme]: https://www.npmjs.com/package/@angular-package/reactive#readme
 
@@ -435,6 +453,7 @@ MIT © angular-package ([license][error-license])
 <!-- Package: testing -->
   <!-- npm -->
   [testing-npm-badge-svg]: https://badge.fury.io/js/%40angular-package%2Ftesting.svg
+  [testing-npm-badge-png]: https://badge.fury.io/js/%40angular-package%2Ftesting.png
   [testing-npm-badge]: https://badge.fury.io/js/%40angular-package%2Ftesting
   [testing-npm-readme]: https://www.npmjs.com/package/@angular-package/testing#readme
 
@@ -444,6 +463,7 @@ MIT © angular-package ([license][error-license])
 <!-- Package: type -->
   <!-- npm -->
   [type-npm-badge-svg]: https://badge.fury.io/js/%40angular-package%2Ftype.svg
+  [type-npm-badge-png]: https://badge.fury.io/js/%40angular-package%2Ftype.png
   [type-npm-badge]: https://badge.fury.io/js/%40angular-package%2Ftype
   [type-npm-readme]: https://www.npmjs.com/package/@angular-package/type#readme
 
@@ -455,6 +475,7 @@ MIT © angular-package ([license][error-license])
 
 <!-- Package: ui -->
   <!-- npm -->
+  [ui-npm-badge-svg]: https://badge.fury.io/js/%40angular-package%2Fui.svg
   [ui-npm-badge-svg]: https://badge.fury.io/js/%40angular-package%2Fui.svg
   [ui-npm-badge]: https://badge.fury.io/js/%40angular-package%2Fui
   [ui-npm-readme]: https://www.npmjs.com/package/@angular-package/ui#readme

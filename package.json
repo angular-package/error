@@ -1,9 +1,9 @@
 {
   "name": "@angular-package/error",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Manages the callback function.",
   "author": "Angular Package <angular-package@wvvw.dev> (https://wvvw.dev)",
-  "homepage": "https://github.com/angular-package/testing#readme",
+  "homepage": "https://github.com/angular-package/error#readme",
   "peerDependencies": {
     "@angular-package/type": "^4.2.0"
   },
