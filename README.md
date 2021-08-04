@@ -281,7 +281,9 @@ const validationError = new ValidationError({ fix, problem });
 
 ## Interface
 
-### ErrorMessage
+### Common
+
+#### `ErrorMessage`
 
 The shape of an [`object`][js-object] for an [`error`][js-error] message that contains a possible solution to the described problem.
 
