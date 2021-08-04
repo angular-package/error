@@ -158,7 +158,7 @@ public fix = '';
 
 <br>
 
-### `ValidationError.prototype.name`
+#### `ValidationError.prototype.name`
 
 Error name of a [`string`][js-string] type that is being thrown. By default, it's [`ValidationError`](#validationerror).
 
@@ -182,7 +182,7 @@ public problem = '';
 
 ----
 
-### `ValidationError.defineMessage()`
+#### `ValidationError.defineMessage()`
 
 Defines the validation error message of a [`string`][js-string] type from the provided `message` of the [`ErrorMessage`](#errormessage) interface.
 
@@ -238,7 +238,7 @@ const errorMessage = ValidationError.defineMessage({ fix, problem });
 
 ----
 
-### `ValidationError()`
+#### `ValidationError()`
 
 Creates a new instance with the message. If the provided `message` is an [`object`][js-object], then its properties are assigned to the instance.
 
