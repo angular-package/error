@@ -2,19 +2,19 @@
 
 Useful and simple to use packages based on the [angular.io][angulario].
 
-| Package                              | Description                                             | Status |
-| :----------------------------------- | :------------------------------------------------------ | -----: |
-| [callback][callback-github-readme]   | Manages the callback [`function`][js-function].         | [![npm version][callback-npm-badge-svg]][callback-npm-badge] |
-| [change-detection][cd-github-readme] | Improves application performance.                       | [![npm version][cd-npm-badge-svg]][cd-npm-badge] |
-| [component-loader][cl-github-readme] | Handles dynamic loading components.                     | [![npm version][cl-npm-badge-svg]][cl-npm-badge] |
-| [core][core-github-readme]           | Core features.                                          | [![npm version][core-npm-badge-svg]][core-npm-badge] |
-| [error][error-github-readme]         | Manages an [`Error`][js-error].                         | [![npm version][error-npm-badge-svg]][error-npm-badge] |
-| [prism][prism-github-readme]         | [`Prism`][prism-js] highlighter module.                 | [![npm version][prism-npm-badge-svg]][prism-npm-badge] |
-| [property][property-github-readme]   | Handles object properties.                              | [![npm version][property-npm-badge-svg]][property-npm-badge] |
-| [reactive][reactive-github-readme]   | Automatize the process of creating some rxjs features.  | [![npm version][reactive-npm-badge-svg]][reactive-npm-badge] |
-| [testing][testing-github-readme]     | Support for testing other packages.                     | [![npm version][testing-npm-badge-svg]][testing-npm-badge] |
-| [type][type-github-readme]           | Common types, type guards, and type checkers.           | [![npm version][type-npm-badge-svg]][type-npm-badge] |
-| [ui][ui-github-readme]               | User interface.                                         | *In Progress* |
+| Package / Description                                                                                             | Status |
+| :---------------------------------------------------------------------------------------------------------------- | -----: |
+| [@angular-package/callback][callback-github-readme]   <br> Manages the callback [`function`][js-function].        | [![npm version][callback-npm-badge-svg]][callback-npm-badge] |
+| [@angular-package/change-detection][cd-github-readme] <br> Improves application performance.                      | [![npm version][cd-npm-badge-svg]][cd-npm-badge] |
+| [@angular-package/component-loader][cl-github-readme] <br> Handles dynamic loading components.                    | [![npm version][cl-npm-badge-svg]][cl-npm-badge] |
+| [@angular-package/core][core-github-readme]           <br> Core features.                                         | [![npm version][core-npm-badge-svg]][core-npm-badge] |
+| [@angular-package/error][error-github-readme]         <br> Manages an [`Error`][js-error].                        | [![npm version][error-npm-badge-svg]][error-npm-badge] |
+| [@angular-package/prism][prism-github-readme]         <br> [`Prism`][prism-js] highlighter module.                | [![npm version][prism-npm-badge-svg]][prism-npm-badge] |
+| [@angular-package/property][property-github-readme]   <br> Handles object properties.                             | [![npm version][property-npm-badge-svg]][property-npm-badge] |
+| [@angular-package/reactive][reactive-github-readme]   <br> Automatize the process of creating some rxjs features. | [![npm version][reactive-npm-badge-svg]][reactive-npm-badge] |
+| [@angular-package/testing][testing-github-readme]     <br> Support for testing other packages.                    | [![npm version][testing-npm-badge-svg]][testing-npm-badge] |
+| [@angular-package/type][type-github-readme]           <br> Common types, type guards, and type checkers.          | [![npm version][type-npm-badge-svg]][type-npm-badge] |
+| [@angular-package/ui][ui-github-readme]               <br> User interface.                                        | *In Progress* |
 
 > Click on the package name to visit its [GitHub](https://github.com/) page.
 
