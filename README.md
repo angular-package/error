@@ -168,7 +168,7 @@ public name = ValidationError.name;
 
 <br>
 
-### `ValidationError.prototype.problem`
+#### `ValidationError.prototype.problem`
 
 The validation problem of a [`string`][js-string] type. By default, it's an empty [`string`][js-string].
 
