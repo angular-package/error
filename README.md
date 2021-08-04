@@ -118,9 +118,9 @@ Manages an [`Error`][js-error] of the validation.
 
 **Static methods:**
 
-| Methods                                                            | Description |
-| :----------------------------------------------------------------- | :---------- |
-| [`ValidationError.defineMessage()`](#validationerrordefinemessage) | Defines the validation error message of a [`string`][js-string] type from the provided `message` of the [`ErrorMessage`](#errormessage) interface |
+| ValidationError.                                   | Description |
+| :------------------------------------------------- | :---------- |
+| [`defineMessage()`](#validationerrordefinemessage) | Defines the validation error message of a [`string`][js-string] type from the provided `message` of the [`ErrorMessage`](#errormessage) interface |
 
 **Constructor:**
 
@@ -130,7 +130,9 @@ Manages an [`Error`][js-error] of the validation.
 
 <br>
 
-## `ValidationError` static properties
+### `ValidationError` static properties
+
+----
 
 ### `ValidationError.template`
 
@@ -142,7 +144,9 @@ static template = `Problem: [problem] => Fix: [fix]`;
 
 <br>
 
-## `ValidationError` instance public properties
+### `ValidationError` instance public properties
+
+----
 
 ### `ValidationError.prototype.fix`
 
@@ -174,7 +178,9 @@ public problem = '';
 
 <br>
 
-## `ValidationError` static methods
+### `ValidationError` static methods
+
+----
 
 ### `ValidationError.defineMessage()`
 
@@ -228,7 +234,9 @@ const errorMessage = ValidationError.defineMessage({ fix, problem });
 
 <br>
 
-## `ValidationError` constructor
+### `ValidationError` constructor
+
+----
 
 ### `ValidationError()`
 
