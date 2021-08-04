@@ -94,7 +94,7 @@ Run `ng test error` to execute the unit tests via [Karma](https://karma-runner.g
 Install `@angular-package/error` package with command:
 
 ```bash
-npm i --save @angular-package/error
+npm i @angular-package/error --save
 ```
 
 <br>
@@ -134,7 +134,7 @@ Manages an [`Error`][js-error] of the validation.
 
 ----
 
-### `ValidationError.template`
+#### `ValidationError.template`
 
 Template of the error message with the replaceable `[problem]` and `[fix]`. By default, it's set to `Problem: [problem] => Fix: [fix]`.
 
@@ -148,7 +148,7 @@ static template = `Problem: [problem] => Fix: [fix]`;
 
 ----
 
-### `ValidationError.prototype.fix`
+#### `ValidationError.prototype.fix`
 
 A possible solution to the described problem of a [`string`][js-string] type. By default, it's an empty [`string`][js-string].
 
