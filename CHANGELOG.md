@@ -48,7 +48,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - [`253dda9`][253dda9]  
   Fixes the `homepage` link in the `package.json`.
 
-[77f326a]: https://github.com/angular-package/error/commit/253dda9b0cd14d7766f7ac3da33e4aaf35af1193
+[253dda9]: https://github.com/angular-package/error/commit/253dda9b0cd14d7766f7ac3da33e4aaf35af1193
 
 ## [1.0.1] - 2021-08-04
 
@@ -57,4 +57,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - [`ab8729f`][ab8729f]  
   Remove unnecessary peer dependencies.
 
-[77f326a]: https://github.com/angular-package/error/commit/ab8729f3627d63729326ddfd354296c2ae800c33
+[ab8729f]: https://github.com/angular-package/error/commit/ab8729f3627d63729326ddfd354296c2ae800c33
