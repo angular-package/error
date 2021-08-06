@@ -3,11 +3,13 @@ import { is } from '@angular-package/type';
 // Interface.
 import { MessageTemplate } from '../interface/message-template.interface';
 /**
- *
+ * MessageBuilderTemplate.
  */
 export class MessageBuilderTemplate {
+  // argument value is [value.type] type, must be [param.type] type
+
   #template: MessageTemplate = {
-    class: `[class][method]([param.name][param.type])[return]`, // argument value is [value.type] type, must be [param.type] type
+    class: `[class][method]([param.name][param.type])[return]`,
     function: `[function]([param.name][param.type])[return]`,
     method: `[method]([param.name][param.type])[return]`
   };

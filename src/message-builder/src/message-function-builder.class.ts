@@ -4,7 +4,8 @@ import { MessageBuilder } from './message-builder.class';
 // Interface.
 import { Parameter } from '../interface/parameter.interface';
 /**
- *
+ * Message function builder for error message of a string type.
+ * @version Experimental This `object` is an experimental version of the message function builder that is using `MessageBuilder`.
  */
 export class MessageFunctionBuilder {
   #messageBuilder: MessageBuilder;
@@ -15,16 +16,22 @@ export class MessageFunctionBuilder {
   };
   #return = '';
 
+  /**
+   * Gets the build function of a `string` type.
+   */
   get get(): string {
     return this.#messageBuilder.get;
   }
 
+  /**
+   * Creates an instance of `MessageFunctionBuilder`.
+   */
   constructor() {
     this.#messageBuilder = new MessageBuilder('function');
   }
 
   /**
-   * Build function message.
+   * Builds string-type function from the privately stored `name`, `param`, and `return`.
    */
   public build(): this {
     this
@@ -36,24 +43,26 @@ export class MessageFunctionBuilder {
   }
 
   /**
-   * Sets the function name to build message.
+   * Sets the function name to build function of a `string` type.
    * @param name Function name of a `string` type.
-   * @param callback
-   * @returns The return value is an instance of `MessageBuilderFunction`.
+   * @param callback An optional callback function of `ResultCallback` to handle the result of the check whether the provided `name`
+   * is a `string` type.
+   * @returns The return value is an instance of `MessageFunctionBuilder`.
    */
   public setName(name: string, callback?: ResultCallback): this {
     if (guard.string(name, callback)) {
       this.#name = name;
     }
-    // this.setFunction(name);
     return this;
   }
 
   /**
-   * Set method param name with type to build message.
-   * @param name Method param name.
-   * @param type Method param type.
-   * @returns this.
+   * Sets param name with an optional type of `function` to build function of a `string` type.
+   * @param name Parameter name of a function guarded by string.
+   * @param type An optional parameter type of function guarded by string.
+   * @param callback An optional callback function of `ResultCallback` to handle the result of the check whether the provided `name`
+   * is a `string` type.
+   * @returns The return value is an instance of `MessageFunctionBuilder`.
    */
   public setParam(name: string, type?: string, callback?: ResultCallback): this {
     if (guard.string(name, callback)) {
@@ -65,6 +74,13 @@ export class MessageFunctionBuilder {
     return this;
   }
 
+  /**
+   * Sets return type to build the function of a `string` type.
+   * @param returns A return type of `function` guarded by `string`.
+   * @param callback An optional callback function of `ResultCallback` to handle the result of the check whether the provided `returns`
+   * is a `string` type.
+   * @returns The return value is an instance of `MessageFunctionBuilder`.
+   */
   public setReturn(returns: string, callback?: ResultCallback): this {
     if (guard.string(returns, callback)) {
       this.#return = returns;
@@ -72,11 +88,3 @@ export class MessageFunctionBuilder {
     return this;
   }
 }
-
-const messageBuilderFunction = new MessageFunctionBuilder();
-messageBuilderFunction
-  .setName('isString')
-  .setParam('one', 'string')
-  .setReturn('this')
-  .build();
-console.log(messageBuilderFunction.get);
