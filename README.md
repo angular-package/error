@@ -43,6 +43,7 @@ Manages an [`Error`][js-error].
 * [Api](#api)
 * [`ValidationError`](#validationerror)
 * [Interface](#interface)
+* [Experimental](#experimental)
 * [Git](#git)
   * [Commit](#commit)
   * [Versioning](#versioning)
@@ -63,13 +64,15 @@ Type guard (constrain)
 Guards
 > It's a **combination** of both above, **constrains** the type of the parameter in the **code editor**, and checks its provided argument.
 
-Sets
-> Sets the existing given value in the `object`.
-
 Defines
-> Returns defined value from the method of the `object`.  
-> Defines the new value in the `object`.  
-> Both above at the same time.  
+> Returns defined value from a method of an object.  
+> Defines new value in an object and returns a defined value.  
+
+Gets
+> Returns a value from an object.
+
+Sets
+> Adds or updates an element with a specified key and a value to an object and returns an object.  
 
 <br>
 
@@ -107,6 +110,18 @@ import {
   ValidationError,
   // Interface.
   ErrorMessage,
+} from '@angular-package/error';
+```
+
+```typescript
+/*
+ * Experimental
+ */
+import {
+  // Class.
+  MessageBuilder,
+  MessageBuilderTemplate,
+  MessageFunctionBuilder,
 } from '@angular-package/error';
 ```
 
@@ -219,7 +234,7 @@ The **return value** is a message of a `string` type created from the provided `
 
 ```typescript
 // Example usage.
-import { ValidationError } from '@angular-package/core';
+import { ValidationError } from '@angular-package/error';
 
 const fix = 'There is no solution to the described problem.';
 const problem = 'The problem has no solution.';
@@ -270,7 +285,7 @@ The **return value** is an instance of [`ValidationError`](#validationerror).
 
 ```typescript
 // Example usage.
-import { ValidationError } from '@angular-package/core';
+import { ValidationError } from '@angular-package/error';
 
 const fix = 'There is no solution to the described problem.';
 const problem = 'The problem has no solution.';
@@ -298,6 +313,98 @@ interface ErrorMessage {
    */
   problem: string;
 }
+```
+
+<br>
+
+## Experimental
+
+![experimental]
+
+### Message builder
+
+#### `MessageBuilder`
+
+Message builder for error message of a [`string`][js-string] type.
+
+```typescript
+// Example usage of building a function.
+import { MessageBuilder } from '@angular-package/error';
+
+/**
+ * Initialize `MessageBuilder`.
+ */
+const messageFunctionBuilder = new MessageBuilder('function');
+
+messageFunctionBuilder
+  .setFunctionName('guardString')
+  .setParam('value', 'string')
+  .setReturn('boolean');
+
+// Console returns `guardString(value: string): boolean`
+console.log(messageFunctionBuilder.get);
+```
+
+```typescript
+// Example usage of building a method.
+import { MessageBuilder } from '@angular-package/error';
+
+/**
+ * Initialize `MessageBuilder`.
+ */
+const messageMethodBuilder = new MessageBuilder('method');
+
+// Build the class method.
+messageMethodBuilder
+  .setMethodName('setPerson')
+  .setParam('value', 'string')
+  .setReturn('this');
+
+// Console returns `setPerson(value: string): this`
+console.log(messageMethodBuilder.get);
+```
+
+```typescript
+// Example usage of building a class.
+import { MessageBuilder } from '@angular-package/error';
+
+/**
+ * Initialize `MessageBuilder`.
+ */
+const messageClassBuilder = new MessageBuilder('class');
+
+// Build the class.
+messageClassBuilder
+  .setClassName('Person.prototype.')
+  .setMethodName('setPerson')
+  .setParam('value?', 'object')
+  .setReturn('object');
+
+// Console returns `Person.prototype.setPerson(value?: object): object`
+console.log(messageClassBuilder.get);
+```
+
+#### `MessageFunctionBuilder`
+
+Message function builder for error message of a [`string`][js-string] type.
+
+```typescript
+// Example usage of building a function.
+import { MessageFunctionBuilder } from '@angular-package/error';
+
+/**
+ * Initialize `MessageFunctionBuilder`.
+ */
+const messageFunctionBuilder = new MessageFunctionBuilder();
+
+messageFunctionBuilder
+  .setName('guardString')
+  .setParam('value', 'string')
+  .setReturn('boolean')
+  .build();
+
+// Console returns `guardString(value: string): boolean`
+console.log(messageFunctionBuilder.get);
 ```
 
 <br>
@@ -345,6 +452,7 @@ MIT © angular-package ([license][error-license])
 [skeleton]: https://github.com/angular-package/skeleton
 
 <!-- Update status -->
+[experimental]: https://img.shields.io/badge/-experimental-orange
 [fix]: https://img.shields.io/badge/-fix-red
 [new]: https://img.shields.io/badge/-new-green
 [update]: https://img.shields.io/badge/-update-red
