@@ -44,6 +44,7 @@ Manages an [`Error`][js-error].
 * [`ValidationError`](#validationerror)
 * [Interface](#interface)
 * [Experimental](#experimental)
+* [Changelog](#changelog)
 * [Git](#git)
   * [Commit](#commit)
   * [Versioning](#versioning)
@@ -115,7 +116,7 @@ import {
 
 ```typescript
 /*
- * Experimental
+ * Experimental.
  */
 import {
   // Class.
@@ -384,6 +385,8 @@ messageClassBuilder
 console.log(messageClassBuilder.get);
 ```
 
+<br>
+
 #### `MessageFunctionBuilder`
 
 Message function builder for error message of a [`string`][js-string] type.
@@ -406,6 +409,14 @@ messageFunctionBuilder
 // Console returns `guardString(value: string): boolean`
 console.log(messageFunctionBuilder.get);
 ```
+
+<br>
+
+## Changelog
+
+The **changelog** of this package is based on [*keep a changelog*](https://keepachangelog.com/en/1.0.0/). To read it, click on the [CHANGELOG.md](https://github.com/angular-package/error/blob/main/CHANGELOG.md) link.
+
+> A changelog is a file which contains a curated, chronologically ordered list of notable changes for each version of a project. - [*keep a changelog*](https://keepachangelog.com/en/1.0.0/)
 
 <br>
 
