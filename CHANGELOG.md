@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - [`5752d9e`][5752d9e]  
   Tests for the `MessageFunctionBuilder`.
-- [`488270d`][5752d9e]  
+- [`488270d`][488270d]  
   Tests for the `MessageBuilder`.
 
 [5752d9e]: https://github.com/angular-package/error/commit/5752d9e7b3631dcca0d6945e25a92d1fdfb9eee3
