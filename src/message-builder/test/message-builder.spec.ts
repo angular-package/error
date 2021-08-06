@@ -24,8 +24,12 @@ testing.describe(MessageBuilder.name, () => {
     .it(`defined`, () =>
       toBe
         .defined(MessageBuilder)
+        .defined(messageClassBuilder)
         .defined(messageFunctionBuilder)
+        .defined(messageMethodBuilder)
+        .instance(messageClassBuilder, MessageBuilder)
         .instance(messageFunctionBuilder, MessageBuilder)
+        .instance(messageMethodBuilder, MessageBuilder)
     )
     .toBeClass(MessageBuilder);
 
@@ -36,6 +40,7 @@ testing.describe(MessageBuilder.name, () => {
       .setReturn('boolean');
 
     toBe.string(messageFunctionBuilder.get);
+    console.log(messageFunctionBuilder.get);
     expect(messageFunctionBuilder.get).toEqual('guardString(value: string): boolean');
   });
 
