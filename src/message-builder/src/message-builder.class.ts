@@ -2,9 +2,10 @@
 import { is, guard, ResultCallback } from '@angular-package/type';
 // Class.
 import { MessageBuilderTemplate } from './message-builder-template.class';
-
-// export type RegExpPreDefined = 'class' | 'function' | 'method' | 'param.name' | 'param.type';
-
+/**
+ * Message builder for error message of a string type.
+ * @version Experimental This `object` is an experimental version of the message builder.
+ */
 export class MessageBuilder {
   #regExp = {
     class: /\[class\]/i,
@@ -64,10 +65,7 @@ export class MessageBuilder {
 
   public setReturn(returns: string, callback?: ResultCallback): this {
     if (guard.string(returns, callback)) {
-      this.replace(this.#regExp.return, returns);
-      if (returns.length > 0) {
-        this.replace(returns, `: ${returns}`);
-      }
+      this.replace(this.#regExp.return, returns.length > 0 ? `: ${returns}` : returns);
     }
     return this;
   }
@@ -82,10 +80,3 @@ export class MessageBuilder {
     return this;
   }
 }
-
-// console.log(
-//   new MessageBuilder('function')
-//     .param('firstName?', 'string')
-//     .function('isComponentLoader')
-//     .get
-// );
