@@ -5,6 +5,7 @@
   "author": "Angular Package <angular-package@wvvw.dev> (https://wvvw.dev)",
   "homepage": "https://github.com/angular-package/error#readme",
   "peerDependencies": {
+    "@angular-package/callback": "^1.0.0",
     "@angular-package/type": "^4.2.0"
   },
   "dependencies": {
