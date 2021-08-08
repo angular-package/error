@@ -152,10 +152,17 @@ Manages an [`Error`][js-error] of the validation.
 
 #### `ValidationError.template`
 
-Template of the error message with the replaceable `[problem]` and `[fix]`. By default, it's set to `Problem: [problem] => Fix: [fix]`.
+A template of the error message guarded by [`string`][js-string] type with the replaceable `[problem]` and `[fix]`. By default, it's set to `Problem: [problem] => Fix: [fix]`.
 
 ```typescript
-static template = `Problem: [problem] => Fix: [fix]`;
+static get template(): string {
+  return this.#template;
+}
+static set template(value: string) {
+  if (guard.string(value)) {
+    this.#template = value;
+  }
+}
 ```
 
 <br>
@@ -248,6 +255,57 @@ const problem = 'The problem has no solution.';
 const errorMessage = ValidationError.defineMessage({ fix, problem });
 ```
 
+```typescript
+// Example usage: create an error message of a string type from the provided object with a different template.
+import { ValidationError } from '@angular-package/error';
+
+const fix = 'There is no solution to the described problem.';
+const problem = 'The problem has no solution.';
+const template = `[problem] ... [fix]`;
+
+/**
+ * Returns
+ * --------
+ * The problem has no solution. ... There is no solution to the described problem.
+ */
+const errorMessage = ValidationError.defineMessage({ fix, problem, template });
+```
+
+```typescript
+// Example usage: create an error message of a string type from the provided object and the changed template.
+import { ValidationError } from '@angular-package/error';
+
+// Change the template by directly assign a new value.
+ValidationError.template = `\nPROBLEM: [problem]\nFIX: [fix] `;
+
+const fix = 'There is no solution to the described problem.';
+const problem = 'The problem has no solution.';
+
+/**
+ * Returns
+ * --------
+ * PROBLEM: The problem has no solution.
+ * FIX: There is no solution to the described problem. 
+ */
+const errorMessage = ValidationError.defineMessage({ fix, problem });
+```
+
+```typescript
+// Example usage: create an error message of a string type from the provided object and the changed template.
+import { ValidationError } from '@angular-package/error';
+
+const fix = 'There is no solution to the described problem.';
+const problem = 'The problem has no solution.';
+
+const errorMessage = ValidationError.defineMessage(
+  { fix, problem },
+  (result, payload) => {
+    // Do something with the `result` of the `message` check and `payload`.
+    return result;
+  }
+);
+```
+
 <br>
 
 ### `ValidationError` constructor
@@ -291,6 +349,14 @@ import { ValidationError } from '@angular-package/error';
 const fix = 'There is no solution to the described problem.';
 const problem = 'The problem has no solution.';
 const validationError = new ValidationError({ fix, problem });
+```
+
+<br>
+
+### Complete usage of `ValidationError`
+
+```typescript
+//
 ```
 
 <br>
@@ -355,7 +421,7 @@ import { MessageBuilder } from '@angular-package/error';
  */
 const messageMethodBuilder = new MessageBuilder('method');
 
-// Build the class method.
+// Build the method of any class.
 messageMethodBuilder
   .setMethodName('setPerson')
   .setParam('value', 'string')
@@ -374,7 +440,7 @@ import { MessageBuilder } from '@angular-package/error';
  */
 const messageClassBuilder = new MessageBuilder('class');
 
-// Build the class.
+// Build the method of a specified class.
 messageClassBuilder
   .setClassName('Person.prototype.')
   .setMethodName('setPerson')
