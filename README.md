@@ -43,6 +43,7 @@ Manages an [`Error`][js-error].
 * [Api](#api)
 * [`ValidationError`](#validationerror)
 * [Interface](#interface)
+* [Type](#type)
 * [Experimental](#experimental)
 * [Changelog](#changelog)
 * [Git](#git)
@@ -168,19 +169,21 @@ Manages an [`Error`][js-error] of validation.
 
 **Instance methods:**
 
-| ValidationError.prototype.                  | Description |
-| :------------------------------------------ | :---------- |
-| [`setFix()`][error-method-setfix]           | Sets the fix a possible solution to the described [`problem`][error-property-problem]. |
-| [`setMessage()`][error-method-setmessage]   | Sets the validation error message of a [`string`][js-string] type from the provided `message` of the [`ErrorMessage`](#errormessage) interface. |
-| [`setProblem()`][error-method-setproblem]   | Sets description problem of a [`ValidationError`](#validationerror). |
-| [`setTemplate()`][error-method-settemplate] | Sets the template of validation error message. |
-| [`throw()`][error-method-throw]             | Throws an error of [`ValidationError`](#validationerror) with actual settings. |
+| ValidationError.prototype.                      | Description |
+| :---------------------------------------------- | :---------- |
+| [`setFix()`][error-method-setfix]               | Sets the fix a possible solution to the described [`problem`][error-property-problem]. |
+| [`setMessage()`][error-method-setmessage]       | Sets the validation error message of a [`string`][js-string] type from the provided `message` of the [`ErrorMessage`](#errormessage) interface. |
+| [`setProblem()`][error-method-setproblem]       | Sets description problem of a [`ValidationError`](#validationerror). |
+| [`setTemplate()`][error-method-settemplate]     | Sets the template of validation error message. |
+| [`throw()`][error-method-throw]                 | Throws an error of [`ValidationError`](#validationerror) with actual settings. |
+| [`updateMessage()`][error-method-updatemessage] | Updates the message with a stored [`fix`][error-property-fix], [`problem`][error-property-problem], and [`template`][error-property-template]. |
 
 [error-method-setfix]: #validationerrorprototypesetfix
 [error-method-setmessage]: #validationerrorprototypesetmessage
 [error-method-setproblem]: #validationerrorprototypesetproblem
 [error-method-settemplate]: #validationerrorprototypesettemplate
 [error-method-throw]: #validationerrorprototypethrow
+[error-method-updatemessage]: #validationerrorprototypeupdatemessage
 
 <br>
 
@@ -301,7 +304,6 @@ public static defineMessage(
 | Name: type                  | Description |
 | :-------------------------- | :---------- |
 | `message: ErrorMessage`     | An [`object`][js-object] of the [`ErrorMessage`](#errormessage) interface to build a message of a [`string`][js-string] type. The value is checked against the proper [`object`][js-object] |
-| `template: string`          | A message template of a [`string`][js-string] type with replaceable `[problem]` and `[fix]` from the given `message`. The value is checked against a [`string`][js-string]. By default, it's set to `Problem: [problem] => Fix: [fix]` |
 | `callback?: ResultCallback` | An optional callback function of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided message contains required `problem` and `fix` properties |
 
 **Returns:**
@@ -444,7 +446,57 @@ const validationError = new ValidationError({ fix, problem });
 
 ```typescript
 // Example usage with callback.
+import { ValidationError } from '@angular-package/error';
 
+// Define a fix.
+const fix = 'There is no solution to the described problem.';
+
+// Define a problem.
+const problem = 'The problem has no solution.';
+
+// Define a template.
+const template = 'PROBLEM: [problem] FIX: [fix]';
+
+// Initialize an instance.
+const validationError = new ValidationError(
+  { fix, problem, template },
+  (callback) => {
+    callback
+      /*
+      Console: false,
+      {
+        "fix": "There is no solution to the described problem.",
+        "problem": "The problem has no solution.",
+        "template": "PROBLEM: [problem] FIX: [fix]"
+      }
+
+      Console: true,
+      {
+        "fix": "There is no solution to the described problem.",
+        "problem": "The problem has no solution.",
+        "template": "PROBLEM: [problem] FIX: [fix]"
+      }
+    */
+      .setResultCallback('setFix', (result, payload) =>
+        console.log(`setFix`, result, payload);
+      )
+
+      // Console: 'setFix true There is no solution to the described problem.'
+      .setResultCallback('setMessage', (result, payload) =>
+        console.log(`setMessage`, result, payload);
+      )
+
+      // Console: 'setProblem true The problem has no solution.'
+      .setResultCallback('setProblem', (result, payload) =>
+        console.log(`setProblem`, result, payload);
+      )
+
+      // Console: 'setTemplate true PROBLEM: [problem] FIX: [fix]'
+      .setResultCallback('setTemplate', (result, payload) =>
+        console.log(`setTemplate`, result, payload);
+      );
+  }
+);
 ```
 
 <br>
@@ -479,7 +531,7 @@ public setFix(
 | Name: type                                   | Description |
 | :------------------------------------------- | :---------- |
 | `fix: string`                                | A possible solution to the described problem guarded by a [`string`][js-string] type. |
-| `callback?: ResultCallback<CallbackPayload>` | An optional callback function of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided [`fix`][error-property-fix] is a [`string`][js-string]. |
+| `callback?: ResultCallback<CallbackPayload>` | An optional callback function of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided [`fix`][error-property-fix] is a [`string`][js-string]. It can be initially set by callback |
 
 **Returns:**
 
@@ -796,6 +848,68 @@ validationError.throw();
 
 <br>
 
+#### `ValidationError.prototype.updateMessage()`
+
+![new]
+
+Updates the message with a stored [`fix`][error-property-fix], [`problem`][error-property-problem], and [`template`][error-property-template].
+
+```typescript
+public updateMessage(): void {
+  this.message = ValidationError.defineMessage({
+    fix: this.#fix,
+    problem: this.#problem,
+    template: this.#tpl,
+  });
+}
+```
+
+**Returns:**
+
+The **return value** is an instance of an [`ValidationError`](#validationerror).
+
+**Usage:**
+
+```typescript
+// Example usage.
+import { ValidationError } from '@angular-package/error';
+
+// Define a fix.
+const fix = 'There is no solution to the described problem.';
+
+// Define a problem.
+const problem = 'The problem has no solution.';
+
+// Define a template.
+const template = 'PROBLEM: [problem] FIX: [fix]';
+
+// Initialize an instance.
+const validationError = new ValidationError();
+
+// Sets defined above fix, problem, and template.
+validationError.setProblem(problem).setFix(fix).setTemplate(template);
+
+// Returns empty string.
+validationError.message;
+
+// Update the message with actual settings.
+validationError.updateMessage();
+
+/*
+  Returns
+  PROBLEM: The problem has no solution. FIX: There is no solution to the described problem.
+*/
+validationError.message;
+
+// Throw.
+validationError.throw();
+
+// or throw
+throw validationError;
+```
+
+<br>
+
 ### Complete usage of `ValidationError`
 
 ```typescript
@@ -805,8 +919,6 @@ validationError.throw();
 <br>
 
 ## Interface
-
-### Common
 
 #### `ErrorMessage`
 
@@ -830,6 +942,18 @@ Description of validation problem of a [`string`][js-string] type.
 
 **`template?: string`**  
 An optional message template of a [`string`][js-string] type.
+
+<br>
+
+## Interface
+
+#### `VEAllowedCallback`
+
+Allowed callback function names available for the [`ValidationError`](#validationerror).
+
+```typescript
+type VEAllowedCallback = 'setFix' | 'setMessage' | 'setProblem' | 'setTemplate';
+```
 
 <br>
 
