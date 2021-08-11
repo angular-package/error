@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - [`069d111`][069d111]  
   Added static private property `#template` of a `string` type.  
-  Added private instance `#callback` property of `Callback` instance.  
+  Added private instance `#callback` property of [`Callback`][package-callback] instance.  
   Added private instance `#fix`,  `#problem`, `#tpl` property.  
   Added pubic methods [`setFix()`][error-method-setfix], [`setMessage()`][error-method-setmessage], [`setProblem()`][error-method-setproblem], [`setTemplate()`][error-method-settemplate], [`throw()`][error-method-throw], [`updateMessage()`][error-method-updatemssage] of an instance.  
   Added static private methods `#guardMessage()`, `#guardTemplate()`.  
