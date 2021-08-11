@@ -407,7 +407,7 @@ Creates a new instance with the message. If the provided `message` is an [`objec
 // Syntax.
 constructor(
   message: string | ErrorMessage = '',
-  callback?: (callback: Callback<AllowedCallback>) => void
+  callback?: (callback: Callback<VEAllowedCallback>) => void
 ) {
   super();
 
@@ -423,10 +423,10 @@ constructor(
 
 **Parameters:**
 
-| Name: type                        | Description |
-| :-------------------------------- | :---------- |
-| `message: string \| ErrorMessage` | The message of a [`string`][js-string] type or of an [`ErrorMessage`](#errormessage) interface that is used to throw with an [`Error`][js-error]. |
-| `callback?: (callback: Callback<AllowedCallback>) => void` | An optional function to handle the internal instance of [`Callback`][callback-github-readme]. |
+| Name: type                                                   | Description |
+| :----------------------------------------------------------- | :---------- |
+| `message: string \| ErrorMessage`                            | The message of a [`string`][js-string] type or of an [`ErrorMessage`](#errormessage) interface that is used to throw with an [`Error`][js-error]. |
+| `callback?: (callback: Callback<VEAllowedCallback>) => void` | An optional function to handle the internal instance of [`Callback`][callback-github-readme]. |
 
 **Returns:**
 
