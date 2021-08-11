@@ -975,7 +975,7 @@ addPerson({
 
 ![update]
 
-`2.0.0`: Adds an optional `template` property.
+**`2.0.0`:** Adds an optional `template` property.
 
 The shape of an [`object`][js-object] for an [`error`][js-error] message that contains a possible solution to the described problem.
 
