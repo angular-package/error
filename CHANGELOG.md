@@ -33,7 +33,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   Changed instance `problem` property to use private `#problem`.  
   Changed public static `defineMessage()` method to use private static `#guardMessage()` to guards the provided `message`.  
   Changed constructor to use public `setMessage()` method and add new `callback` parameter to handle private instance of `Callback`.  
-- [`0708846`][0708846] [`bcc6521`][bcc6521] [`0bbd886`][0bbd886]
+- [`0708846`][0708846] [`bcc6521`][bcc6521] [`0bbd886`][0bbd886]  
   Updated `README.md`.
 
 [0bbd886]: https://github.com/angular-package/error/commit/0bbd88630e0a695ab4865903c83bda7b2e56dfef
