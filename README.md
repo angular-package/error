@@ -195,7 +195,7 @@ Manages an [`Error`][js-error] of validation.
 
 ![update]
 
-A template of the error message guarded by [`string`][js-string] type with the replaceable `[problem]` and `[fix]` words. By default, it's set to `Problem: [problem] => Fix: [fix]`. It can be set directly or by the [`setTemplate()`][error-method-settemplate] and [`setMessage()`][error-method-setmessage] method.
+A template of the error message guarded by [`string`][js-string] type with the replaceable `[problem]` and `[fix]` words. By default, it's set to `Problem: [problem] => Fix: [fix]`. It can be set directly or by the [`setTemplate()`][error-method-settemplate] and [`setMessage()`][error-method-setmessage] method. The value is being checked against the existence of `[problem]` and `[fix]` words.
 
 ```typescript
 static get template(): string {
@@ -910,10 +910,51 @@ throw validationError;
 
 <br>
 
-### Complete usage of `ValidationError`
+### Another example usage of `ValidationError`
 
 ```typescript
-//
+// Example usage.
+import { ValidationError } from '@angular-package/error';
+
+// Declare shape of the person.
+interface Person {
+  firstName: string;
+  lastName: string;
+}
+
+// Initialize an instance.
+const validationErrorOfPerson = new ValidationError();
+
+// Define a fix.
+const fix = 'Please, provide only alphabetical characters.';
+
+// Create an object.
+const personError = {
+  firstName: validationErrorOfPerson.setMessage({
+    problem: 'Provided the first name cannot include special characters.',
+    fix
+  }),
+  lastName: validationErrorOfPerson.setMessage({
+    problem: 'Provided the last name cannot include special characters.',
+    fix
+  })
+};
+
+
+const addPerson = (person: Person) => {
+  if (person.firstName.includes('#')) {
+    personError.firstName.throw();
+  }
+  if (person.firstName.includes('#')) {
+    personError.lastName.throw();
+  }
+};
+
+addPerson({
+  firstName: '#',
+  lastName: '#'
+});
+
 ```
 
 <br>
