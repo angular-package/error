@@ -192,7 +192,7 @@ Manages an [`Error`][js-error] of validation.
 
 ![update]
 
-A template of the error message guarded by [`string`][js-string] type with the replaceable `[problem]` and `[fix]` words. By default, it's set to `Problem: [problem] => Fix: [fix]`.
+A template of the error message guarded by [`string`][js-string] type with the replaceable `[problem]` and `[fix]` words. By default, it's set to `Problem: [problem] => Fix: [fix]`. It can be set directly or by the [`setTemplate()`][error-method-settemplate] and [`setMessage()`][error-method-setmessage] method.
 
 ```typescript
 static get template(): string {
@@ -215,7 +215,7 @@ static set template(value: string) {
 
 ![update]
 
-A possible solution to the described [`problem`][error-property-problem] of validation that is guarded by a [`string`][js-string] type. By default, it's an empty [`string`][js-string].
+A possible solution to the described [`problem`][error-property-problem] of validation that is guarded by a [`string`][js-string] type. By default, it's an empty [`string`][js-string]. It can be set directly or by the [`setFix()`][error-method-setfix] and [`setMessage()`][error-method-setmessage] method.
 
 ```typescript
 public get fix(): string {
@@ -230,7 +230,9 @@ public set fix(value: string) {
 
 #### `ValidationError.prototype.message`
 
-A validation error message guarded by a [`string`][js-string] type that can be build from the [`problem`][error-property-problem] and [`fix`][error-property-fix] of [`ValidationError`](#validationerror) on the [`template`][error-property-template].
+![update]
+
+A validation error message guarded by a [`string`][js-string] type that can be build from the [`problem`][error-property-problem] and [`fix`][error-property-fix] of [`ValidationError`](#validationerror) on the [`template`][error-property-template]. It can be set directly or by the [`throw()`][error-method-throw] and [`setMessage()`][error-method-setmessage] method.
 
 ```typescript
 public set message(value: string) {
@@ -245,8 +247,6 @@ public get message(): string {
 
 #### `ValidationError.prototype.name`
 
-![update]
-
 Error name of a [`string`][js-string] type that is being thrown. By default, it's ['ValidationError'](#validationerror).
 
 ```typescript
@@ -259,7 +259,7 @@ public name = ValidationError.name;
 
 ![update]
 
-Description of a validation [`problem`][error-property-problem] guarded by a [`string`][js-string] type. By default, it's an empty [`string`][js-string].
+Description of a validation [`problem`][error-property-problem] guarded by a [`string`][js-string] type. By default, it's an empty [`string`][js-string]. It can be set directly or by the [`setProblem()`][error-method-setproblem] and [`setMessage()`][error-method-setmessage] method.
 
 ```typescript
 public get problem(): string {
@@ -283,6 +283,7 @@ public set problem(value: string) {
 Defines the validation error message of a [`string`][js-string] type from the provided `message` of the [`ErrorMessage`](#errormessage) interface.
 
 ```typescript
+// Syntax.
 public static defineMessage(
   message: ErrorMessage,
   callback?: ResultCallback<CallbackPayload & ErrorMessage>
@@ -401,6 +402,7 @@ const errorMessage = ValidationError.defineMessage(
 Creates a new instance with the message. If the provided `message` is an [`object`][js-object], then its properties are assigned to the instance.
 
 ```typescript
+// Syntax.
 constructor(
   message: string | ErrorMessage = '',
   callback?: (callback: Callback<AllowedCallback>) => void
