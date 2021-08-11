@@ -6,6 +6,40 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.0.0] - 2021-08-12
+
+### 2.0.0 Added
+
+- [`069d111`][069d111]  
+  Added static private property `#template` of a `string` type.  
+  Added private instance `#callback` property of `Callback` instance.  
+  Added private instance `#fix`,  `#problem`, `#tpl` property.  
+  Added pubic methods `setFix()`, `setMessage()`, `setProblem()`,  `setTemplate()`, `throw()`, `updateMessage()` of an instance.  
+  Added static private methods `#guardMessage()`, `#guardTemplate()`.  
+- [`4040750`][4040750]  
+  Added an optional property `template` to the `ErrorMessage` interface.
+- [`0d5cc92`][0d5cc92]  
+  Added `VEAllowedCallback` type of allowed names for internal instance of `Callback`.
+
+[069d111]: https://github.com/angular-package/error/commit/069d111220b63c2d2cdbffa499f3588121f14e16
+[4040750]: https://github.com/angular-package/error/commit/40407503893484874e588b8b5b42c6e40a5fc3ab
+[0d5cc92]: https://github.com/angular-package/error/commit/0d5cc920b7e5c750f77099580ec2f53070d3cac7
+
+### 2.0.0 Changed
+
+- [`069d111`][069d111]  
+  Changed static public `template` property to use static private `#template` property that is guarded by the private static `#guardTemplate()` method.  
+  Changed instance `fix` property to use private `#fix`.  
+  Changed instance `problem` property to use private `#problem`.  
+  Changed public static `defineMessage()` method to use private static `#guardMessage()` to guards the provided `message`.  
+  Changed constructor to use public `setMessage()` method and add new `callback` parameter to handle private instance of `Callback`.  
+- [`0708846`][0708846] [`bcc6521`][bcc6521] [`0bbd886`][0bbd886]  
+  Updated `README.md`.
+
+[0bbd886]: https://github.com/angular-package/error/commit/0bbd88630e0a695ab4865903c83bda7b2e56dfef
+[bcc6521]: https://github.com/angular-package/error/commit/bcc652139613a7f8ef721cd12bc076fde3edadb8
+[0708846]: https://github.com/angular-package/error/commit/0708846f6bc3de0fa080e5f58fa4a36adfcb7dcd
+
 ## [1.0.3] - 2021-08-06
 
 ### 1.0.3 Added
