@@ -4,6 +4,7 @@
   "lib": {
     "entryFile": "src/public-api.ts",
     "umdModuleIds": {
+      "@angular-package/callback": "angular-package.callback",
       "@angular-package/type": "angular-package.type"
     }
   }
