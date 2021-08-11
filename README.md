@@ -195,7 +195,7 @@ Manages an [`Error`][js-error] of validation.
 
 ![update]
 
-[2.0.0]: Uses static private property `#template` and guards the value with private static method `#guardTemplate()` to be `string` type that contains `[fix]` and `[problem]` words.
+**`2.0.0`:** Uses static private property `#template` and guards the value with private static method `#guardTemplate()` to be `string` type that contains `[fix]` and `[problem]` words.
 
 A template of the error message guarded by [`string`][js-string] type with the replaceable `[problem]` and `[fix]` words. By default, it's set to `Problem: [problem] => Fix: [fix]`. It can be set directly or by the [`setTemplate()`][error-method-settemplate] and [`setMessage()`][error-method-setmessage] method. The value is being checked against the existence of `[problem]` and `[fix]` words.
 
@@ -220,7 +220,7 @@ static set template(value: string) {
 
 ![update]
 
-[2.0.0]: Uses static private property `#fix` and guards the value to be a [`string`][js-string] type.
+**`2.0.0`:** Uses static private property `#fix` and guards the value to be a [`string`][js-string] type.
 
 A possible solution to the described [`problem`][error-property-problem] of validation that is guarded by a [`string`][js-string] type. By default, it's an empty [`string`][js-string]. It can be set directly or by the [`setFix()`][error-method-setfix] and [`setMessage()`][error-method-setmessage] method.
 
@@ -239,7 +239,7 @@ public set fix(value: string) {
 
 ![update]
 
-[2.0.0]: Uses inherited from `Error` property and guards the value to be a [`string`][js-string] type.
+**`2.0.0`:** Uses inherited from `Error` property and guards the value to be a [`string`][js-string] type.
 
 A validation error message guarded by a [`string`][js-string] type that can be build from the [`problem`][error-property-problem] and [`fix`][error-property-fix] of [`ValidationError`](#validationerror) on the [`template`][error-property-template]. It can be set directly or by the [`throw()`][error-method-throw] and [`setMessage()`][error-method-setmessage] method.
 
@@ -289,7 +289,7 @@ public set problem(value: string) {
 
 ![update]
 
-[2.0.0]: Adds template to the provided `message` instead of separate parameter and guards it with a static `#guardMessage()` method.
+**`2.0.0`:** Adds template to the provided `message` instead of separate parameter and guards it with a static `#guardMessage()` method.
 
 Defines the validation error message of a [`string`][js-string] type from the provided `message` of the [`ErrorMessage`](#errormessage) interface.
 
@@ -409,7 +409,7 @@ const errorMessage = ValidationError.defineMessage(
 
 ![update]
 
-[2.0.0]: Adds template to the provided `message` instead of separate parameter and uses a new method [`setMessage()`][error-method-setmessage] to set message. Handle the callback for all instance methods with the callback parameter.
+**`2.0.0`:** Adds template to the provided `message` instead of separate parameter and uses a new method [`setMessage()`][error-method-setmessage] to set message. Handle the callback for all instance methods with the callback parameter.
 
 Creates a new instance with the message. If the provided `message` is an [`object`][js-object], then its properties are assigned to the instance.
 
@@ -975,7 +975,7 @@ addPerson({
 
 ![update]
 
-[2.0.0]: Adds an optional `template` property.
+`2.0.0`: Adds an optional `template` property.
 
 The shape of an [`object`][js-object] for an [`error`][js-error] message that contains a possible solution to the described problem.
 
