@@ -531,7 +531,7 @@ public setFix(
 | Name: type                                   | Description |
 | :------------------------------------------- | :---------- |
 | `fix: string`                                | A possible solution to the described problem guarded by a [`string`][js-string] type. |
-| `callback?: ResultCallback<CallbackPayload>` | An optional callback function of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided [`fix`][error-property-fix] is a [`string`][js-string]. It can be initially set by callback |
+| `callback?: ResultCallback<CallbackPayload>` | An optional callback function of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided [`fix`][error-property-fix] is a [`string`][js-string]. By default, it uses an internal callback under the `'setFix'` name, which can be initially set by the optional `callback` parameter that gives access to the internal instance of [`Callback`][callback-github-readme]. |
 
 **Returns:**
 
@@ -611,7 +611,7 @@ public setMessage(
 | Name: type                                   | Description |
 | :------------------------------------------- | :---------- |
 | `message: string \| ErrorMessage`            | An object of an [`ErrorMessage`](#errormessage) interface to build the message of a [`string`][js-string] type. The value is checked against the proper `object`. |
-| `callback?: ResultCallback<CallbackPayload>` | An optional callback function of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided `message` is a [`string`][js-string] type or whether it's an object that contains required [`problem`][error-property-problem] and [`fix`][error-property-fix] properties or whether it's a [`string`][js-string] type. |
+| `callback?: ResultCallback<CallbackPayload>` | An optional callback function of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided `message` is a [`string`][js-string] type or whether it's an object that contains required [`problem`][error-property-problem] and [`fix`][error-property-fix] properties. By default, it uses an internal callback under the `'setMessage'` name, which can be initially set by the optional `callback` parameter that gives access to the internal instance of [`Callback`][callback-github-readme]. |
 
 **Returns:**
 
@@ -681,7 +681,7 @@ public setProblem(
 | Name: type                                   | Description |
 | :------------------------------------------- | :---------- |
 | `fix: string`                                | A possible solution to the described [`problem`][error-property-problem] guarded by a [`string`][js-string] type. |
-| `callback?: ResultCallback<CallbackPayload>` | An optional callback function of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided `fix` is a [`string`][js-string]. |
+| `callback?: ResultCallback<CallbackPayload>` | An optional callback function of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided `fix` is a [`string`][js-string]. By default, it uses an internal callback under the `'setProblem'` name, which can be initially set by the optional `callback` parameter that gives access to the internal instance of [`Callback`][callback-github-readme]. |
 
 **Returns:**
 
@@ -750,7 +750,7 @@ public setTemplate(
 | Name: type                                   | Description |
 | :------------------------------------------- | :---------- |
 | `template: string`                           | A message [`template`][error-property-template] guarded by a [`string`][js-string] type with replaceable `[problem]` and `[fix]` words. |
-| `callback?: ResultCallback<CallbackPayload>` | An optional callback function of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided `template` is a [`string`][js-string] that contains `[fix]` and `[problem]` words. |
+| `callback?: ResultCallback<CallbackPayload>` | An optional callback function of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided `template` is a [`string`][js-string] that contains `[fix]` and `[problem]` words. By default, it uses an internal callback under the `'setTemplate'` name, which can be initially set by the optional `callback` parameter that gives access to the internal instance of [`Callback`][callback-github-readme]. |
 
 **Returns:**
 
