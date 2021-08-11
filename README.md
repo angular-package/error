@@ -986,7 +986,7 @@ An optional message template of a [`string`][js-string] type.
 
 <br>
 
-## Interface
+## Type
 
 #### `VEAllowedCallback`
 
