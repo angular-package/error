@@ -190,6 +190,8 @@ Manages an [`Error`][js-error] of validation.
 
 #### `ValidationError.template`
 
+![update]
+
 A template of the error message guarded by [`string`][js-string] type with the replaceable `[problem]` and `[fix]` words. By default, it's set to `Problem: [problem] => Fix: [fix]`.
 
 ```typescript
@@ -210,6 +212,8 @@ static set template(value: string) {
 ----
 
 #### `ValidationError.prototype.fix`
+
+![update]
 
 A possible solution to the described [`problem`][error-property-problem] of validation that is guarded by a [`string`][js-string] type. By default, it's an empty [`string`][js-string].
 
@@ -241,6 +245,8 @@ public get message(): string {
 
 #### `ValidationError.prototype.name`
 
+![update]
+
 Error name of a [`string`][js-string] type that is being thrown. By default, it's ['ValidationError'](#validationerror).
 
 ```typescript
@@ -250,6 +256,8 @@ public name = ValidationError.name;
 <br>
 
 #### `ValidationError.prototype.problem`
+
+![update]
 
 Description of a validation [`problem`][error-property-problem] guarded by a [`string`][js-string] type. By default, it's an empty [`string`][js-string].
 
@@ -387,6 +395,8 @@ const errorMessage = ValidationError.defineMessage(
 ----
 
 #### `ValidationError()`
+
+![update]
 
 Creates a new instance with the message. If the provided `message` is an [`object`][js-object], then its properties are assigned to the instance.
 
