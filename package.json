@@ -22,8 +22,13 @@
     "@angular",
     "@angular-package",
     "@angular-package/error",
+    "Error",
     "angular-package",
-    "Error"
+    "error fix",
+    "error message",
+    "error problem",
+    "error template",
+    "validation error"
   ],
   "repository": {
     "type": "git",
