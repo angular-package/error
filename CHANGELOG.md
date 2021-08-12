@@ -6,9 +6,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.0.2] - 2021-08-12
+
+### 2.0.2 Fixed
+
+- [`ff06f3a`][ff06f3a]  
+  Fixed `package.json` peer dependencies cause of `@angular-package/callback`. 
+
+[ff06f3a]: https://github.com/angular-package/error/commit/ff06f3ae1b5c922c7605a7fb6301dd238b9e1b7a
+
 ## [2.0.1] - 2021-08-12
 
-### 2.0.1 Fix
+### 2.0.1 Fixed
 
 - [`c77f3cf`][c77f3cf]  
   Fix JS documentation of `ValidationError`.  
