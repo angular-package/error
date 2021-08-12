@@ -6,6 +6,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.0.1] - 2021-08-12
+
+### 2.0.1 Fix
+
+- [`c77f3cf`][c77f3cf]  
+  Fix JS documentation of `ValidationError`.  
+
+- [`bc8e965`][bc8e965]  
+  Fix documentation of `README.md`.  
+
+[c77f3cf]: https://github.com/angular-package/error/commit/c77f3cfc8f7958dbfa29022d2e564d6095c2dc65
+[bc8e965]: https://github.com/angular-package/error/commit/bc8e9653bd5e5546f2a3df2d6d6f18bcefea192b
+
 ## [2.0.0] - 2021-08-12
 
 ### 2.0.0 Added
