@@ -1,6 +1,6 @@
 {
   "name": "@angular-package/error",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Manages an error.",
   "author": "Angular Package <angular-package@wvvw.dev> (https://wvvw.dev)",
   "homepage": "https://github.com/angular-package/error#readme",
