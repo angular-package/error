@@ -51,8 +51,8 @@ export class ValidationError extends Error {
 
   /**
    * A template of the error message guarded by a `string` type with the replaceable `[problem]` and `[fix]` words.
+   * By default, it's set to `Problem: [problem] => Fix: [fix]`. It can be set directly or by the `setTemplate()` and `setMessage()` method.
    * The value is being checked against the existence of `[problem]` and `[fix]` words.
-   * By default, it's set to `Problem: [problem] => Fix: [fix]`.
    */
   static get template(): string {
     return ValidationError.#template;
@@ -66,7 +66,7 @@ export class ValidationError extends Error {
   //#region instance public properties.
   /**
    * A possible solution to the described `problem` of validation that is guarded by a `string` type.
-   * By default, it's an empty `string`.
+   * By default, it's an empty `string`. It can be set directly or by the `setTemplate()` and `setMessage()` method
    */
   public get fix(): string {
     return this.#fix;
@@ -76,8 +76,8 @@ export class ValidationError extends Error {
   }
 
   /**
-   * A validation error message guarded by a `string` type that can be built with the `problem` and `fix` of `ValidationError` by the
-   * `throw()` and `setMessage()` method.
+   * A validation error message guarded by a `string` type that can be built from the `problem` and `fix` of `ValidationError` on the
+   * `template`. It can be set directly or by the `throw()` or `setMessage()` method.
    */
   public set message(value: string) {
     super.message = guard.string(value) ? value : super.message;
@@ -87,14 +87,13 @@ export class ValidationError extends Error {
   }
 
   /**
-   * Error name of a `string` type that is being thrown.
-   * By default, it's `ValidationError`.
+   * Error name of a `string` type that is being thrown. By default, it's `ValidationError`.
    */
   public name = ValidationError.name;
 
   /**
-   * Description of a validation problem guarded by a `string` type.
-   * By default, it's an empty `string`.
+   * Description of a validation problem guarded by a `string` type. By default, it's an empty `string`.
+   * It can be set directly or by the `setProblem()` and `setMessage()` method.
    */
   public get problem(): string {
     return this.#problem;
@@ -107,7 +106,7 @@ export class ValidationError extends Error {
   //#region static public methods
   /**
    * Defines the validation error message of a `string` type from the provided `message` of the `ErrorMessage` interface.
-   * @param message An object of an `ErrorMessage` interface to build the message of a `string` type. The value is checked against
+   * @param message An object of an `ErrorMessage` interface to build a message of a `string` type. The value is checked against
    * the proper `object`.
    * @param callback An optional callback function of `ResultCallback` type to handle the check whether the provided message contains
    * required `problem` and `fix` properties.
@@ -171,7 +170,7 @@ export class ValidationError extends Error {
   /**
    * Creates a new instance with the message. If the provided `message` is an `object`, then its properties are assigned
    * to the instance.
-   * @param message The message of a `string` type or of an `ErrorMessage` interface to throw with an `Error`.
+   * @param message The message of a `string` type or of an `ErrorMessage` interface that is used to throw with an `Error`.
    * @param callback An optional function to handle the internal instance of `Callback`.
    * @angularpackage
    */
@@ -246,8 +245,8 @@ export class ValidationError extends Error {
   }
 
   /**
-   * Sets description problem of a validation error.
-   * @param problem Description of a problem of validation error guarded by a `string` type.
+   * Sets description problem of a validation.
+   * @param problem Description of validation problem guarded by a `string` type.
    * @param callback An optional callback function of `ResultCallback` type to handle the check whether the provided `problem` is a
    * `string`. By default, it uses an internal callback under the `'setProblem'` name, which can be initially set by the optional `callback`
    * parameter that gives access to the internal instance of `Callback`.
@@ -287,7 +286,8 @@ export class ValidationError extends Error {
   /**
    * Throws an error of `ValidationError` with the message built from the stored `fix`, `problem` and `template` or optionally from
    * the provided `message`.
-   * @param message An optional
+   * @param message An optional object of an `ErrorMessage` interface to build the message of a `string` type.
+   * The value is checked against the proper object.
    * @angularpackage
    */
   public throw(message?: string | ErrorMessage): void {
