@@ -135,11 +135,9 @@ Manages an [`Error`][js-error] of validation.
 
 **Static properties:**
 
-| ValidationError.                              | Description |
-| :-------------------------------------------- | :---------- |
-| [`template: string`][error-property-template] | A template of the error message guarded by a [`string`][js-string] type with the replaceable `[problem]` and `[fix]` words.  By default, it's set to `'Problem: [problem] => Fix: [fix]'`. |
-
-[error-property-template]: #validationerrortemplate
+| ValidationError.                                | Description |
+| :---------------------------------------------- | :---------- |
+| [`template: string`](##validationerrortemplate) | A template of the error message guarded by a [`string`][js-string] type with the replaceable `[problem]` and `[fix]` words.  By default, it's set to `'Problem: [problem] => Fix: [fix]'`. |
 
 **Instance properties:**
 
