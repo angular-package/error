@@ -137,7 +137,7 @@ Manages an [`Error`][js-error] of validation.
 
 | ValidationError.                                | Description |
 | :---------------------------------------------- | :---------- |
-| [`template: string`](##validationerrortemplate) | A template of the error message guarded by a [`string`][js-string] type with the replaceable `[problem]` and `[fix]` words.  By default, it's set to `'Problem: [problem] => Fix: [fix]'`. |
+| [`template: string`](##validationerrortemplate) | A template of the [`error`][js-error] message guarded by [`string`][js-string] type with the replaceable `[problem]` and `[fix]` words.  By default, it's set to `'Problem: [problem] => Fix: [fix]'`. |
 
 **Instance properties:**
 
@@ -191,7 +191,7 @@ Manages an [`Error`][js-error] of validation.
 
 #### `ValidationError.template`
 
-A template of the error message guarded by [`string`][js-string] type with the replaceable `[problem]` and `[fix]` words. By default, it's set to `Problem: [problem] => Fix: [fix]`. The value is being checked against the existence of `[problem]` and `[fix]` words.
+A template of the [`error`][js-error] message guarded by [`string`][js-string] type with the replaceable `[problem]` and `[fix]` words. By default, it's set to `Problem: [problem] => Fix: [fix]`. The value is being checked against the existence of `[problem]` and `[fix]` words.
 
 ```typescript
 static get template(): string {
@@ -250,7 +250,7 @@ public name = ValidationError.name;
 
 #### `ValidationError.prototype.problem`
 
-Description of the validation [`problem`][error-property-problem] guarded by [`string`][js-string] type. By default, it's an empty [`string`][js-string]. It can be set directly or by the [`setProblem()`][error-method-setproblem] and [`setMessage()`][error-method-setmessage] method.
+Description of the validation [`problem`][error-property-problem] guarded by [`string`][js-string] type. By default, it's an empty [`string`][js-string]. It can be set directly or by the [`setProblem()`][error-method-setproblem] and [`setMessage()`][error-method-setmessage] method. By default, it's an empty [`string`][js-string].
 
 ```typescript
 public get problem(): string {
@@ -283,6 +283,8 @@ public set template(value: string) {
 ### `ValidationError` static methods
 
 #### `ValidationError.defineMessage()`
+
+![update]
 
 Defines the validation [`error`][js-error] message of [`string`][js-string] type from the provided `message` of the [`ErrorMessage`](#errormessage) interface.
 
@@ -475,22 +477,22 @@ const validationError = new ValidationError(
       }
     */
       .setResultCallback('setFix', (result, payload) =>
-        console.log(`setFix`, result, payload);
+        console.log(`setFix`, result, payload)
       )
 
       // Console: 'setFix true There is no solution to the described problem.'
       .setResultCallback('setMessage', (result, payload) =>
-        console.log(`setMessage`, result, payload);
+        console.log(`setMessage`, result, payload)
       )
 
       // Console: 'setProblem true The problem has no solution.'
       .setResultCallback('setProblem', (result, payload) =>
-        console.log(`setProblem`, result, payload);
+        console.log(`setProblem`, result, payload)
       )
 
       // Console: 'setTemplate true PROBLEM: [problem] FIX: [fix]'
       .setResultCallback('setTemplate', (result, payload) =>
-        console.log(`setTemplate`, result, payload);
+        console.log(`setTemplate`, result, payload)
       );
   }
 );
@@ -677,7 +679,7 @@ public setProblem(
 
 | Name: type                          | Description |
 | :---------------------------------- | :---------- |
-| `problem: string`                   | Description of a validation [`problem`][error-property-problem] guarded by a [`string`][js-string] type. |
+| `problem: string`                   | Description of a validation [`problem`][error-property-problem] guarded by [`string`][js-string] type. |
 | `callback?: ResultCallback<string>` | An optional callback [`function`][js-function] of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided `problem` is a [`string`][js-string]. By default, it uses an internal callback under the `'setProblem'` name, which can be initially set by the optional `callback` parameter that gives access to the internal instance of [`Callback`][callback-github-readme]. |
 
 **Returns:**
@@ -814,10 +816,6 @@ public throw(message?: string | ErrorMessage): void {
 | Name: type                         | Description |
 | :--------------------------------- | :---------- |
 | `message?: string \| ErrorMessage` | An optional parameter of [`string`][js-string] type or an [`object`][js-object] of an [`ErrorMessage`](#errormessage) interface to build the message of [`string`][js-string] type. The value is checked against the proper [`object`][js-object] of [`ErrorMessage`](#errormessage). |
-
-**Returns:**
-
-The **return value** is an instance of an [`ValidationError`](#validationerror).
 
 **Usage:**
 
@@ -1057,7 +1055,7 @@ try {
 
 #### `ErrorMessage`
 
-The shape of an [`object`][js-object] for an [`error`][js-error] message that contains a possible solution to the described problem.
+The shape of an [`object`][js-object] for an [`error`][js-error] message that contains a possible [`solution`][error-property-fix] to the described [`problem`][error-property-problem].
 
 ```typescript
 export interface ErrorMessage {
