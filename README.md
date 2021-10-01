@@ -198,9 +198,8 @@ static get template(): string {
   return ValidationError.#template;
 }
 static set template(value: string) {
-  ValidationError.#template = ValidationError.#guardTemplate(value)
-    ? value
-    : ValidationError.#template;
+  ValidationError.#guardTemplate(value) &&
+    (ValidationError.#template = value);
 }
 ```
 
@@ -217,7 +216,7 @@ public get fix(): string {
   return this.#fix;
 }
 public set fix(value: string) {
-  this.#fix = guardString(value) ? value : this.#fix;
+  guardString(value) && (this.#fix = value);
 }
 ```
 
@@ -229,7 +228,7 @@ A validation [`error`][js-error] message guarded by [`string`][js-string] type t
 
 ```typescript
 public set message(value: string) {
-  super.message = guard.string(value) ? value : super.message;
+  guardString(value) && (super.message = value);
 }
 public get message(): string {
   return super.message;
@@ -257,7 +256,7 @@ public get problem(): string {
   return this.#problem;
 }
 public set problem(value: string) {
-  this.#problem = guard.string(value) ? value : this.#problem;
+  guardString(value) && (this.#problem = value);
 }
 ```
 
@@ -274,7 +273,7 @@ public get template(): string {
   return this.#tpl;
 }
 public set template(value: string) {
-  this.#tpl = ValidationError.#guardTemplate(value) ? value : this.#tpl;
+  ValidationError.#guardTemplate(value) && (this.#tpl = value);
 }
 ```
 
@@ -386,9 +385,9 @@ const problem = 'The problem has no solution.';
 
 const errorMessage = ValidationError.defineMessage(
   { fix, problem },
-  (result, payload) => {
+  (result, value) => {
     // Do something with the `result` of the `message` check
-    // and `payload`.
+    // and `value`.
     return result;
   }
 );
@@ -411,9 +410,7 @@ constructor(
   super();
 
   // Sets the callback for an instance methods.
-  if (is.function(callback)) {
-    callback(this.#callback);
-  }
+  isFunction(callback) && callback(this.#callback);
 
   // Initializes the message and assigns message properties `fix`, `problem` and optionally `template` to a new instance.
   this.setMessage(message);
@@ -476,23 +473,23 @@ const validationError = new ValidationError(
         "template": "PROBLEM: [problem] FIX: [fix]"
       }
     */
-      .setResultCallback('setFix', (result, payload) =>
-        console.log(`setFix`, result, payload)
+      .setResultCallback('setFix', (result, value) =>
+        console.log(`setFix`, result, value)
       )
 
       // Console: 'setFix true There is no solution to the described problem.'
-      .setResultCallback('setMessage', (result, payload) =>
-        console.log(`setMessage`, result, payload)
+      .setResultCallback('setMessage', (result, value) =>
+        console.log(`setMessage`, result, value)
       )
 
       // Console: 'setProblem true The problem has no solution.'
-      .setResultCallback('setProblem', (result, payload) =>
-        console.log(`setProblem`, result, payload)
+      .setResultCallback('setProblem', (result, value) =>
+        console.log(`setProblem`, result, value)
       )
 
       // Console: 'setTemplate true PROBLEM: [problem] FIX: [fix]'
-      .setResultCallback('setTemplate', (result, payload) =>
-        console.log(`setTemplate`, result, payload)
+      .setResultCallback('setTemplate', (result, value) =>
+        console.log(`setTemplate`, result, value)
       );
   }
 );
@@ -516,7 +513,7 @@ public setFix(
     'setFix'
   )
 ): this {
-  this.#fix = guardString(fix, callback) ? fix : this.#fix;
+  guardString(fix, callback) && (this.#fix = fix);
   return this;
 }
 ```
@@ -559,11 +556,11 @@ const validationError = new ValidationError();
 const fix = 'There is no solution to the described problem.';
 
 // Set the fix and handle the check of it with a callback.
-validationError.setFix(fix, (result, payload) => {
+validationError.setFix(fix, (result, value) => {
   // Returns `true`.
   result;
   // Returns `There is no solution to the described problem.`.
-  payload;
+  value;
   return result;
 });
 ```
@@ -635,7 +632,7 @@ const problem = 'The problem has no solution.';
 const template = 'PROBLEM: [problem], FIX: [fix]';
 
 // Set the message and handle the check of it with a callback.
-validationError.setMessage({ fix, problem }, (result, payload) => {
+validationError.setMessage({ fix, problem }, (result, value) => {
   // Returns `false` then `true`.
   result;
   /*
@@ -645,7 +642,7 @@ validationError.setMessage({ fix, problem }, (result, payload) => {
       "template": "PROBLEM: [problem] FIX: [fix]"
     }
   */
-  payload;
+  value;
   return result;
 });
 /*
@@ -670,7 +667,7 @@ public setProblem(
     'setProblem'
   )
 ): this {
-  this.#problem = guardString(problem, callback) ? problem : this.#problem;
+  guardString(problem, callback) && (this.#problem = problem);
   return this;
 }
 ```
@@ -713,11 +710,11 @@ const validationError = new ValidationError();
 const problem = 'The problem has no solution.';
 
 // Set the problem and handle the check of it with a callback.
-validationError.setProblem(problem, (result, payload) => {
+validationError.setProblem(problem, (result, value) => {
   // Returns `true`.
   result;
   // Returns 'The problem has no solution.'
-  payload;
+  value;
   return result;
 });
 ```
@@ -737,9 +734,8 @@ public setTemplate(
     'setTemplate'
   )
 ): this {
-  this.#tpl = ValidationError.#guardTemplate(template, callback)
-    ? template
-    : this.#tpl;
+  ValidationError.#guardTemplate(template, callback) &&
+    (this.#tpl = template);
   return this;
 }
 ```
@@ -785,11 +781,11 @@ const validationError = new ValidationError();
 const template = 'PROBLEM: [problem], FIX: [fix]';
 
 // Set the template and handle the check of it with a callback.
-validationError.setTemplate(template, (result, payload) => {
+validationError.setTemplate(template, (result, value) => {
   // Returns `true`.
   result;
   // Returns 'PROBLEM: [problem], FIX: [fix]'
-  payload;
+  value;
   return result;
 });
 ```
@@ -802,11 +798,7 @@ Throws an error of [`ValidationError`](#validationerror) with the message built 
 
 ```typescript
 public throw(message?: string | ErrorMessage): void {
-  if (is.defined(message)) {
-    this.setMessage(message);
-  } else {
-    this.updateMessage();
-  }
+  isDefined(message) ? this.setMessage(message) : this.updateMessage();
   throw this;
 }
 ```
@@ -869,13 +861,12 @@ Updates the message with a stored [`fix`][error-property-fix], [`problem`][error
 
 ```typescript
 public updateMessage(): this {
-  super.message = guardStringLength(this.#problem, { min: 1 })
-    ? ValidationError.defineMessage({
-        fix: this.#fix,
-        problem: this.#problem,
-        template: this.#tpl,
-      })
-    : this.message;
+  guardStringLength(this.#problem, { min: 1 }) &&
+    (super.message = ValidationError.defineMessage({
+      fix: this.#fix,
+      problem: this.#problem,
+      template: this.#tpl,
+    }));
   return this;
 }
 ```
