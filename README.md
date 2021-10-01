@@ -135,8 +135,8 @@ Manages an [`Error`][js-error] of validation.
 
 **Static properties:**
 
-| ValidationError.                                | Description |
-| :---------------------------------------------- | :---------- |
+| ValidationError.                               | Description |
+| :--------------------------------------------- | :---------- |
 | [`template: string`](#validationerrortemplate) | A template of the [`error`][js-error] message guarded by [`string`][js-string] type with the replaceable `[problem]` and `[fix]` words.  By default, it's set to `'Problem: [problem] => Fix: [fix]'`. |
 
 **Instance properties:**
@@ -191,6 +191,8 @@ Manages an [`Error`][js-error] of validation.
 
 #### `ValidationError.template`
 
+[![update]][error-github-changelog]
+
 A template of the [`error`][js-error] message guarded by [`string`][js-string] type with the replaceable `[problem]` and `[fix]` words. By default, it's set to `Problem: [problem] => Fix: [fix]`. The value is being checked against the existence of `[problem]` and `[fix]` words.
 
 ```typescript
@@ -209,6 +211,8 @@ static set template(value: string) {
 
 #### `ValidationError.prototype.fix`
 
+[![update]][error-github-changelog]
+
 A possible [`solution`][error-property-fix] to the described [`problem`][error-property-problem] of validation that is guarded by [`string`][js-string] type. It can be set directly or by the [`setFix()`][error-method-setfix] and [`setMessage()`][error-method-setmessage] method. By default, it's an empty [`string`][js-string].
 
 ```typescript
@@ -223,6 +227,8 @@ public set fix(value: string) {
 <br>
 
 #### `ValidationError.prototype.message`
+
+[![update]][error-github-changelog]
 
 A validation [`error`][js-error] message guarded by [`string`][js-string] type that can be built from the [`problem`][error-property-problem] and [`fix`][error-property-fix] on the [`template`][error-property-template] of an instance of [`ValidationError`](#validationerror). It can be set directly or by the [`throw()`][error-method-throw] and [`setMessage()`][error-method-setmessage] method.
 
@@ -248,6 +254,8 @@ public name = ValidationError.name;
 <br>
 
 #### `ValidationError.prototype.problem`
+
+[![update]][error-github-changelog]
 
 Description of the validation [`problem`][error-property-problem] guarded by [`string`][js-string] type.  It can be set directly or by the [`setProblem()`][error-method-setproblem] and [`setMessage()`][error-method-setmessage] method. By default, it's an empty [`string`][js-string].
 
@@ -283,7 +291,7 @@ public set template(value: string) {
 
 #### `ValidationError.defineMessage()`
 
-![update]
+[![update]][error-github-changelog]
 
 Defines the validation [`error`][js-error] message of [`string`][js-string] type from the provided `message` of the [`ErrorMessage`](#errormessage) interface.
 
@@ -399,6 +407,8 @@ const errorMessage = ValidationError.defineMessage(
 
 #### `ValidationError()`
 
+[![update]][error-github-changelog]
+
 Creates a new instance with the [`message`][error-property-message]. If the provided [`message`][error-property-message] is an [`object`][js-object], then its properties are assigned to the instance.
 
 ```typescript
@@ -501,7 +511,7 @@ const validationError = new ValidationError(
 
 #### `ValidationError.prototype.setFix()`
 
-![update]
+[![update]][error-github-changelog]
 
 Sets the [`fix`][error-property-fix] a possible solution to the described [`problem`][error-property-problem].
 
@@ -569,11 +579,11 @@ validationError.setFix(fix, (result, value) => {
 
 #### `ValidationError.prototype.setMessage()`
 
-![update]
-
-TODO: Add detailed description about clear #problem, #fix and inject #tpl.
+[![update]][error-github-changelog]
 
 Sets the validation [`error`][js-error] [`message`][error-property-message] of [`string`][js-string] type from the provided `message` of the [`ErrorMessage`](#errormessage) interface or [`string`][js-string] type.
+
+> If the provided `message` is a [`string`][js-string] type, then properties [`problem`][error-property-problem], and [`fix`][error-property-fix] are set to empty [`string`][js-string] to not confuse their relation to the [`message`][error-property-message] and have a possibility throw an error by the [`throw()`](#validationerrorprototypethrow) method with just only a [`string`][js-string] type.
 
 ```typescript
 // Syntax.
@@ -658,7 +668,7 @@ console.log(validationError.message);
 
 #### `ValidationError.prototype.setProblem()`
 
-![update]
+[![update]][error-github-changelog]
 
 Sets description of the validation [`problem`][error-property-problem].
 
@@ -725,7 +735,7 @@ validationError.setProblem(problem, (result, value) => {
 
 #### `ValidationError.prototype.setTemplate()`
 
-![update]
+[![update]][error-github-changelog]
 
 Sets the [`template`][error-property-template] of validation error [`message`][error-property-message].
 
@@ -796,11 +806,12 @@ validationError.setTemplate(template, (result, value) => {
 
 #### `ValidationError.prototype.throw()`
 
-![update]
-
-TODO: Add detailed description about setting or updating the message.
+[![update]][error-github-changelog]
 
 Throws an error of [`ValidationError`](#validationerror) with the message built from the stored [`fix`][error-property-fix], [`problem`][error-property-problem] and [`template`][error-property-template] or optionally from the provided `message`.
+
+> The provided `message` of the [`ErrorMessage`](#errormessage) is set to the instance to have the possibility to catch `problem` and `fix` properties to know that the message was built from it (it's not just a string message).
+> If the `message` parameter is not provided, then if the `problem` of an instance of `ValidationError` is not an empty string it builds the message and overwrites the `message`.
 
 ```typescript
 public throw(message?: string | ErrorMessage): void {
@@ -861,7 +872,7 @@ validationError.throw({ fix, problem, template });
 
 #### `ValidationError.prototype.updateMessage()`
 
-![update]
+[![update]][error-github-changelog]
 
 Updates the message with a stored [`fix`][error-property-fix], [`problem`][error-property-problem], and [`template`][error-property-template].
 
@@ -1089,7 +1100,8 @@ type VEAllowedCallback = 'setFix' | 'setMessage' | 'setProblem' | 'setTemplate';
 
 ## Experimental
 
-![experimental]
+![experimental] [![update]][error-github-changelog]
+
 
 ### Message builder
 
@@ -1257,6 +1269,7 @@ MIT © angular-package ([license][error-license])
   [error-license]: https://github.com/angular-package/error/blob/master/LICENSE
   [error-stars]: https://github.com/angular-package/error/stargazers
 <!-- This package -->
+  [error-github-changelog]: https://github.com/angular-package/error/blob/main/CHANGELOG.md
 
 <!-- Package: callback -->
   <!-- npm -->
