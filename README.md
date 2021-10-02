@@ -1099,7 +1099,6 @@ type VEAllowedCallback = 'setFix' | 'setMessage' | 'setProblem' | 'setTemplate';
 
 ![experimental] [![update]][error-github-changelog]
 
-
 ### Message builder
 
 #### `MessageBuilder`
@@ -1116,9 +1115,9 @@ import { MessageBuilder } from '@angular-package/error';
 const messageFunctionBuilder = new MessageBuilder('function');
 
 messageFunctionBuilder
-  .setFunctionName('guardString')
-  .setParam('value', 'string')
-  .setReturn('boolean');
+  .replaceFunctionName('guardString')
+  .replaceParam('value', 'string')
+  .replaceReturn('boolean');
 
 // Console returns `guardString(value: string): boolean`
 console.log(messageFunctionBuilder.get);
@@ -1133,11 +1132,11 @@ import { MessageBuilder } from '@angular-package/error';
  */
 const messageMethodBuilder = new MessageBuilder('method');
 
-// Build the method of any class.
+ // Build the method of any class.
 messageMethodBuilder
-  .setMethodName('setPerson')
-  .setParam('value', 'string')
-  .setReturn('this');
+  .replaceMethodName('setPerson')
+  .replaceParam('value', 'string')
+  .replaceReturn('this');
 
 // Console returns `setPerson(value: string): this`
 console.log(messageMethodBuilder.get);
@@ -1152,12 +1151,12 @@ import { MessageBuilder } from '@angular-package/error';
  */
 const messageClassBuilder = new MessageBuilder('class');
 
-// Build the method of a specified class.
+ // Build the method of a specified class.
 messageClassBuilder
-  .setClassName('Person.prototype.')
-  .setMethodName('setPerson')
-  .setParam('value?', 'object')
-  .setReturn('object');
+  .replaceClassName('Person.prototype.')
+  .replaceMethodName('setPerson')
+  .replaceParam('value?', 'object')
+  .replaceReturn('object');
 
 // Console returns `Person.prototype.setPerson(value?: object): object`
 console.log(messageClassBuilder.get);
@@ -1167,7 +1166,7 @@ console.log(messageClassBuilder.get);
 
 #### `MessageFunctionBuilder`
 
-Message function builder for error message of a [`string`][js-string] type.
+Message builder of function for the error message of a [`string`][js-string] type.
 
 ```typescript
 // Example usage of building a function.
@@ -1181,8 +1180,7 @@ const messageFunctionBuilder = new MessageFunctionBuilder();
 messageFunctionBuilder
   .setName('guardString')
   .setParam('value', 'string')
-  .setReturn('boolean')
-  .build();
+  .setReturn('boolean');
 
 // Console returns `guardString(value: string): boolean`
 console.log(messageFunctionBuilder.get);
