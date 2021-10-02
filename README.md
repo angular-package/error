@@ -1103,7 +1103,7 @@ type VEAllowedCallback = 'setFix' | 'setMessage' | 'setProblem' | 'setTemplate';
 
 #### `MessageBuilder`
 
-Message builder for error message of a [`string`][js-string] type.
+Message builder to build [`class`][js-classes], [`function`][js-function] and `method` of a [`string`][js-string] type.
 
 ```typescript
 // Example usage of building a function.
@@ -1166,7 +1166,7 @@ console.log(messageClassBuilder.get);
 
 #### `MessageFunctionBuilder`
 
-Message builder of function for the error message of a [`string`][js-string] type.
+Message builder to build a [`function`][js-function] of a [`string`][js-string] type.
 
 ```typescript
 // Example usage of building a function.
