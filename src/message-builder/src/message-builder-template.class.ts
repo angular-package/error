@@ -1,9 +1,9 @@
 // @angular-package/type
-import { is } from '@angular-package/type';
+import { isString } from '@angular-package/type';
 // Interface.
 import { MessageTemplate } from '../interface/message-template.interface';
 /**
- * MessageBuilderTemplate.
+ * `MessageBuilderTemplate`.
  */
 export class MessageBuilderTemplate {
   // argument value is [value.type] type, must be [param.type] type
@@ -24,8 +24,6 @@ export class MessageBuilderTemplate {
   }
 
   constructor(type: 'class' | 'function' | 'method') {
-    if (is.string(type)) {
-      this.#type = type;
-    }
+    isString(type) && (this.#type = type);
   }
 }
