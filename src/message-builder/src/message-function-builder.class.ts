@@ -1,18 +1,18 @@
-import { guard, is, ResultCallback } from '@angular-package/type';
+import { guardString, isString, ResultCallback } from '@angular-package/type';
 // Class.
 import { MessageBuilder } from './message-builder.class';
 // Interface.
 import { Parameter } from '../interface/parameter.interface';
 /**
- * Message function builder for error message of a string type.
- * @version Experimental This `object` is an experimental version of the message function builder that is using `MessageBuilder`.
+ * Message builder to build a `function` of a `string` type.
+ * @version experimental
  */
 export class MessageFunctionBuilder {
   #messageBuilder: MessageBuilder;
   #name = '';
   #param: Parameter = {
     name: '',
-    type: ''
+    type: '',
   };
   #return = '';
 
@@ -21,6 +21,18 @@ export class MessageFunctionBuilder {
    */
   get get(): string {
     return this.#messageBuilder.get;
+  }
+
+  get param(): string {
+    return this.#param.name;
+  }
+
+  get name(): string {
+    return this.#name;
+  }
+
+  get return(): string {
+    return this.#return;
   }
 
   /**
@@ -34,11 +46,10 @@ export class MessageFunctionBuilder {
    * Builds string-type function from the privately stored `name`, `param`, and `return`.
    */
   public build(): this {
-    this
-      .#messageBuilder
-      .setFunctionName(this.#name)
-      .setParam(this.#param.name, this.#param.type)
-      .setReturn(this.#return);
+    this.#messageBuilder
+      .replaceFunctionName(this.#name)
+      .replaceParam(this.#param.name, this.#param.type)
+      .replaceReturn(this.#return);
     return this;
   }
 
@@ -49,10 +60,8 @@ export class MessageFunctionBuilder {
    * is a `string` type.
    * @returns The return value is an instance of `MessageFunctionBuilder`.
    */
-  public setName(name: string, callback?: ResultCallback): this {
-    if (guard.string(name, callback)) {
-      this.#name = name;
-    }
+  public setName(name: string, callback?: ResultCallback<string>): this {
+    guardString(name, callback) && (this.#name = name);
     return this;
   }
 
@@ -64,13 +73,13 @@ export class MessageFunctionBuilder {
    * is a `string` type.
    * @returns The return value is an instance of `MessageFunctionBuilder`.
    */
-  public setParam(name: string, type?: string, callback?: ResultCallback): this {
-    if (guard.string(name, callback)) {
-      this.#param.name = name;
-      if (is.string(type)) {
-        this.#param.type = type;
-      }
-    }
+  public setParam(
+    name: string,
+    type?: string,
+    callback?: ResultCallback<string>
+  ): this {
+    guardString(name, callback) &&
+      ((this.#param.name = name), isString(type) && (this.#param.type = type));
     return this;
   }
 
@@ -81,10 +90,8 @@ export class MessageFunctionBuilder {
    * is a `string` type.
    * @returns The return value is an instance of `MessageFunctionBuilder`.
    */
-  public setReturn(returns: string, callback?: ResultCallback): this {
-    if (guard.string(returns, callback)) {
-      this.#return = returns;
-    }
+  public setReturn(returns: string, callback?: ResultCallback<string>): this {
+    guardString(returns, callback) && (this.#return = returns);
     return this;
   }
 }
