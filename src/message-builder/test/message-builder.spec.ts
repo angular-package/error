@@ -10,7 +10,7 @@ const toBe = new TestingToBeMatchers();
 /**
  * Tests.
  */
-testing.describe(MessageBuilder.name, () => {
+testing.describe(`MessageBuilder`, () => {
   let messageClassBuilder = new MessageBuilder('class');
   let messageFunctionBuilder = new MessageBuilder('function');
   let messageMethodBuilder = new MessageBuilder('method');
@@ -35,21 +35,20 @@ testing.describe(MessageBuilder.name, () => {
 
   testing.it(`build function`, () => {
     messageFunctionBuilder
-      .setFunctionName('guardString')
-      .setParam('value', 'string')
-      .setReturn('boolean');
+      .replaceFunctionName('guardString')
+      .replaceParam('value', 'string')
+      .replaceReturn('boolean');
 
     toBe.string(messageFunctionBuilder.get);
-    console.log(messageFunctionBuilder.get);
     expect(messageFunctionBuilder.get).toEqual('guardString(value: string): boolean');
   });
 
   testing.it(`build class`, () => {
     messageClassBuilder
-      .setClassName('Person.prototype.')
-      .setMethodName('setPerson')
-      .setParam('value?', 'object')
-      .setReturn('object');
+      .replaceClassName('Person.prototype.')
+      .replaceMethodName('setPerson')
+      .replaceParam('value?', 'object')
+      .replaceReturn('object');
 
     toBe.string(messageClassBuilder.get);
     expect(messageClassBuilder.get).toEqual('Person.prototype.setPerson(value?: object): object');
@@ -57,11 +56,10 @@ testing.describe(MessageBuilder.name, () => {
 
   testing.it(`build method`, () => {
     messageMethodBuilder
-      .setMethodName('setPerson')
-      .setParam('value', 'string')
-      .setReturn('this');
+      .replaceMethodName('setPerson')
+      .replaceParam('value', 'string')
+      .replaceReturn('this');
 
-    console.log(messageMethodBuilder.get);
     toBe.string(messageMethodBuilder.get);
     expect(messageMethodBuilder.get).toEqual('setPerson(value: string): this');
   });
