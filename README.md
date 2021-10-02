@@ -1182,7 +1182,13 @@ messageFunctionBuilder
   .setParam('value', 'string')
   .setReturn('boolean');
 
-// Console returns `guardString(value: string): boolean`
+// Console returns [function]([param.name][param.type])[return]
+console.log(messageFunctionBuilder.get);
+
+// Build.
+messageFunctionBuilder.build();
+
+// Console returns guardString(value: string): boolean
 console.log(messageFunctionBuilder.get);
 ```
 
