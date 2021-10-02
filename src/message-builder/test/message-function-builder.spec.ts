@@ -10,7 +10,7 @@ const toBe = new TestingToBeMatchers();
 /**
  * Tests.
  */
-testing.describe(MessageFunctionBuilder.name, () => {
+testing.describe(`MessageFunctionBuilder`, () => {
   let messageFunctionBuilder = new MessageFunctionBuilder();
 
   beforeEach(() => (messageFunctionBuilder = new MessageFunctionBuilder()));
