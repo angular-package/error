@@ -443,6 +443,8 @@ const validationError = new ValidationError({ fix, problem });
 ```typescript
 // Example usage with callback.
 import { ValidationError } from '@angular-package/error';
+import { Callback, ErrorMessage } from '@angular-package/callback';
+import { ResultCallback } from '@angular-package/type';
 
 // Define a fix.
 const fix = 'There is no solution to the described problem.';
@@ -453,47 +455,76 @@ const problem = 'The problem has no solution.';
 // Define a template.
 const template = 'PROBLEM: [problem] FIX: [fix]';
 
-// Initialize an instance.
-TODO: Example with callback.
-const validationError = new ValidationError(
-  { fix, problem, template },
-  (callback) => {
-    callback
-      /*
-      Console: false,
-      {
-        "fix": "There is no solution to the described problem.",
-        "problem": "The problem has no solution.",
-        "template": "PROBLEM: [problem] FIX: [fix]"
-      }
+class CustomError {
+  #callback = new Callback('setFix', 'setMessage', 'setProblem', 'setTemplate');
+  #validationError = new ValidationError();
 
-      Console: true,
-      {
-        "fix": "There is no solution to the described problem.",
-        "problem": "The problem has no solution.",
-        "template": "PROBLEM: [problem] FIX: [fix]"
-      }
-    */
-      .setResultCallback('setFix', (result, value) =>
-        console.log(`setFix`, result, value)
-      )
+  constructor(
+    message: string | ErrorMessage,
+    callback?: (
+      callback: Callback<'setFix' | 'setMessage' | 'setProblem' | 'setTemplate'>
+    ) => void
+  ) {
+    if (callback) {
+      callback(this.#callback);
+    }
 
-      // Console: 'setFix true There is no solution to the described problem.'
-      .setResultCallback('setMessage', (result, value) =>
-        console.log(`setMessage`, result, value)
-      )
-
-      // Console: 'setProblem true The problem has no solution.'
-      .setResultCallback('setProblem', (result, value) =>
-        console.log(`setProblem`, result, value)
-      )
-
-      // Console: 'setTemplate true PROBLEM: [problem] FIX: [fix]'
-      .setResultCallback('setTemplate', (result, value) =>
-        console.log(`setTemplate`, result, value)
-      );
+    this.#validationError.setMessage(message);
   }
+
+  public setMessage(
+    message: string | ErrorMessage,
+    callback: ResultCallback<typeof message> = this.#callback.getResultCallback(
+      'setMessage'
+    )
+  ) {
+    this.#validationError.setMessage(message, callback);
+  }
+
+  public throw(): void {
+    this.#validationError.throw();
+  }
+}
+
+const customError = new CustomError('', (callback) =>
+  callback
+    .setResultCallback('setFix', (result, value) =>
+      console.log(`setFix`, result, value)
+    )
+
+    // Console: 'setFix true There is no solution to the described problem.'
+    .setResultCallback('setMessage', (result, value) =>
+      console.log(`setMessage`, result, value)
+    )
+
+    // Console: 'setProblem true The problem has no solution.'
+    .setResultCallback('setProblem', (result, value) =>
+      console.log(`setProblem`, result, value)
+    )
+
+    // Console: 'setTemplate true PROBLEM: [problem] FIX: [fix]'
+    .setResultCallback('setTemplate', (result, value) =>
+      console.log(`setTemplate`, result, value)
+    )
 );
+
+/**
+ * ! Console returns
+ * ? Checks message if string.
+ * setMessage false
+ * {
+ *    fix: 'There is no solution to the described problem.',
+ *    problem: 'The problem has no solution.', template: 'PROBLEM: [problem] FIX: [fix]'
+ * }
+ *
+ * ? Checks message is an object.
+ * setMessage false
+ * {
+ *    fix: 'There is no solution to the described problem.',
+ *    problem: 'The problem has no solution.', template: 'PROBLEM: [problem] FIX: [fix]'
+ * }
+ */
+customError.setMessage({ fix, problem, template });
 ```
 
 <br>
