@@ -410,14 +410,8 @@ Creates a new instance with the [`message`][error-property-message]. If the prov
 
 ```typescript
 // Syntax.
-constructor(
-  message: string | ErrorMessage = '',
-  callback?: (callback: Callback<VEAllowedCallback>) => void
-) {
+constructor(message: string | ErrorMessage = '') {
   super();
-
-  // Sets the callback for an instance methods.
-  isFunction(callback) && callback(this.#callback);
 
   // Initializes the message and assigns message properties `fix`, `problem` and optionally `template` to a new instance.
   this.setMessage(message);
@@ -426,10 +420,9 @@ constructor(
 
 **Parameters:**
 
-| Name: type                                                   | Description |
-| :----------------------------------------------------------- | :---------- |
-| `message: string \| ErrorMessage`                            | The message of [`string`][js-string] type or of an [`ErrorMessage`](#errormessage) interface that is used to throw with an [`Error`][js-error]. |
-| `callback?: (callback: Callback<VEAllowedCallback>) => void` | An optional [`function`][js-function] to handle the internal instance of [`Callback`][callback-github-readme]. |
+| Name: type                        | Description |
+| :-------------------------------- | :---------- |
+| `message: string \| ErrorMessage` | The message of [`string`][js-string] type or of an [`ErrorMessage`](#errormessage) interface that is used to throw with an [`Error`][js-error]. |
 
 **Returns:**
 
@@ -461,6 +454,7 @@ const problem = 'The problem has no solution.';
 const template = 'PROBLEM: [problem] FIX: [fix]';
 
 // Initialize an instance.
+TODO: Example with callback.
 const validationError = new ValidationError(
   { fix, problem, template },
   (callback) => {
@@ -514,12 +508,7 @@ Sets the [`fix`][error-property-fix] a possible solution to the described [`prob
 
 ```typescript
 // Syntax.
-public setFix(
-  fix: string,
-  callback: ResultCallback<string> = this.#callback.getResultCallback(
-    'setFix'
-  )
-): this {
+public setFix(fix: string, callback?: ResultCallback<string>): this {
   guardString(fix, callback) && (this.#fix = fix);
   return this;
 }
@@ -527,10 +516,10 @@ public setFix(
 
 **Parameters:**
 
-| Name: type                         | Description |
-| :--------------------------------- | :---------- |
-| `fix: string`                      | A possible [solution][error-property-fix] to the described [`problem`][error-property-problem] guarded by [`string`][js-string] type. |
-| `callback: ResultCallback<string>` | An optional callback function of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided [`fix`][error-property-fix] is a [`string`][js-string]. By default, it uses an internal callback under the `'setFix'` name, which can be initially set by the optional `callback` parameter that gives access to the internal instance of [`Callback`][callback-github-readme]. |
+| Name: type                          | Description |
+| :---------------------------------- | :---------- |
+| `fix: string`                       | A possible [solution][error-property-fix] to the described [`problem`][error-property-problem] guarded by [`string`][js-string] type. |
+| `callback?: ResultCallback<string>` | An optional callback function of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided [`fix`][error-property-fix] is a [`string`][js-string]. |
 
 **Returns:**
 
@@ -586,9 +575,7 @@ Sets the validation [`error`][js-error] [`message`][error-property-message] of [
 // Syntax.
 public setMessage(
   message: string | ErrorMessage,
-  callback: ResultCallback<typeof message> = this.#callback.getResultCallback(
-    'setMessage'
-  )
+  callback?: ResultCallback<typeof message>
 ): this {
   super.message = isString(message, callback)
     ? message
@@ -613,10 +600,10 @@ public setMessage(
 
 **Parameters:**
 
-| Name: type                                 | Description |
-| :----------------------------------------- | :---------- |
-| `message: string \| ErrorMessage`          | A [`string`][js-string] type or an [`object`][js-object] of an [`ErrorMessage`](#errormessage) interface to build the message of [`string`][js-string] type. The value is checked against the proper [`object`][js-object] of [`ErrorMessage`](#errormessage). |
-| `callback: ResultCallback<typeof message>` | An optional callback [`function`][js-function] of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided [`message`][error-property-message] is [`string`][js-string] type or whether it's the proper [`object`][js-object] of [`ErrorMessage`](#errormessage) which means it contains required [`problem`][error-property-problem], [`fix`][error-property-fix] properties, and the optional [`template`][error-property-template] property has `[problem]` and `[fix]` tags. By default, it uses an internal callback under the `'setMessage'` name, which can be initially set by the optional `callback` parameter that gives access to the internal instance of [`Callback`][callback-github-readme]. |
+| Name: type                                  | Description |
+| :------------------------------------------ | :---------- |
+| `message: string \| ErrorMessage`           | A [`string`][js-string] type or an [`object`][js-object] of an [`ErrorMessage`](#errormessage) interface to build the message of [`string`][js-string] type. The value is checked against the proper [`object`][js-object] of [`ErrorMessage`](#errormessage). |
+| `callback?: ResultCallback<typeof message>` | An optional callback [`function`][js-function] of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided [`message`][error-property-message] is [`string`][js-string] type or whether it's the proper [`object`][js-object] of [`ErrorMessage`](#errormessage) which means it contains required [`problem`][error-property-problem], [`fix`][error-property-fix] properties, and the optional [`template`][error-property-template] property has `[problem]` and `[fix]` tags. |
 
 **Returns:**
 
@@ -670,12 +657,7 @@ console.log(validationError.message);
 Sets description of the validation [`problem`][error-property-problem].
 
 ```typescript
-public setProblem(
-  problem: string,
-  callback: ResultCallback<string> = this.#callback.getResultCallback(
-    'setProblem'
-  )
-): this {
+public setProblem(problem: string, callback?: ResultCallback<string>): this {
   guardString(problem, callback) && (this.#problem = problem);
   return this;
 }
@@ -686,7 +668,7 @@ public setProblem(
 | Name: type                          | Description |
 | :---------------------------------- | :---------- |
 | `problem: string`                   | Description of a validation [`problem`][error-property-problem] guarded by [`string`][js-string] type. |
-| `callback?: ResultCallback<string>` | An optional callback [`function`][js-function] of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided `problem` is a [`string`][js-string]. By default, it uses an internal callback under the `'setProblem'` name, which can be initially set by the optional `callback` parameter that gives access to the internal instance of [`Callback`][callback-github-readme]. |
+| `callback?: ResultCallback<string>` | An optional callback [`function`][js-function] of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided `problem` is a [`string`][js-string]. |
 
 **Returns:**
 
@@ -739,9 +721,7 @@ Sets the [`template`][error-property-template] of validation error [`message`][e
 ```typescript
 public setTemplate(
   template: string,
-  callback: ResultCallback<string> = this.#callback.getResultCallback(
-    'setTemplate'
-  )
+  callback?: ResultCallback<string>
 ): this {
   ValidationError.#guardTemplate(template, callback) &&
     (this.#tpl = template);
@@ -751,10 +731,10 @@ public setTemplate(
 
 **Parameters:**
 
-| Name: type                         | Description |
-| :--------------------------------- | :---------- |
-| `template: string`                 | A message [`template`][error-property-template] guarded by [`string`][js-string] type with replaceable `[problem]` and `[fix]` tags. |
-| `callback: ResultCallback<string>` | An optional callback function of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided `template` is a [`string`][js-string] that contains `[fix]` and `[problem]` tags. By default, it uses an internal callback under the `'setTemplate'` name, which can be initially set by the optional `callback` parameter that gives access to the internal instance of [`Callback`][callback-github-readme]. |
+| Name: type                          | Description |
+| :---------------------------------- | :---------- |
+| `template: string`                  | A message [`template`][error-property-template] guarded by [`string`][js-string] type with replaceable `[problem]` and `[fix]` tags. |
+| `callback?: ResultCallback<string>` | An optional callback function of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided `template` is a [`string`][js-string] that contains `[fix]` and `[problem]` tags. |
 
 **Returns:**
 
@@ -1080,18 +1060,6 @@ Description of validation problem of a [`string`][js-string] type.
 
 **`template?: string`**  
 An optional error message template of a [`string`][js-string] type.
-
-<br>
-
-## Type
-
-#### `VEAllowedCallback`
-
-Allowed callback function names available for the [`ValidationError`](#validationerror).
-
-```typescript
-type VEAllowedCallback = 'setFix' | 'setMessage' | 'setProblem' | 'setTemplate';
-```
 
 <br>
 
