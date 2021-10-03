@@ -7,16 +7,11 @@ import {
   guardStringIncludes,
   guardStringLength,
   isDefined,
-  isFunction,
   isObject,
   isString,
 } from '@angular-package/type';
-// @angular-package/callback.
-import { Callback } from '@angular-package/callback';
 // Interface.
 import { ErrorMessage } from '../interface/error-message.interface';
-// Type.
-import { VEAllowedCallback } from '../type/allowed-callback.type';
 /**
  * Manages an `Error` of validation.
  */
@@ -34,11 +29,6 @@ export class ValidationError extends Error {
   //#endregion static private properties
 
   //#region instance private properties.
-  /**
-   * An instance of `Callback` with specified allowed names of callback functions for the `ValidationError`.
-   */
-  #callback = new Callback('setFix', 'setMessage', 'setProblem', 'setTemplate');
-
   /**
    * A privately stored possible solution to the described problem of `string` type.
    * * By default, it's an empty `string`.
@@ -125,7 +115,6 @@ export class ValidationError extends Error {
     return this.#tpl;
   }
   public set template(value: string) {
-    // TODO: Add error on [problem] and [fix] missing.
     ValidationError.#guardTemplate(value) && (this.#tpl = value);
   }
   //#endregion instance public properties.
@@ -219,17 +208,10 @@ export class ValidationError extends Error {
   /**
    * Creates a new instance with the message. If the provided `message` is an `object`, then its properties are assigned to the instance.
    * @param message The message of `string` type or of an `ErrorMessage` interface that is used to throw with an `Error`.
-   * @param callback An optional `function` to handle the internal instance of `Callback`.
    * @angularpackage
    */
-  constructor(
-    message: string | ErrorMessage = '',
-    callback?: (callback: Callback<VEAllowedCallback>) => void
-  ) {
+  constructor(message: string | ErrorMessage = '') {
     super();
-
-    // Sets the callback for an instance methods.
-    isFunction(callback) && callback(this.#callback);
 
     // Initializes the message and assigns message properties `fix`, `problem` and optionally `template` to a new instance.
     this.setMessage(message);
@@ -240,17 +222,10 @@ export class ValidationError extends Error {
    * Sets the `fix` a possible solution to the described `problem`.
    * @param fix A possible solution to the described `problem` guarded by `string` type.
    * @param callback An optional callback function of `ResultCallback` type to handle the check whether the provided `fix` is a `string`.
-   * By default, it uses an internal callback under the `'setFix'` name, which can be initially set by the optional `callback` parameter
-   * that gives access to the internal instance of `Callback`.
    * @returns The return value is an instance of an `ValidationError`.
    * @angularpackage
    */
-  public setFix(
-    fix: string,
-    callback: ResultCallback<string> = this.#callback.getResultCallback(
-      'setFix'
-    )
-  ): this {
+  public setFix(fix: string, callback?: ResultCallback<string>): this {
     guardString(fix, callback) && (this.#fix = fix);
     return this;
   }
@@ -262,16 +237,12 @@ export class ValidationError extends Error {
    * @param callback An optional callback `function` of `ResultCallback` type to handle the check whether the provided `message` is `string`
    * type or whether it's the proper `object` of `ErrorMessage` which means it contains required `problem`, `fix` properties, and the
    * optional `template` has `[problem]` and `[fix]` tags.
-   * By default, it uses an internal callback under the `'setFix'` name, which can be initially set by the optional `callback` parameter
-   * that gives access to the internal instance of `Callback`.
    * @returns The return value is an instance of an `ValidationError`.
    * @angularpackage
    */
   public setMessage(
     message: string | ErrorMessage,
-    callback: ResultCallback<typeof message> = this.#callback.getResultCallback(
-      'setMessage'
-    )
+    callback?: ResultCallback<typeof message>
   ): this {
     super.message = isString(message, callback)
       ? message
@@ -297,17 +268,11 @@ export class ValidationError extends Error {
    * Sets description of the validation problem.
    * @param problem Description of validation problem guarded by `string` type.
    * @param callback An optional callback function of `ResultCallback` type to handle the check whether the provided `problem` is a
-   * `string`. By default, it uses an internal callback under the `'setProblem'` name, which can be initially set by the optional `callback`
-   * parameter that gives access to the internal instance of `Callback`.
+   * `string`.
    * @returns The return value is an instance of an `ValidationError`.
    * @angularpackage
    */
-  public setProblem(
-    problem: string,
-    callback: ResultCallback<string> = this.#callback.getResultCallback(
-      'setProblem'
-    )
-  ): this {
+  public setProblem(problem: string, callback?: ResultCallback<string>): this {
     guardString(problem, callback) && (this.#problem = problem);
     return this;
   }
@@ -316,15 +281,12 @@ export class ValidationError extends Error {
    * Sets the template of validation error `message`.
    * @param template A `message` template guarded by `string` type with replaceable `[problem]` and `[fix]` tags.
    * @param callback An optional callback function of `ResultCallback` type to handle the check whether the provided `template` is a
-   * `string` that contains `[fix]` and `[problem]` tags. By default, it uses an internal callback under the `'setTemplate'` name, which
-   * can be initially set by the optional `callback` parameter that gives access to the internal instance of `Callback`.
+   * `string` that contains `[fix]` and `[problem]` tags.
    * @angularpackage
    */
   public setTemplate(
     template: string,
-    callback: ResultCallback<string> = this.#callback.getResultCallback(
-      'setTemplate'
-    )
+    callback?: ResultCallback<string>
   ): this {
     ValidationError.#guardTemplate(template, callback) &&
       (this.#tpl = template);
