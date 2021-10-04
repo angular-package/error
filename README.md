@@ -630,7 +630,7 @@ validationError.setFix(fix, (result, value) => {
 
 Sets the validation [`error`][js-error] [`message`][error-property-message] of [`string`][js-string] type from the provided `message` of the [`ErrorMessage`](#errormessage) interface or [`string`][js-string] type.
 
-> If the provided `message` is a [`string`][js-string] type, then properties [`problem`][error-property-problem], and [`fix`][error-property-fix] are set to empty [`string`][js-string] to not confuse their relation to the [`message`][error-property-message] and have a possibility throw an error by the [`throw()`](#validationerrorprototypethrow) method with just only a [`string`][js-string] type.
+> If the provided `message` is a [`string`][js-string] type, then properties [`problem`][error-property-problem], [`fix`][error-property-fix], and [`value`][error-property-value] are set to empty [`string`][js-string] to not confuse their relation to the [`message`][error-property-message] and have a possibility to throw an error by the [`throw()`](#validationerrorprototypethrow) method with just only a [`string`][js-string] type.
 
 ```typescript
 // Syntax.
@@ -1175,6 +1175,7 @@ Description of validation problem of a [`string`][js-string] type.
 An optional error message template of a [`string`][js-string] type.
 
 **`value?: string`**  
+[![new]][error-github-changelog]  
 An optional value affected by the validation error, which must be parsed to [`string`][js-string].
 
 <br>
