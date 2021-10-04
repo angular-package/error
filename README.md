@@ -148,13 +148,15 @@ Manages an [`Error`][js-error] of validation.
 | [`message: string`][error-property-message]   | A validation [`error`][js-error] message guarded by [`string`][js-string] type that can be built from the [`problem`][error-property-problem] and [`fix`][error-property-fix] on the [`template`][error-property-template] of an instance of [`ValidationError`](#validationerror). |
 | [`name: string`][error-property-name]         | [`Error`][js-error] name of [`string`][js-string] type that is being thrown. |
 | [`problem: string`][error-property-problem]   | Description of the validation [`problem`][error-property-problem] guarded by [`string`][js-string] type. |
-| [`template: string`][error-property-template] | A template of the [`error`][js-error] message guarded by [`string`][js-string] type with the replaceable `[problem]` and `[fix]` tags. |
+| [`template: string`][error-property-template] | A template of the [`error`][js-error] message guarded by [`string`][js-string] type with required replaceable `[problem]` and `[fix]` tags and optionally `[value]` tag. |
+| [`value: string`][error-property-value]       | The value affected by the validation error guarded by [`string`][js-string] type. |
 
 [error-property-fix]: #validationerrorprototypefix
 [error-property-message]: #validationerrorprototypemessage
 [error-property-name]: #validationerrorprototypename
 [error-property-problem]: #validationerrorprototypeproblem
 [error-property-template]: #validationerrorprototypetemplate
+[error-property-value]: #validationerrorprototypevalue
 
 **Static methods:**
 
@@ -176,6 +178,7 @@ Manages an [`Error`][js-error] of validation.
 | [`setMessage()`][error-method-setmessage]       | Sets the validation [`error`][js-error] [`message`][error-property-message] of [`string`][js-string] type from the provided `message` of the [`ErrorMessage`](#errormessage) interface or [`string`][js-string] type. |
 | [`setProblem()`][error-method-setproblem]       | Sets description [`problem`][error-property-problem] of a validation. |
 | [`setTemplate()`][error-method-settemplate]     | Sets the [`template`][error-property-template] of validation error [`message`][error-property-message]. |
+| [`setValue()`][error-method-setvalue]           | Sets the [`value`][error-property-value] affected by the validation error (must be parsed to [`string`][js-string] type). |
 | [`throw()`][error-method-throw]                 | Throws an error of [`ValidationError`](#validationerror) with the message built from the stored [`fix`][error-property-fix], [`problem`][error-property-problem] and [`template`][error-property-template] or optionally from the provided `message`. |
 | [`updateMessage()`][error-method-updatemessage] | Updates the message with a stored [`fix`][error-property-fix], [`problem`][error-property-problem], and [`template`][error-property-template]. |
 
@@ -183,6 +186,7 @@ Manages an [`Error`][js-error] of validation.
 [error-method-setmessage]: #validationerrorprototypesetmessage
 [error-method-setproblem]: #validationerrorprototypesetproblem
 [error-method-settemplate]: #validationerrorprototypesettemplate
+[error-method-setvalue]: #validationerrorprototypesetvalue
 [error-method-throw]: #validationerrorprototypethrow
 [error-method-updatemessage]: #validationerrorprototypeupdatemessage
 
@@ -272,9 +276,9 @@ public set problem(value: string) {
 
 #### `ValidationError.prototype.template`
 
-![new]
+[![new]][error-github-changelog]
 
-A template of the [`error`][js-error] message guarded by [`string`][js-string] type with the replaceable `[problem]` and `[fix]` tags. It can be set directly or by the [`setTemplate()`][error-method-settemplate] and [`setMessage()`][error-method-setmessage] method. The value is being checked against the existence of `[problem]` and `[fix]` tags.
+A template of the [`error`][js-error] message guarded by [`string`][js-string] type with the replaceable `[problem]` and `[fix]` tags and optionally `[value]` tag. It can be set directly or by the [`setTemplate()`][error-method-settemplate] and [`setMessage()`][error-method-setmessage] method. The value is being checked against the existence of required `[problem]` and `[fix]` tags.
 
 ```typescript
 public get template(): string {
@@ -282,6 +286,31 @@ public get template(): string {
 }
 public set template(value: string) {
   ValidationError.#guardTemplate(value) && (this.#tpl = value);
+}
+```
+
+**Tags:**
+
+`[fix]`: **Required**, replace by the [`fix`][error-property-fix] property.  
+
+`[problem]`: **Required**, replace by the [`problem`][error-property-problem] property.  
+
+`[value]`: Optional, replace by the [`value`][error-property-value] property.
+
+<br>
+
+#### `ValidationError.prototype.value`
+
+[![new]][error-github-changelog]
+
+The value affected by the validation error guarded by [`string`][js-string] type.
+
+```typescript
+public get value(): string {
+  return this.#value;
+}
+public set value(value: string) {
+  guardString(value) && (this.#value = value);
 }
 ```
 
@@ -616,16 +645,10 @@ public setMessage(
         callback
       );
 
-  // Sets `fix`, `problem` and `template` from the provided `message`.
-  if (isObject(message)) {
-    this.setFix(message.fix).setProblem(message.problem);
-    if (isDefined(message.template)) {
-      this.setTemplate(message.template);
-    }
-  } else {
-    this.#problem = '';
-    this.#fix = '';
-  }
+  isObject(message)
+    ? (this.setFix(message.fix).setProblem(message.problem).setValue(message.value as string),
+      isDefined(message.template) && this.setTemplate(message.template))
+    : (this.#fix = '', this.#problem = '', this.#value = '');
   return this;
 }
 ```
@@ -813,6 +836,62 @@ validationError.setTemplate(template, (result, value) => {
 
 <br>
 
+#### `ValidationError.prototype.setValue()`
+
+[![update]][error-github-changelog]
+
+Sets the [`value`][error-property-value] affected by the validation error (must be parsed to [`string`][js-string] type).
+
+```typescript
+public setValue(
+  value: string,
+  callback?: ResultCallback<string>
+): this {
+  guardString(value, callback) && (this.#value = value);
+  return this;
+}
+```
+
+**Parameters:**
+
+| Name: type                          | Description |
+| :---------------------------------- | :---------- |
+| `value: string`                     | The value of [`string`][js-string] type as a replacement to the `[value]` tag of [`template`][error-property-template] that relates to the given [`problem`][error-property-problem]. |
+| `callback?: ResultCallback<string>` | An optional callback function of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided `value` is [`string`][js-string] type. |
+
+**Returns:**
+
+The **return value** is an instance of an [`ValidationError`](#validationerror).
+
+**Usage:**
+
+```typescript
+// Example usage with value of Symbol.
+import { ValidationError } from '@angular-package/error';
+
+const fix = 'Please, provide the string type value.';
+const problem = 'The provided value should be a string type, got ';
+
+// The provided value should be a string type, got  Symbol(123)
+// Please, provide the string type value.
+ValidationError.defineMessage({
+  fix,
+  problem,
+  value: String(Symbol('123')),
+  template: '\n[problem] [value]\n[fix]' });
+
+
+// The provided value should be a string type, got  {"one":1}
+// Please, provide the string type value.
+ValidationError.defineMessage({
+  fix,
+  problem,
+  value: JSON.stringify({one: 1 }),
+  template: '\n[problem] [value]\n[fix]' });
+```
+
+<br>
+
 #### `ValidationError.prototype.throw()`
 
 [![update]][error-github-changelog]
@@ -892,6 +971,7 @@ public updateMessage(): this {
       fix: this.#fix,
       problem: this.#problem,
       template: this.#tpl,
+      value: this.#value,
     }));
   return this;
 }
@@ -1079,6 +1159,7 @@ export interface ErrorMessage {
   fix: string;
   problem: string;
   template?: string;
+  value?: string;
 }
 ```
 
@@ -1092,6 +1173,9 @@ Description of validation problem of a [`string`][js-string] type.
 
 **`template?: string`**  
 An optional error message template of a [`string`][js-string] type.
+
+**`value?: string`**  
+An optional value affected by the validation error, which must be parsed to [`string`][js-string].
 
 <br>
 
