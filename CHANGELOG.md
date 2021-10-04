@@ -6,6 +6,45 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.0.0] - 2021-10-05
+
+### 3.0.0 Added
+
+- [285ef51]  
+  Added property `template` of an instance that refers to private property `#tpl`.  
+  Added private property `#tags` of `string[]` to replace the template `[problem]` and `[fix]` tags.  
+
+### 3.0.0 Changed
+
+- [8a0f58d]  
+  Changed library to `es2020`.  
+
+- [285ef51] [25ea72b] 
+  Changed all conditionals to short if expressions.  
+  Changed use of static `ValidationError` to `this`.  
+  Changed to `ResultCallback` with generic type variable `Value`.  
+  Changed usage of `is` and `guard` objects to use functions of `@angular-package/type`.  
+  Changed the `setMessage()` method to set the `problem` and `fix` properties to empty string if the provided message is a `string` type.  
+  Changed `setMessage()` method to use as first, template from the given `message` parameter, and if it's empty the private property `#tpl`.  
+  Changed `defineMessage()` static method to use private property `#tags` to replace them in the template.  
+
+- [25ea72b]  
+  Change `set` prefix to `replace` of methods.
+
+[25ea72b]: https://github.com/angular-package/error/commit/25ea72b733939264b6546d01ef2945cc1e716fa5
+[8a0f58d]: https://github.com/angular-package/error/commit/8a0f58dae2b8a474848a2eccbe3218a0da0c017e
+[285ef51]: https://github.com/angular-package/error/commit/285ef51805a3f1528b62d389214c106c3f213dfa
+
+### 3.0.0 Removed
+
+- [7ed2b5c] [96c5563] [4af703a]  
+  Removed the default usage of callback.
+  Removed `AllowedCallback` type because the removed default usage of callback.  
+
+[7ed2b5c]: https://github.com/angular-package/error/commit/7ed2b5c90ed9922b8ced3622db4e0aa9b51afc38
+[96c5563]: https://github.com/angular-package/error/commit/96c5563285f86eb2ce5d1ecff39aa2110507f220
+[4af703a]: https://github.com/angular-package/error/commit/4af703afa7c2c432a902faad96fa535640bc5671
+
 ## [2.0.2] - 2021-08-12
 
 ### 2.0.2 Fixed
