@@ -20,7 +20,7 @@ export class ValidationError extends Error {
   /**
    * Tags to be replaced.
    */
-  static #tags = ['fix', 'problem'];
+  static #tags = ['fix', 'problem', 'value'];
 
   /**
    * A static, privately stored template of the error message.
@@ -46,6 +46,11 @@ export class ValidationError extends Error {
    * * By default, it's set to `Problem: [problem] => Fix: [fix]`.
    */
   #tpl = ValidationError.template;
+
+  /**
+   * The value affected by the validation error after parsing to `string`.
+   */
+  #value = '';
   //#endregion instance private properties.
 
   //#region static public properties
@@ -106,8 +111,8 @@ export class ValidationError extends Error {
   }
 
   /**
-   * A template of the error message guarded by `string` type with the replaceable `[problem]` and `[fix]` tags. The value is being
-   * checked against the existence of `[problem]` and `[fix]` tags.
+   * A template of the error message guarded by `string` type with required replaceable `[problem]` and `[fix]` tags and optionally
+   * `[value]` tag. The value is being checked against the existence of required `[problem]` and `[fix]` tags.
    * * It can be set directly or by the `setTemplate()` and `setMessage()` method.
    * * By default, it's set to `Problem: [problem] => Fix: [fix]`.
    */
@@ -116,6 +121,16 @@ export class ValidationError extends Error {
   }
   public set template(value: string) {
     ValidationError.#guardTemplate(value) && (this.#tpl = value);
+  }
+
+  /**
+   * The value affected by the validation error, which must be parsed to `string`.
+   */
+  public get value(): string {
+    return this.#value;
+  }
+  public set value(value: string) {
+    guardString(value) && (this.#value = value);
   }
   //#endregion instance public properties.
 
@@ -157,7 +172,7 @@ export class ValidationError extends Error {
         (tag) =>
           (m = m.replace(
             `[${tag}]`,
-            message[tag as keyof Omit<ErrorMessage, 'template'>]
+            String((message[tag as keyof Omit<ErrorMessage, 'template'>]))
           ))
       ),
       m
@@ -251,16 +266,12 @@ export class ValidationError extends Error {
           callback
         );
 
-    // Sets `fix`, `problem` and `template` from the provided `message`.
-    if (isObject(message)) {
-      this.setFix(message.fix).setProblem(message.problem);
-      if (isDefined(message.template)) {
-        this.setTemplate(message.template);
-      }
-    } else {
-      this.#problem = '';
-      this.#fix = '';
-    }
+    isObject(message)
+      // Sets `fix`, `problem`, `value` and `template` from the provided `message`.
+      ? (this.setFix(message.fix).setProblem(message.problem).setValue(message.value as string),
+        isDefined(message.template) && this.setTemplate(message.template))
+      // Sets `fix`, `problem` to empty string.
+      : (this.#fix = '', this.#problem = '', this.#value = '');
     return this;
   }
 
@@ -282,6 +293,7 @@ export class ValidationError extends Error {
    * @param template A `message` template guarded by `string` type with replaceable `[problem]` and `[fix]` tags.
    * @param callback An optional callback function of `ResultCallback` type to handle the check whether the provided `template` is a
    * `string` that contains `[fix]` and `[problem]` tags.
+   * @returns The return value is an instance of an `ValidationError`.
    * @angularpackage
    */
   public setTemplate(
@@ -294,8 +306,24 @@ export class ValidationError extends Error {
   }
 
   /**
-   * Throws an error of `ValidationError` with the message built from the stored `fix`, `problem` and `template` or optionally from
-   * the provided `message`.
+   * Sets the value affected by the validation error (must be parsed to string type).
+   * @param value The value of `string` type as a replacement to the `[value]` tag of `template` that relates to the given `problem`.
+   * @param callback An optional callback function of `ResultCallback` type to handle the check whether the provided `value` is `string`
+   * type.
+   * @returns The return value is an instance of an `ValidationError`.
+   * @angularpackage
+   */
+  public setValue(
+    value: string,
+    callback?: ResultCallback<string>
+  ): this {
+    guardString(value, callback) && (this.#value = value);
+    return this;
+  }
+
+  /**
+   * Throws an error of `ValidationError` with the message built from the stored `fix`, `problem` and `template` or optionally from the
+   * provided `message`.
    * @param message An optional parameter of `string` type or an `object` of an `ErrorMessage` interface to build the message of `string`
    * type. The value is checked against the proper `object` of `ErrorMessage`.
    * @angularpackage
@@ -316,6 +344,7 @@ export class ValidationError extends Error {
         fix: this.#fix,
         problem: this.#problem,
         template: this.#tpl,
+        value: this.#value,
       }));
     return this;
   }
