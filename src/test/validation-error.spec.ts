@@ -14,6 +14,7 @@ testing.describe('ValidationError', () => {
   let fix: any;
   let problem: any;
   let template: any;
+  let value: any;
   let errorMessage: any;
   let validationError: ValidationError;
 
@@ -72,73 +73,64 @@ testing.describe('ValidationError', () => {
   .describe('.defineMessage()', () => {
     beforeEach(() => errorMessage = ValidationError.defineMessage({ fix, problem }));
 
-    testing.it(`with the message of the \`ErrorMessage\` interface`, () => {
-      toBe.string(errorMessage);
-      expect(errorMessage).toEqual(
-        ValidationError.template
-          .replace(`[fix]`, fix)
-          .replace(`[problem]`, problem)
-      );
-      // toContain.
-      expect(errorMessage).toContain(fix);
-      expect(errorMessage).toContain(problem);
-    });
+    testing
+      .it(`with the message of the \`ErrorMessage\` interface`, () => {
+        toBe.string(errorMessage);
+        expect(errorMessage).toEqual(
+          ValidationError.template
+            .replace(`[fix]`, fix)
+            .replace(`[problem]`, problem)
+        );
+        // toContain.
+        expect(errorMessage).toContain(fix);
+        expect(errorMessage).toContain(problem);
+      });
   })
 
   .describe('.prototype.setFix()', () => {
-    testing.it(`set ${fix}`, () => {
-      validationError.setFix(fix, (result, value, payload) => {
-        expect(value).toEqual(fix);
-        toBe
-          .boolean(result)
-          .string(value)
-          .undefined(payload);
-        return result;
+    testing
+      .it(`set ${fix}`, () => {
+        validationError.setFix(fix, (result, value, payload) => {
+          expect(value).toEqual(fix);
+          toBe
+            .boolean(result)
+            .string(value)
+            .undefined(payload);
+          return result;
+        });
+        expect(validationError.fix).toEqual(fix);
       });
-      expect(validationError.fix).toEqual(fix);
-    });
-  })
-
-  .describe('.prototype.setMessage()', () => {
-    testing.it(`set ${problem}`, () => {
-      validationError.setMessage(problem, (result, value, payload) => {
-        expect(value).toEqual(problem);
-        toBe
-          .boolean(result)
-          .string(value)
-          .undefined(payload);
-        return result;
-      });
-      expect(validationError.message).toEqual(problem);
-    });
   })
 
   .describe('[counter] .prototype.setMessage()', () => {
-    testing.it(`[counter] set ${problem}`, () => {
-      validationError.setMessage(problem, (result, value, payload) => {
-        expect(value).toEqual(problem);
-        toBe
-          .boolean(result)
-          .string(value)
-          .undefined(payload);
-        return result;
+    testing
+
+      .it(`[counter] set ${problem}`, () => {
+        validationError.setMessage(problem, (result, value, payload) => {
+          expect(value).toEqual(problem);
+          toBe
+            .boolean(result)
+            .string(value)
+            .undefined(payload);
+          return result;
+        });
+        expect(validationError.message).toEqual(problem);
+      })
+
+      .it(`[counter] set object`, () => {
+        errorMessage = { fix, problem };
+        validationError.setMessage(errorMessage, (result, value, payload) => {
+          expect((value as any).fix).toEqual(errorMessage.fix);
+          expect((value as any).problem).toEqual(errorMessage.problem);
+          toBe
+            .boolean(result)
+            .object(value)
+            .undefined(payload);
+          return result;
+        });
+        expect(validationError.fix).toEqual(fix);
+        expect(validationError.problem).toEqual(problem);
       });
-      expect(validationError.message).toEqual(problem);
-    })
-    .it(`[counter] set object`, () => {
-      errorMessage = { fix, problem };
-      validationError.setMessage(errorMessage, (result, value, payload) => {
-        expect((value as any).fix).toEqual(errorMessage.fix);
-        expect((value as any).problem).toEqual(errorMessage.problem);
-        toBe
-          .boolean(result)
-          .object(value)
-          .undefined(payload);
-        return result;
-      });
-      expect(validationError.fix).toEqual(fix);
-      expect(validationError.problem).toEqual(problem);
-    });
   })
 
   .describe('[counter] .prototype.setProblem()', () => {
@@ -170,70 +162,130 @@ testing.describe('ValidationError', () => {
     });
   })
 
+  .describe('[counter] .prototype.setValue()', () => {
+    template = `[problem] [fix] Got [value]`;
+    testing
+
+      .it(`[counter] set ${template} with the string value`, () => {
+        value = 'string value';
+        validationError.setTemplate(template).setValue(value, (result, value, payload) => {
+          expect(value).toEqual('string value');
+          toBe.boolean(result).string(value);
+          return result;
+        });
+        expect(validationError.template).toEqual(template);
+      })
+
+      .it(`[counter] set ${template} with the object value`, () => {
+        value = { firstName: Symbol(123), lastName: '', age: 27 };
+        validationError.setTemplate(template).setValue(JSON.stringify(value), (result, value, payload) => {
+          expect(value).toEqual('{"lastName":"","age":27}');
+          toBe.boolean(result).string(value);
+          return result;
+        })
+        .setProblem(problem).setFix(fix).updateMessage();
+        expect(validationError.message)
+        .toEqual('The problem has no solution. There is no solution to the described problem. Got {"lastName":"","age":27}');
+        expect(validationError.template).toEqual(template);
+      });
+  })
+
   .describe('[counter] .prototype.updateMessage()', () => {
-    testing.it(`[counter] works properly`, () => {
-      validationError
-        .setFix(fix)
-        .setProblem(problem);
-      expect(validationError.fix).toEqual(fix);
-      expect(validationError.problem).toEqual(problem);
-      expect(validationError.message).toEqual('');
-      validationError.updateMessage();
-      expect(validationError.message)
-        .toEqual('Problem: The problem has no solution. => Fix: There is no solution to the described problem.');
-    });
+    testing
+      .it(`[counter] works properly`, () => {
+        validationError
+          .setFix(fix)
+          .setProblem(problem);
+        expect(validationError.fix).toEqual(fix);
+        expect(validationError.problem).toEqual(problem);
+        expect(validationError.message).toEqual('');
+        validationError.updateMessage();
+        expect(validationError.message)
+          .toEqual('Problem: The problem has no solution. => Fix: There is no solution to the described problem.');
+      });
   })
 
   .describe('[counter] .prototype.throw()', () => {
     testing
-    .it(`[counter] with string`, () => {
-      try {
-        validationError.setFix(fix).setProblem(problem);
-        validationError.throw('Throws a string');
-      } catch (e) {
-        expect(e.problem).toEqual('');
-        expect(e.fix).toEqual('');
-        toBe
-          .stringOfLength(e.problem, { max: 0 })
-          .stringOfLength(e.fix, { max: 0 });
-      }
-    })
-    .it(`[counter] with object of ErrorMessage`, () => {
-      try {
-        validationError.setFix(fix).setProblem(problem).setTemplate(`[problem], [fix]`);
-        validationError.throw({
-          problem: 'new problem',
-          fix: 'new fix'
-        });
-      } catch (e) {
-        expect(e.message).toEqual(`new problem, new fix`);
-        expect(e.problem).toEqual('new problem');
-        expect(e.fix).toEqual('new fix');
-      }
-    })
-    .it(`[counter] with set string type message`, () => {
-      try {
-        validationError.setMessage(problem);
-        validationError.throw();
-      } catch (e) {
-        expect(e.message).toEqual(problem);
-        expect(e.problem).toEqual('');
-        expect(e.fix).toEqual('');
-        toBe
-          .stringOfLength(e.problem, { max: 0 })
-          .stringOfLength(e.fix, { max: 0 });
-      }
-    })
-    .it(`[counter] with the actual \`problem\` and \`fix\``, () => {
-      try {
-        validationError.setMessage('my message');
-        validationError.setProblem(problem).setFix(fix).setTemplate(`[problem], [fix]`);
-        validationError.throw();
-      } catch (e) {
-        expect(e.message).toEqual(`${problem}, ${fix}`);
-        expect(e.problem).toEqual(problem);
-        expect(e.fix).toEqual(fix);
-      }
-    });
+      .it(`[counter] with string`, () => {
+        try {
+          validationError.setFix(fix).setProblem(problem);
+          validationError.throw('Throws a string');
+        } catch (e) {
+          expect(e.problem).toEqual('');
+          expect(e.fix).toEqual('');
+          toBe
+            .stringOfLength(e.problem, { max: 0 })
+            .stringOfLength(e.fix, { max: 0 });
+        }
+      })
+      .it(`[counter] with object of ErrorMessage`, () => {
+        try {
+          validationError.setFix(fix).setProblem(problem).setTemplate(`[problem], [fix]`);
+          validationError.throw({
+            problem: 'new problem',
+            fix: 'new fix'
+          });
+        } catch (e) {
+          expect(e.message).toEqual(`new problem, new fix`);
+          expect(e.problem).toEqual('new problem');
+          expect(e.fix).toEqual('new fix');
+        }
+      })
+      .it(`[counter] with set \`string\` type message`, () => {
+        try {
+          validationError
+            .setMessage(problem)
+            .throw();
+        } catch (e) {
+          expect(e.message).toEqual(problem);
+          expect(e.problem).toEqual('');
+          expect(e.fix).toEqual('');
+          toBe
+            .stringOfLength(e.problem, { max: 0 })
+            .stringOfLength(e.fix, { max: 0 });
+        }
+      })
+
+      .it(`[counter] with the actual \`problem\`, \`fix\` and \`value\``, () => {
+        value = '27';
+        try {
+          validationError
+            .setMessage('my message')
+            .setProblem(problem).setFix(fix).setValue(value).setTemplate(`[problem], [fix], [value]`)
+            .throw();
+        } catch (e) {
+          expect(e.message).toEqual(`${problem}, ${fix}, ${value}`);
+          expect(e.fix).toEqual(fix);
+          expect(e.problem).toEqual(problem);
+          expect(e.value).toEqual(value);
+        }
+
+        try {
+          validationError
+            .setMessage('my message')
+            .setMessage({
+              fix, problem, value, template: `[problem] [fix] [value]`
+            }).throw();
+        } catch (e) {
+          expect(e.message).toEqual(`${problem} ${fix} ${value}`);
+          expect(e.fix).toEqual(fix);
+          expect(e.problem).toEqual(problem);
+          expect(e.value).toEqual(value);
+        }
+
+        try {
+          validationError
+            .setMessage('my message')
+            .setMessage({
+              fix, problem, template: `[problem] [fix] [value]`
+            }).throw();
+        } catch (e) {
+          expect(e.message).toEqual(`${problem} ${fix} `);
+          expect(e.fix).toEqual(fix);
+          expect(e.problem).toEqual(problem);
+          expect(e.value).toEqual('');
+        }
+      });
   });
 });
