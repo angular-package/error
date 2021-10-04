@@ -866,7 +866,7 @@ The **return value** is an instance of an [`ValidationError`](#validationerror).
 **Usage:**
 
 ```typescript
-// Example usage with value of Symbol.
+// Example usage.
 import { ValidationError } from '@angular-package/error';
 
 const fix = 'Please, provide the string type value.';
