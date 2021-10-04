@@ -10,16 +10,25 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### 3.0.0 Added
 
+- [53c2043]  
+  Added `setValue()` method.
+  Added private property `#value` by default equal to `''`.
+  Added tag `[value]`.
+  Added `value` instance property that refers to private `#value`.
+
 - [285ef51]  
   Added property `template` of an instance that refers to private property `#tpl`.  
   Added private property `#tags` of `string[]` to replace the template `[problem]` and `[fix]` tags.  
 
 ### 3.0.0 Changed
 
+- [53c2043]  
+  Changed `updateMessage()` method to include `#value` property.
+
 - [8a0f58d]  
   Changed library to `es2020`.  
 
-- [285ef51] [25ea72b] 
+- [285ef51] [25ea72b]
   Changed all conditionals to short if expressions.  
   Changed use of static `ValidationError` to `this`.  
   Changed to `ResultCallback` with generic type variable `Value`.  
@@ -31,6 +40,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - [25ea72b]  
   Change `set` prefix to `replace` of methods.
 
+[53c2043]: https://github.com/angular-package/error/commit/53c20435df2225cb38e8d45d8f07e9c60db4d95a
 [25ea72b]: https://github.com/angular-package/error/commit/25ea72b733939264b6546d01ef2945cc1e716fa5
 [8a0f58d]: https://github.com/angular-package/error/commit/8a0f58dae2b8a474848a2eccbe3218a0da0c017e
 [285ef51]: https://github.com/angular-package/error/commit/285ef51805a3f1528b62d389214c106c3f213dfa
