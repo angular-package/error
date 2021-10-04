@@ -838,7 +838,7 @@ validationError.setTemplate(template, (result, value) => {
 
 #### `ValidationError.prototype.setValue()`
 
-[![update]][error-github-changelog]
+[![new]][error-github-changelog]
 
 Sets the [`value`][error-property-value] affected by the validation error (must be parsed to [`string`][js-string] type).
 
