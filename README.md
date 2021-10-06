@@ -317,16 +317,16 @@ A template of the [`error`][js-error] message guarded by [`string`][js-string] t
 
 ```typescript
 public get template(): string {
-  return this.#tpl;
+  return this.#template;
 }
 public set template(value: string) {
-  ValidationError.#guardTemplate(value) && (this.#tpl = value);
+  ValidationError.#guardTemplate(value) && (this.#template = value);
 }
 ```
 
 **Tags:**
 
-Exactly the same as with the static [`ValidationError.template`](#validationerrortemplate).
+Equivalent to the static [`ValidationError.template`](#validationerrortemplate).
 
 <br>
 
@@ -339,8 +339,8 @@ The value of [`any`][ts-any] type affected by the validation error, which must b
 **Conversion:**  
 The conversion is performed only during [`message`][error-property-message] creation and can be done in **two** ways, **automatic** or **manual**.  
 
-* The **manual**, by providing parser function as parameter (`parser?: ValueParser`) to the static [`ValidationError.defineMessage()`](#validationerrordefinemessage) or [`setMessage()`][error-method-setmessage] method of an instance.  
-* The **automatic** by the defined function of the [`ValueParser`](#valueparser) type, set by the static [`ValidationError.setValueParser()`](#validationerrorsetvalueparser) method to automatize static [`ValidationError.defineMessage()`](#validationerrordefinemessage), and by the [`setValueParser()`][error-method-setvalueparser] method of an instance for automatize [`setMessage()`][error-method-setmessage].
+* The **manual**, by providing parser function as parameter (`parser?: ValueParser`) to the [`setMessage()`][error-method-setmessage] method.  
+* The **automatic** by the defined function of the [`ValueParser`](#valueparser) type, set by the [`setValueParser()`][error-method-setvalueparser] method of an instance to automatize [`setMessage()`][error-method-setmessage].
 
 ```typescript
 public get value(): any {
