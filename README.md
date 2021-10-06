@@ -775,7 +775,7 @@ import { ValidationError } from '@angular-package/error';
 
 [![update]][error-github-changelog]
 
-Sets the validation [`error`][js-error] [`message`][error-property-message] of [`string`][js-string] type from the provided `message` of the [`ErrorMessage`](#errormessage) interface or [`string`][js-string] type.
+Sets the validation [`error`][js-error] [`message`][error-property-message] of [`string`][js-string] type from the provided `message` of the [`ErrorMessage`](#errormessage) interface.
 
 ```typescript
 // Syntax.
@@ -792,6 +792,7 @@ public setMessage(
     this.setFix(message.fix)
       .setId(message.id || this.#id)
       .setProblem(message.problem)
+      .setTemplate(message.template || this.#template)
       .setValue(message.value);
   return this;
 }
@@ -801,9 +802,9 @@ public setMessage(
 
 | Name: type                                  | Description |
 | :------------------------------------------ | :---------- |
-| `message: ErrorMessage`                     | A [`string`][js-string] type or an [`object`][js-object] of an [`ErrorMessage`](#errormessage) interface to build the message of [`string`][js-string] type. All properties are being assigned to the instance. The value is checked against the proper [`object`][js-object] of [`ErrorMessage`](#errormessage). |
+| `message: ErrorMessage`                     | An [`object`][js-object] of an [`ErrorMessage`](#errormessage) interface to build the message of [`string`][js-string] type. All properties are being assigned to the instance. The value is checked against the proper [`object`][js-object] of [`ErrorMessage`](#errormessage). |
 | `callback?: ResultCallback<typeof message>` | An optional callback [`function`][js-function] of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided [`message`][error-property-message] is [`string`][js-string] type or whether it's the proper [`object`][js-object] of [`ErrorMessage`](#errormessage) which means it contains required [`problem`][error-property-problem], [`fix`][error-property-fix] properties, and the optional [`template`][error-property-template] property has `[problem]` and `[fix]` tags. |
-| `parser: ValueParser`                       | The [`function`][js-function] of the `ValueParser` type, to convert any value to a [`string`][js-string]. |
+| `parser: ValueParser`                       | The [`function`][js-function] of the [`ValueParser`](#valueparser) type, to **convert** [`any`][ts-any] value to a [`string`][js-string]. By default, it uses the parser function of private property `#valueParser` of an instance that is set initially to the static `ValidationError.#defaultValueParser`. |
 
 **Returns:**
 
