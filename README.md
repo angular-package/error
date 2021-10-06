@@ -1018,7 +1018,7 @@ import { ValidationError } from '@angular-package/error';
 
 [![new]][error-github-changelog]
 
-Sets the [`value`][error-property-value] affected by the validation error (must be converted to [`string`][js-string]).
+Sets the [`function`][js-function] to automatically convert [`any`][ts-any] [`value`][error-property-value] to the [`string`][js-string] during message creation. The [`function`][js-function] is used implicitly by the [`updateMessage()`][error-method-updatemessage] and with the parameter by [`setMessage()`][error-method-setmessage] method.
 
 ```typescript
 public setValueParser(parser: ValueParser): this {
@@ -1031,7 +1031,7 @@ public setValueParser(parser: ValueParser): this {
 
 | Name: type            | Description |
 | :-------------------- | :---------- |
-| `parser: ValueParser` | The [`function`][js-function] of the `ValueParser` type, to convert any value to a [`string`][js-string]. |
+| `parser: ValueParser` | The [`function`][js-function] of the [`ValueParser`](#valueparser) type, to convert [`any`][ts-any] [`value`][error-property-value] to a [`string`][js-string]. |
 
 **Returns:**
 
