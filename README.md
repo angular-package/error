@@ -217,6 +217,16 @@ static set template(value: string) {
 }
 ```
 
+**Tags:**
+
+`[fix]`: **Required**, replaced by the [`fix`][error-property-fix] property.  
+
+`[id]`: Optional, replaced by the [`id`][error-property-id] property.  
+
+`[problem]`: **Required**, replaced by the [`problem`][error-property-problem] property.  
+
+`[value]`: Optional, replaced by the [`value`][error-property-value] property.  
+
 <br>
 
 ### `ValidationError` instance public properties
@@ -225,7 +235,7 @@ static set template(value: string) {
 
 [![update]][error-github-changelog]
 
-A possible [`solution`][error-property-fix] to the described [`problem`][error-property-problem] of validation that is guarded by [`string`][js-string]. It can be set directly or by the [`setFix()`][error-method-setfix], [`setMessage()`][error-method-setmessage] and [`throw()`][error-method-throw] methods. By default, it's an empty [`string`][js-string].
+A possible [`solution`][error-property-fix] to the described [`problem`][error-property-problem] of validation that is guarded by [`string`][js-string]. It refers to **`[fix]`** tag. It can be set directly or by the [`setFix()`][error-method-setfix], [`setMessage()`][error-method-setmessage] and [`throw()`][error-method-throw] methods. By default, it's an empty [`string`][js-string].
 
 ```typescript
 public get fix(): string {
@@ -303,7 +313,7 @@ public set problem(value: string) {
 
 [![new]][error-github-changelog]
 
-A template of the [`error`][js-error] message guarded by [`string`][js-string] type with the replaceable **required** `[problem]` and `[fix]` tags and **optional** `[id]` and `[value]` tags by the static private `ValidationError.#guardTemplate()` method. It can be set directly or by the [`setTemplate()`][error-method-settemplate], [`setMessage()`][error-method-setmessage] and [`throw()`][error-method-throw] methods. The value is being checked against the existence of required `[problem]` and `[fix]` tags.
+A template of the [`error`][js-error] message guarded by [`string`][js-string] type with the replaceable **required** `[problem]` and `[fix]` tags and **optional** `[id]` and `[value]` tags. The value is being checked against the existence of **required** `[problem]` and `[fix]` tags by the static private `ValidationError.#guardTemplate()` method. It can be set directly or by the [`setTemplate()`][error-method-settemplate], [`setMessage()`][error-method-setmessage] and [`throw()`][error-method-throw] methods, and its **initial** value is from the static [`ValidationError.template`](#validationerrortemplate).
 
 ```typescript
 public get template(): string {
@@ -316,13 +326,7 @@ public set template(value: string) {
 
 **Tags:**
 
-`[fix]`: **Required**, replaced by the [`fix`][error-property-fix] property.  
-
-`[id]`: Optional, replaced by the [`id`][error-property-id] property.  
-
-`[problem]`: **Required**, replaced by the [`problem`][error-property-problem] property.  
-
-`[value]`: Optional, replaced by the [`value`][error-property-value] property.  
+Exactly the same as with the static [`ValidationError.template`](#validationerrortemplate).
 
 <br>
 
