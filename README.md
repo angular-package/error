@@ -180,13 +180,13 @@ Manages an [`Error`][js-error] of validation.
 | :------------------------------------------------ | :---------- |
 | [`setFix()`][error-method-setfix]                 | Sets the [`fix`][error-property-fix] a possible solution to the described [`problem`][error-property-problem]. |
 | [`setId()`][error-method-setid]                   | Sets the [`id`][error-property-id] an identifier of the described [`problem`][error-property-problem]. |
-| [`setMessage()`][error-method-setmessage]         | Sets the validation [`error`][js-error] [`message`][error-property-message] of [`string`][js-string] type from the provided `message` of the [`ErrorMessage`](#errormessage) interface or [`string`][js-string] type. |
+| [`setMessage()`][error-method-setmessage]         | Sets the validation [`error`][js-error] [`message`][error-property-message] of [`string`][js-string] type from the provided `message` of the [`ErrorMessage`](#errormessage) interface. |
 | [`setProblem()`][error-method-setproblem]         | Sets description [`problem`][error-property-problem] of a validation. |
 | [`setTemplate()`][error-method-settemplate]       | Sets the [`template`][error-property-template] of validation error [`message`][error-property-message]. |
-| [`setValue()`][error-method-setvalue]             | Sets the [`value`][error-property-value] affected by the validation error (must be parsed to [`string`][js-string] type). |
-| [`setValueParser()`][error-method-setvalueparser] | Sets the [`function`][js-function] to automatically **convert** the [`value`][error-property-value] to the [`string`][js-string] during [`message`][error-property-message] creation. |
-| [`throw()`][error-method-throw]                   | Throws an error of [`ValidationError`](#validationerror) with the message built from the stored [`fix`][error-property-fix], [`problem`][error-property-problem] and [`template`][error-property-template] or optionally from the provided `message`. |
-| [`updateMessage()`][error-method-updatemessage]   | Updates the [`message`][error-property-message] with a stored [`fix`][error-property-fix], [`problem`][error-property-problem], and [`template`][error-property-template]. |
+| [`setValue()`][error-method-setvalue]             | Sets the [`value`][error-property-value] affected by the validation error (must be converted to [`string`][js-string]) type. |
+| [`setValueParser()`][error-method-setvalueparser] | Sets the [`function`][js-function] to automatically **convert** [`any`][ts-any] [`value`][error-property-value] to the [`string`][js-string] during [`message`][error-property-message] creation. |
+| [`throw()`][error-method-throw]                   | Throws an error of [`ValidationError`](#validationerror) with the message built from the stored required [`fix`][error-property-fix], [`problem`][error-property-problem] and optional [`id`][error-property-id], [`template`][error-property-template] and [`value`][error-property-value] properties or optionally from the provided `message`. |
+| [`updateMessage()`][error-method-updatemessage]   | Updates the [`message`][error-property-message] with a stored required [`fix`][error-property-fix], [`problem`][error-property-problem], and optional [`id`][error-property-id], [`template`][error-property-template], [`value`][error-property-value] properties. |
 
 [error-method-setfix]: #validationerrorprototypesetfix
 [error-method-setid]: #validationerrorprototypesetid
@@ -988,7 +988,7 @@ validationError.setTemplate(template, (result, value) => {
 
 [![new]][error-github-changelog]
 
-Sets the [`value`][error-property-value] affected by the validation error (must be converted to [`string`][js-string]).
+Sets the [`value`][error-property-value] affected by the validation error (must be converted to [`string`][js-string]) type.
 
 ```typescript
 public setValue(value: any): this {
@@ -1021,7 +1021,7 @@ import { ValidationError } from '@angular-package/error';
 
 [![new]][error-github-changelog]
 
-Sets the [`function`][js-function] to automatically convert [`any`][ts-any] [`value`][error-property-value] to the [`string`][js-string] during message creation. The [`function`][js-function] is used implicitly by the [`updateMessage()`][error-method-updatemessage] and with the parameter by [`setMessage()`][error-method-setmessage] method.
+Sets the [`function`][js-function] to automatically **convert** [`any`][ts-any] [`value`][error-property-value] to the [`string`][js-string] during [`message`][error-property-message] creation.
 
 ```typescript
 public setValueParser(parser: ValueParser): this {
@@ -1117,7 +1117,7 @@ validationError.throw({ fix, problem, template });
 
 [![update]][error-github-changelog]
 
-Updates the message with a stored required [`fix`][error-property-fix], [`problem`][error-property-problem], and optional [`id`][error-property-id], [`template`][error-property-template], [`value`][error-property-value] properties.
+Updates the [`message`][error-property-message] with a stored required [`fix`][error-property-fix], [`problem`][error-property-problem], and optional [`id`][error-property-id], [`template`][error-property-template], [`value`][error-property-value] properties.
 
 ```typescript
 public updateMessage(callback?: ResultCallback<ErrorMessage>): this {
