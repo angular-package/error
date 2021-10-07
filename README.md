@@ -359,7 +359,9 @@ public set value(value: any) {
 
 [![update]][error-github-changelog]
 
-Defines the validation [`error`][js-error] message of [`string`][js-string] type from the provided `message` of the [`ErrorMessage`](#errormessage) interface. The message is built on the provided `template` or the template from the static property [`ValidationError.template`](#validationerrortemplate). The **automatic** convert of the value is performed by the defined function of the [`ValueParser`](#valueparser) type, set by the static [`ValidationError.setValueParser()`](#validationerrorsetvalueparser) method.
+Defines the validation [`error`][js-error] message of [`string`][js-string] type from the provided `message` of the [`ErrorMessage`](#errormessage) interface. The message is built on the provided `template` or the template from the static property [`ValidationError.template`](#validationerrortemplate).
+
+> The **automatic** convert of the `value` of an [`ErrorMessage`](#errormessage) is performed by the defined function of the [`ValueParser`](#valueparser) type, set by the static [`ValidationError.setValueParser()`](#validationerrorsetvalueparser) method.
 
 ```typescript
 // Syntax.
@@ -378,7 +380,7 @@ public static defineMessage(
 
 | Name: type                                | Description |
 | :---------------------------------------- | :---------- |
-| `message: ErrorMessage`                   | An [`object`][js-object] of the [`ErrorMessage`](#errormessage) interface to build a message of [`string`][js-string] type. The value is checked against the proper [`object`][js-object] of [`ErrorMessage`](#errormessage). |
+| `message: ErrorMessage`                   | An [`object`][js-object] of the [`ErrorMessage`](#errormessage) interface to build a message of [`string`][js-string] type. The value is checked against the proper [`object`][js-object] of [`ErrorMessage`](#errormessage) by the static private `ValidationError.#guarMessage()` method. |
 | `callback?: ResultCallback<ErrorMessage>` | An optional callback [`function`][js-function] of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided `message` is the proper [`object`][js-object] of [`ErrorMessage`](#errormessage) which means it contains **required** [`problem`][error-property-problem], [`fix`][error-property-fix] properties, and the **optional** [`template`][error-property-template] property has `[problem]` and `[fix]` tags. |
 | `parser: ValueParser`                     | An optional [`function`][js-function] to convert property `value` from the provided [`ErrorMessage`](#errormessage) to [`string`][js-string] during message creation. It can be set by static [`ValidationError.setValueParser()`](#validationerrorsetvalueparser). |
 
@@ -528,7 +530,7 @@ public static setValueParser(
 
 | Name: type                               | Description |
 | :--------------------------------------- | :---------- |
-| `parser: ValueParser`                    | The [`function`][js-function] of the `ValueParser` type to convert the value of [`any`][ts-any] type to [`string`][js-string]. |
+| `parser: ValueParser`                    | The [`function`][js-function] of the [`ValueParser`](#valueparser) type to convert the value of [`any`][ts-any] type to [`string`][js-string]. |
 | `callback?: ResultCallback<ValueParser>` | An optional callback [`function`][js-function] of [`ResultCallback`][package-callback-resultcallback] type to handle the result of the check whether the provided `parser` is [`function`][js-function] type. |
 
 **Returns:**
@@ -803,8 +805,8 @@ public setMessage(
 | Name: type                                  | Description |
 | :------------------------------------------ | :---------- |
 | `message: ErrorMessage`                     | An [`object`][js-object] of an [`ErrorMessage`](#errormessage) interface to build the message of [`string`][js-string] type. All properties are being assigned to the instance. The value is checked against the proper [`object`][js-object] of [`ErrorMessage`](#errormessage). |
-| `callback?: ResultCallback<typeof message>` | An optional callback [`function`][js-function] of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided [`message`][error-property-message] is [`string`][js-string] type or whether it's the proper [`object`][js-object] of [`ErrorMessage`](#errormessage) which means it contains required [`problem`][error-property-problem], [`fix`][error-property-fix] properties, and the optional [`template`][error-property-template] property has `[problem]` and `[fix]` tags. |
-| `parser: ValueParser`                       | The [`function`][js-function] of the [`ValueParser`](#valueparser) type, to **convert** [`any`][ts-any] value to a [`string`][js-string]. By default, it uses the parser function of private property `#valueParser` of an instance that is set initially to the static `ValidationError.#defaultValueParser`. |
+| `callback?: ResultCallback<typeof message>` | An optional callback [`function`][js-function] of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided [`message`][error-property-message] is the proper [`object`][js-object] of [`ErrorMessage`](#errormessage) which means it contains required [`problem`][error-property-problem], [`fix`][error-property-fix] properties, and the optional [`template`][error-property-template] property has `[problem]` and `[fix]` tags. |
+| `parser: ValueParser`                       | An optional [`function`][js-function] of the [`ValueParser`](#valueparser) type, to **convert** [`any`][ts-any] value to a [`string`][js-string]. By default, it uses the parser function of private property `#valueParser` of an instance that is set initially to the static `ValidationError.#defaultValueParser`. |
 
 **Returns:**
 
