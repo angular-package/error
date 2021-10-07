@@ -144,11 +144,11 @@ Manages an [`Error`][js-error] of validation.
 
 | ValidationError.prototype.                    | Description |
 | :-------------------------------------------- | :---------- |
-| [`fix: string`][error-property-fix]           | A possible [`solution`][error-property-fix] to the described [`problem`][error-property-problem] of validation that is guarded by [`string`][js-string] type. |
-| [`id: number`][error-property-id]             | The identifier of the described [`problem`][error-property-problem], guarded by [`number`][js-number] type. |
+| [`fix: string`][error-property-fix]           | A possible [`solution`][error-property-fix] to the described [`problem`][error-property-problem] of validation that is guarded by [`string`][js-string] and it's a replacement for the **required** tag **`[fix]`** of the [`template`][error-property-template]. |
+| [`id: number`][error-property-id]             | The identifier of the described [`problem`][error-property-problem], guarded by [`number`][js-number] type and it's a replacement for an optional tag **`[id]`** of the [`template`][error-property-template]. |
 | [`message: string`][error-property-message]   | A validation [`error`][js-error] message guarded by [`string`][js-string] type that can be built from the **required** [`problem`][error-property-problem] and [`fix`][error-property-fix] with **optional** [`id`][error-property-id] and [`value`][error-property-value] on the [`template`][error-property-template] of an instance of [`ValidationError`](#validationerror). |
 | [`name: string`][error-property-name]         | [`Error`][js-error] name of [`string`][js-string] type that is being thrown. |
-| [`problem: string`][error-property-problem]   | Description of the validation [`problem`][error-property-problem] guarded by [`string`][js-string] type. |
+| [`problem: string`][error-property-problem]   | Description of the validation [`problem`][error-property-problem] guarded by [`string`][js-string] type and it's a replacement for a **required** tag **`[problem]`** of the [`template`][error-property-template]. |
 | [`template: string`][error-property-template] | A template of the [`error`][js-error] message guarded by [`string`][js-string] type with replaceable **required** `[problem]` and `[fix]` tags and **optional** `[id]` and`[value]` tags. |
 | [`value: string`][error-property-value]       | The value of [`any`][ts-any] type affected by the validation error, which must be converted to a [`string`][js-string] to build a [`message`][error-property-message]. |
 
@@ -235,7 +235,7 @@ static set template(value: string) {
 
 [![update]][error-github-changelog]
 
-A possible [`solution`][error-property-fix] to the described [`problem`][error-property-problem] of validation that is guarded by [`string`][js-string]. It refers to **`[fix]`** tag. It can be set directly or by the [`setFix()`][error-method-setfix], [`setMessage()`][error-method-setmessage] and [`throw()`][error-method-throw] methods. By default, it's an empty [`string`][js-string].
+A possible [`solution`][error-property-fix] to the described [`problem`][error-property-problem] of validation that is guarded by [`string`][js-string] and it's a replacement for the **required** tag **`[fix]`** of the [`template`][error-property-template]. It can be set directly or by the [`setFix()`][error-method-setfix], [`setMessage()`][error-method-setmessage] and [`throw()`][error-method-throw] methods. By default, it's an empty [`string`][js-string].
 
 ```typescript
 public get fix(): string {
@@ -252,7 +252,7 @@ public set fix(value: string) {
 
 [![new]][error-github-changelog]
 
-The identifier of the described [`problem`][error-property-problem], guarded by [`number`][js-number] type. It can be set directly or by the [`setId()`][error-method-setid], [`setMessage()`][error-method-setmessage] and [`throw()`][error-method-throw] method of an instance. By default, it's `0`.
+The identifier of the described [`problem`][error-property-problem], guarded by [`number`][js-number] type and it's a replacement for an optional tag **`[id]`** of the [`template`][error-property-template]. It can be set directly or by the [`setId()`][error-method-setid], [`setMessage()`][error-method-setmessage] and [`throw()`][error-method-throw] method of an instance. By default, it's `0`.
 
 ```typescript
 public get id(): number {
@@ -296,7 +296,7 @@ public name = ValidationError.name;
 
 [![update]][error-github-changelog]
 
-Description of the validation [`problem`][error-property-problem] guarded by [`string`][js-string] type. It can be set directly or by the [`setProblem()`][error-method-setproblem], [`setMessage()`][error-method-setmessage] and [`throw()`][error-method-throw] method. By default, it's an empty [`string`][js-string].
+Description of the validation [`problem`][error-property-problem] guarded by [`string`][js-string] type and it's a replacement for the **required** tag **`[problem]`** of the [`template`][error-property-template]. It can be set directly or by the [`setProblem()`][error-method-setproblem], [`setMessage()`][error-method-setmessage] and [`throw()`][error-method-throw] method. By default, it's an empty [`string`][js-string].
 
 ```typescript
 public get problem(): string {
@@ -334,13 +334,13 @@ Equivalent to the static [`ValidationError.template`](#validationerrortemplate).
 
 [![new]][error-github-changelog]
 
-The value of [`any`][ts-any] type affected by the validation error, which must be converted to a [`string`][js-string] to build a [`message`][error-property-message]. It can be set directly or by the [`setValue()`][error-method-setvalue], [`setMessage()`][error-method-setmessage] and [`throw()`][error-method-throw] methods.
+The value of [`any`][ts-any] type affected by the validation error, which must be converted to a [`string`][js-string] to build a [`message`][error-property-message] and it's a replacement for an optional tag **`[value]`** of the [`template`][error-property-template]. It can be set directly or by the [`setValue()`][error-method-setvalue], [`setMessage()`][error-method-setmessage] and [`throw()`][error-method-throw] methods.
 
 **Conversion:**  
 The conversion is performed only during [`message`][error-property-message] creation and can be done in **two** ways, **automatic** or **manual**.  
 
 * The **manual**, by providing parser function as parameter (`parser?: ValueParser`) to the [`setMessage()`][error-method-setmessage] method.  
-* The **automatic** by the defined function of the [`ValueParser`](#valueparser) type, set by the [`setValueParser()`][error-method-setvalueparser] method of an instance to automatize [`setMessage()`][error-method-setmessage].
+* The **automatic** by the defined function of the [`ValueParser`](#valueparser) type, set by the [`setValueParser()`][error-method-setvalueparser] method of an instance to automatize [`setMessage()`][error-method-setmessage] and [`updateMessage()`][error-method-updatemessage] methods.
 
 ```typescript
 public get value(): any {
@@ -988,7 +988,7 @@ validationError.setTemplate(template, (result, value) => {
 
 [![new]][error-github-changelog]
 
-Sets the [`value`][error-property-value] affected by the validation error (must be converted to [`string`][js-string]) type.
+Sets the [`value`][error-property-value] affected by the validation error (must be converted to [`string`][js-string]).
 
 ```typescript
 public setValue(value: any): this {
