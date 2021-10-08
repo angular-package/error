@@ -138,7 +138,7 @@ Manages an [`Error`][js-error] of validation.
 
 | ValidationError.                               | Description |
 | :--------------------------------------------- | :---------- |
-| [`template: string`](#validationerrortemplate) | A template(guarded by a [`string`][js-string] type) of static [`ValidationError`](#validationerror) and the default value of [`template`][error-property-template] of an instance for the error message with the replaceable **required** `[fix]` and `[problem]` tags and **optional** `[id]` and `[value]`. |
+| [`template: string`](#validationerrortemplate) | A template(guarded by a [`string`][js-string] type) of static [`ValidationError`](#validationerror) and the default value of [`template`][error-property-template] of an instance for the error message with the replaceable **required** **`[fix]`** and **`[problem]`** tags and **optional** **`[id]`** and **`[value]`**. |
 
 **Instance properties:**
 
@@ -149,7 +149,7 @@ Manages an [`Error`][js-error] of validation.
 | [`message: string`][error-property-message]   | A validation [`error`][js-error] message guarded by [`string`][js-string] type that can be built from the **required** [`problem`][error-property-problem] and [`fix`][error-property-fix] with **optional** [`id`][error-property-id] and [`value`][error-property-value] on the [`template`][error-property-template] of an instance of [`ValidationError`](#validationerror). |
 | [`name: string`][error-property-name]         | [`Error`][js-error] name of [`string`][js-string] type that is being thrown. |
 | [`problem: string`][error-property-problem]   | Description of the validation [`problem`][error-property-problem] guarded by [`string`][js-string] type and it's a replacement for the **required** tag **`[problem]`** of the [`template`][error-property-template]. |
-| [`template: string`][error-property-template] | A template of the [`error`][js-error] message guarded by [`string`][js-string] type with the replaceable **required** `[problem]` and `[fix]` tags and **optional** `[id]` and `[value]` tags. |
+| [`template: string`][error-property-template] | A template of the [`error`][js-error] message guarded by [`string`][js-string] type with the replaceable **required** **`[problem]`** and **`[fix]`** tags and **optional** **`[id]`** and **`[value]`** tags. |
 | [`value: string`][error-property-value]       | The value of [`any`][ts-any] type affected by the validation error, which must be converted to a [`string`][js-string] to build a [`message`][error-property-message] and it's a replacement for an optional tag **`[value]`** of the [`template`][error-property-template]. |
 
 [error-property-fix]: #validationerrorprototypefix
@@ -206,7 +206,7 @@ Manages an [`Error`][js-error] of validation.
 
 [![update]][error-github-changelog]
 
-A template(guarded by a [`string`][js-string] type) of static [`ValidationError`](#validationerror) and the default value of [`template`][error-property-template] of an instance for the error message with the replaceable **required** `[fix]` and `[problem]` tags and **optional** `[id]` and `[value]`. The value is being checked against the existence of `[fix]` and `[problem]` tags by the static private `ValidationError.#guardTemplate()` method. It can be set directly or by the static [`ValidationError.setTemplate()`](#validationerrorsettemplate) method. By default, it's set to `Problem: [problem] => Fix: [fix]`.
+A template(guarded by a [`string`][js-string] type) of static [`ValidationError`](#validationerror) and the default value of [`template`][error-property-template] of an instance for the error message with the replaceable **required** **`[fix]`** and **`[problem]`** tags and **optional** **`[id]`** and **`[value]`**. The value is being checked against the existence of **`[fix]`** and **`[problem]`** tags by the static private `ValidationError.#guardTemplate()` method. It can be set directly or by the static [`ValidationError.setTemplate()`](#validationerrorsettemplate) method. By default, it's set to `Problem: [problem] => Fix: [fix]`.
 
 ```typescript
 static get template(): string {
@@ -219,13 +219,13 @@ static set template(value: string) {
 
 **Tags:**
 
-`[fix]`: **Required**, replaced by the [`fix`][error-property-fix] property.  
+**`[fix]`**: **Required**, replaced by the [`fix`][error-property-fix] property.  
 
-`[id]`: Optional, replaced by the [`id`][error-property-id] property.  
+**`[id]`**: Optional, replaced by the [`id`][error-property-id] property.  
 
-`[problem]`: **Required**, replaced by the [`problem`][error-property-problem] property.  
+**`[problem]`**: **Required**, replaced by the [`problem`][error-property-problem] property.  
 
-`[value]`: Optional, replaced by the [`value`][error-property-value] property.  
+**`[value]`**: Optional, replaced by the [`value`][error-property-value] property.  
 
 <br>
 
@@ -313,7 +313,7 @@ public set problem(value: string) {
 
 [![new]][error-github-changelog]
 
-A template of the [`error`][js-error] message guarded by [`string`][js-string] type with the replaceable **required** `[problem]` and `[fix]` tags and **optional** `[id]` and `[value]` tags. The value is being checked against the existence of **required** `[problem]` and `[fix]` tags by the static private `ValidationError.#guardTemplate()` method. It can be set directly or by the [`setTemplate()`][error-method-settemplate], [`setMessage()`][error-method-setmessage] and [`throw()`][error-method-throw] methods, and its **initial** value is from the static [`ValidationError.template`](#validationerrortemplate). By default, it's set to `Problem: [problem] => Fix: [fix]`.
+A template of the [`error`][js-error] message guarded by [`string`][js-string] type with the replaceable **required** **`[problem]`** and **`[fix]`** tags and **optional** **`[id]`** and **`[value]`** tags. The value is being checked against the existence of **required** **`[problem]`** and **`[fix]`** tags by the static private `ValidationError.#guardTemplate()` method. It can be set directly or by the [`setTemplate()`][error-method-settemplate], [`setMessage()`][error-method-setmessage] and [`throw()`][error-method-throw] methods, and its **initial** value is from the static [`ValidationError.template`](#validationerrortemplate). By default, it's set to `Problem: [problem] => Fix: [fix]`.
 
 ```typescript
 public get template(): string {
@@ -385,7 +385,7 @@ public static defineMessage(
 | Name: type                                | Description |
 | :---------------------------------------- | :---------- |
 | `message: ErrorMessage`                   | An [`object`][js-object] of the [`ErrorMessage`](#errormessage) interface to build a message of [`string`][js-string] type. The value is checked against the proper [`object`][js-object] of [`ErrorMessage`](#errormessage) by the static private `ValidationError.#guarMessage()` method. |
-| `callback?: ResultCallback<ErrorMessage>` | An optional callback [`function`][js-function] of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided `message` is the proper [`object`][js-object] of [`ErrorMessage`](#errormessage) which means it contains **required** [`problem`][error-property-problem], [`fix`][error-property-fix] properties, and the **optional** [`template`][error-property-template] property has `[problem]` and `[fix]` tags and parser is [`function`][js-funciton] type. |
+| `callback?: ResultCallback<ErrorMessage>` | An optional callback [`function`][js-function] of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided `message` is the proper [`object`][js-object] of [`ErrorMessage`](#errormessage) which means it contains **required** [`problem`][error-property-problem], [`fix`][error-property-fix] properties, and the **optional** [`template`][error-property-template] property has **`[problem]`** and **`[fix]`** tags and parser is [`function`][js-function] type. |
 | `parser: ValueParser`                     | An optional [`function`][js-function] to **convert** property [`value`][error-property-value] of the provided `message` of [`ErrorMessage`](#errormessage) to a [`string`][js-string] during [`message`][error-property-message] creation. It can be set by static [`ValidationError.setValueParser()`](#validationerrorsetvalueparser) as the default value parser for static and instance [`ValidationError`](#validationerror). |
 
 **Returns:**
@@ -488,8 +488,8 @@ public static setTemplate(
 
 | Name: type                          | Description |
 | :---------------------------------- | :---------- |
-| `template: string`                  | A [template](#validationerrortemplate) for error [`message`][error-property-message] guarded by [`string`][js-string] type with replaceable **required** `[problem]` and `[fix]` tags and **optional** `[id]` and `[value]`. |
-| `callback?: ResultCallback<string>` | An optional callback [`function`][js-function] of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided `template` is a [`string`][js-string] that contains required `[fix]` and `[problem]` tags. |
+| `template: string`                  | A [template](#validationerrortemplate) for error [`message`][error-property-message] guarded by [`string`][js-string] type with replaceable **required** **`[problem]`** and **`[fix]`** tags and **optional** **`[id]`** and **`[value]`**. |
+| `callback?: ResultCallback<string>` | An optional callback [`function`][js-function] of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided `template` is a [`string`][js-string] that contains required **`[fix]`** and **`[problem]`** tags. |
 
 **Returns:**
 
@@ -531,7 +531,7 @@ ValidationError
 
 [![new]][error-github-changelog]
 
-Sets the [`function`][js-function] to convert [`any`][ts-any] value to [`string`][js-string] during message creation by the static [`ValidationError.defineMessage()`](#validationerrorsetvalueparser) method and as the default parser for the instance.
+Sets the [`function`][js-function] to convert [`any`][ts-any] value to [`string`][js-string] during message creation by the static [`ValidationError.defineMessage()`](#validationerrorsetvalueparser) method and as the initial parser for the instance.
 
 ```typescript
 // Syntax.
@@ -604,7 +604,7 @@ constructor(message?: ErrorMessage, parser?: ValueParser) {
   // Sets the parser.
   isDefined(parser) && this.setValueParser(parser);
 
-  // Initializes the message and assigns message properties `fix`, `problem` and optionally `template` to a new instance.
+  // Initializes the message and assigns its properties to a new instance.
   isDefined(message) && this.setMessage(message, undefined, parser);
 }
 ```
@@ -739,7 +739,7 @@ public setFix(fix: string, callback?: ResultCallback<string>): this {
 
 | Name: type                          | Description |
 | :---------------------------------- | :---------- |
-| `fix: string`                       | A possible [solution][error-property-fix] to the described [`problem`][error-property-problem] guarded by [`string`][js-string] type and a replacement to the `[fix]` tag of [`template`][error-property-template]. |
+| `fix: string`                       | A possible [solution][error-property-fix] to the described [`problem`][error-property-problem] guarded by [`string`][js-string] type and a replacement to the **`[fix]`** tag of [`template`][error-property-template]. |
 | `callback?: ResultCallback<string>` | An optional callback function of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided [`fix`][error-property-fix] is a [`string`][js-string]. |
 
 **Returns:**
@@ -802,8 +802,8 @@ public setId(id: number, callback?: ResultCallback<number>): this {
 
 | Name: type                          | Description |
 | :---------------------------------- | :---------- |
-| `id: number`                        | The identifier, guarded by [`number`][js-number] type and a replacement to the `[id]` tag of [`template`][error-property-template]. |
-| `callback?: ResultCallback<number>` | An optional callback function of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided `id` is [`number`][js-number]. |
+| `id: number`                        | The identifier, guarded by [`number`][js-number] type and a replacement to the **`[id]`** tag of [`template`][error-property-template]. |
+| `callback?: ResultCallback<number>` | An optional callback function of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided [`id`][error-property-id] is [`number`][js-number]. |
 
 **Returns:**
 
@@ -864,7 +864,7 @@ public setMessage(
 | Name: type                                  | Description |
 | :------------------------------------------ | :---------- |
 | `message: ErrorMessage`                     | An [`object`][js-object] of an [`ErrorMessage`](#errormessage) interface to build the message of [`string`][js-string] type. The value is checked against the proper [`object`][js-object] of [`ErrorMessage`](#errormessage) and if it's a proper object then its properties are being assigned to the instance. |
-| `callback?: ResultCallback<typeof message>` | An optional callback [`function`][js-function] of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided [`message`][error-property-message] is the proper [`object`][js-object] of [`ErrorMessage`](#errormessage) which means it contains **required** [`problem`][error-property-problem], [`fix`][error-property-fix] properties, the **optional** [`template`][error-property-template] property has `[problem]` and `[fix]` tags and `parser` is a function type. |
+| `callback?: ResultCallback<typeof message>` | An optional callback [`function`][js-function] of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided [`message`][error-property-message] is the proper [`object`][js-object] of [`ErrorMessage`](#errormessage) which means it contains **required** [`problem`][error-property-problem], [`fix`][error-property-fix] properties, the **optional** [`template`][error-property-template] property has **`[problem]`** and **`[fix]`** tags and `parser` is a function type. |
 | `parser: ValueParser`                       | An optional [`function`][js-function] to **convert** property [`value`][error-property-value] of the provided `message` of [`ErrorMessage`](#errormessage) to a [`string`][js-string] during message creation. By default, it uses the parser function of private property `#valueParser` of an instance that is set initially to the static `ValidationError.#defaultValueParser`. |
 
 **Returns:**
@@ -929,7 +929,7 @@ public setProblem(problem: string, callback?: ResultCallback<string>): this {
 
 | Name: type                          | Description |
 | :---------------------------------- | :---------- |
-| `problem: string`                   | Description of the validation [`problem`][error-property-problem] guarded by [`string`][js-string] type and a replacement to the `[problem]` tag of [`template`][error-property-template]. |
+| `problem: string`                   | Description of the validation [`problem`][error-property-problem] guarded by [`string`][js-string] type and a replacement to the **`[problem]`** tag of [`template`][error-property-template]. |
 | `callback?: ResultCallback<string>` | An optional callback [`function`][js-function] of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided `problem` is a [`string`][js-string]. |
 
 **Returns:**
@@ -981,8 +981,8 @@ public setTemplate(
 
 | Name: type                          | Description |
 | :---------------------------------- | :---------- |
-| `template: string`                  | A message [`template`][error-property-template] guarded by [`string`][js-string] type with replaceable **required** `[problem]` and `[fix]` tags and **optional** `[id]` and `[value]` tags. |
-| `callback?: ResultCallback<string>` | An optional callback function of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided `template` is a [`string`][js-string] that contains **required** `[fix]` and `[problem]` tags. |
+| `template: string`                  | A message [`template`][error-property-template] guarded by [`string`][js-string] type with replaceable **required** **`[problem]`** and **`[fix]`** tags and **optional** **`[id]`** and **`[value]`** tags. |
+| `callback?: ResultCallback<string>` | An optional callback function of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided `template` is a [`string`][js-string] that contains **required** **`[fix]`** and **`[problem]`** tags. |
 
 **Returns:**
 
@@ -1035,7 +1035,7 @@ public setValue(value: any): this {
 
 | Name: type   | Description |
 | :----------- | :---------- |
-| `value: any` | The value of [`any`][ts-any] type as a replacement to the `[value]` tag of [`template`][error-property-template] that relates to the given [`problem`][error-property-problem]. |
+| `value: any` | The value of [`any`][ts-any] type as a replacement to the **`[value]`** tag of [`template`][error-property-template] that relates to the given [`problem`][error-property-problem]. |
 
 **Returns:**
 
