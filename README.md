@@ -150,7 +150,7 @@ Manages an [`Error`][js-error] of validation.
 | [`name: string`][error-property-name]         | [`Error`][js-error] name of [`string`][js-string] type that is being thrown. |
 | [`problem: string`][error-property-problem]   | Description of the validation [`problem`][error-property-problem] guarded by [`string`][js-string] type and it's a replacement for a **required** tag **`[problem]`** of the [`template`][error-property-template]. |
 | [`template: string`][error-property-template] | A template of the [`error`][js-error] message guarded by [`string`][js-string] type with replaceable **required** `[problem]` and `[fix]` tags and **optional** `[id]` and`[value]` tags. |
-| [`value: string`][error-property-value]       | The value of [`any`][ts-any] type affected by the validation error, which must be converted to a [`string`][js-string] to build a [`message`][error-property-message]. |
+| [`value: string`][error-property-value]       | The value of [`any`][ts-any] type affected by the validation error, which must be converted to a [`string`][js-string] to build a [`message`][error-property-message] and it's a replacement for an optional tag **`[value]`** of the [`template`][error-property-template]. |
 
 [error-property-fix]: #validationerrorprototypefix
 [error-property-id]: #validationerrorprototypeid
@@ -178,7 +178,7 @@ Manages an [`Error`][js-error] of validation.
 
 | ValidationError.prototype.                        | Description |
 | :------------------------------------------------ | :---------- |
-| [`setFix()`][error-method-setfix]                 | Sets the [`fix`][error-property-fix] a possible solution to the described [`problem`][error-property-problem]. |
+| [`setFix(): this`][error-method-setfix]                 | Sets the [`fix`][error-property-fix] a possible solution to the described [`problem`][error-property-problem]. |
 | [`setId()`][error-method-setid]                   | Sets the [`id`][error-property-id] an identifier of the described [`problem`][error-property-problem]. |
 | [`setMessage()`][error-method-setmessage]         | Sets the validation [`error`][js-error] [`message`][error-property-message] of [`string`][js-string] type from the provided `message` of the [`ErrorMessage`](#errormessage) interface. |
 | [`setProblem()`][error-method-setproblem]         | Sets description [`problem`][error-property-problem] of a validation. |
@@ -233,6 +233,8 @@ static set template(value: string) {
 
 #### `ValidationError.prototype.fix`
 
+DONE
+
 [![update]][error-github-changelog]
 
 A possible [`solution`][error-property-fix] to the described [`problem`][error-property-problem] of validation that is guarded by [`string`][js-string] and it's a replacement for the **required** tag **`[fix]`** of the [`template`][error-property-template]. It can be set directly or by the [`setFix()`][error-method-setfix], [`setMessage()`][error-method-setmessage] and [`throw()`][error-method-throw] methods. By default, it's an empty [`string`][js-string].
@@ -250,9 +252,11 @@ public set fix(value: string) {
 
 #### `ValidationError.prototype.id`
 
+DONE
+
 [![new]][error-github-changelog]
 
-The identifier of the described [`problem`][error-property-problem], guarded by [`number`][js-number] type and it's a replacement for an optional tag **`[id]`** of the [`template`][error-property-template]. It can be set directly or by the [`setId()`][error-method-setid], [`setMessage()`][error-method-setmessage] and [`throw()`][error-method-throw] method of an instance. By default, it's `0`.
+The **identifier** of the described [`problem`][error-property-problem], guarded by [`number`][js-number] type and it's a replacement for an optional tag **`[id]`** of the [`template`][error-property-template]. It can be set directly or by the [`setId()`][error-method-setid], [`setMessage()`][error-method-setmessage] and [`throw()`][error-method-throw] method of an instance. By default, it's `0`.
 
 ```typescript
 public get id(): number {
@@ -266,6 +270,8 @@ public set id(value: number) {
 <br>
 
 #### `ValidationError.prototype.message`
+
+DONE
 
 [![update]][error-github-changelog]
 
@@ -284,6 +290,8 @@ public set message(value: string) {
 
 #### `ValidationError.prototype.name`
 
+DONE
+
 [`Error`][js-error] name of [`string`][js-string] type that is being thrown. By default, it's ['ValidationError'](#validationerror).
 
 ```typescript
@@ -293,6 +301,8 @@ public name = ValidationError.name;
 <br>
 
 #### `ValidationError.prototype.problem`
+
+DONE
 
 [![update]][error-github-changelog]
 
@@ -311,9 +321,11 @@ public set problem(value: string) {
 
 #### `ValidationError.prototype.template`
 
+DONE
+
 [![new]][error-github-changelog]
 
-A template of the [`error`][js-error] message guarded by [`string`][js-string] type with the replaceable **required** `[problem]` and `[fix]` tags and **optional** `[id]` and `[value]` tags. The value is being checked against the existence of **required** `[problem]` and `[fix]` tags by the static private `ValidationError.#guardTemplate()` method. It can be set directly or by the [`setTemplate()`][error-method-settemplate], [`setMessage()`][error-method-setmessage] and [`throw()`][error-method-throw] methods, and its **initial** value is from the static [`ValidationError.template`](#validationerrortemplate).
+A template of the [`error`][js-error] message guarded by [`string`][js-string] type with the replaceable **required** `[problem]` and `[fix]` tags and **optional** `[id]` and `[value]` tags. The value is being checked against the existence of **required** `[problem]` and `[fix]` tags by the static private `ValidationError.#guardTemplate()` method. It can be set directly or by the [`setTemplate()`][error-method-settemplate], [`setMessage()`][error-method-setmessage] and [`throw()`][error-method-throw] methods, and its **initial** value is from the static [`ValidationError.template`](#validationerrortemplate). By default, it's set to `Problem: [problem] => Fix: [fix]`.
 
 ```typescript
 public get template(): string {
@@ -332,6 +344,8 @@ Equivalent to the static [`ValidationError.template`](#validationerrortemplate).
 
 #### `ValidationError.prototype.value`
 
+DONE
+
 [![new]][error-github-changelog]
 
 The value of [`any`][ts-any] type affected by the validation error, which must be converted to a [`string`][js-string] to build a [`message`][error-property-message] and it's a replacement for an optional tag **`[value]`** of the [`template`][error-property-template]. It can be set directly or by the [`setValue()`][error-method-setvalue], [`setMessage()`][error-method-setmessage] and [`throw()`][error-method-throw] methods.
@@ -339,8 +353,8 @@ The value of [`any`][ts-any] type affected by the validation error, which must b
 **Conversion:**  
 The conversion is performed only during [`message`][error-property-message] creation and can be done in **two** ways, **automatic** or **manual**.  
 
-* The **manual**, by providing parser function as parameter (`parser?: ValueParser`) to the [`setMessage()`][error-method-setmessage] method.  
-* The **automatic** by the defined function of the [`ValueParser`](#valueparser) type, set by the [`setValueParser()`][error-method-setvalueparser] method of an instance to automatize [`setMessage()`][error-method-setmessage] and [`updateMessage()`][error-method-updatemessage] methods.
+* The **manual**, by providing parser function as parameter (`parser?: ValueParser`) to the [`setMessage()`][error-method-setmessage] method of an instance.  
+* The **automatic** by the previously defined function of the [`ValueParser`](#valueparser) type, set by the [`setValueParser()`][error-method-setvalueparser] method of an instance to automatize [`setMessage()`][error-method-setmessage] method.
 
 ```typescript
 public get value(): any {
@@ -357,6 +371,8 @@ public set value(value: any) {
 
 #### `ValidationError.defineMessage()`
 
+DONE
+
 [![update]][error-github-changelog]
 
 Defines the validation [`error`][js-error] message of [`string`][js-string] type from the provided `message` of the [`ErrorMessage`](#errormessage) interface. The message is built on the provided `template` or the template from the static property [`ValidationError.template`](#validationerrortemplate).
@@ -367,10 +383,14 @@ Defines the validation [`error`][js-error] message of [`string`][js-string] type
 // Syntax.
 public static defineMessage(
   message: ErrorMessage,
-  callback?: ResultCallback<ErrorMessage>,
+  callback: ResultCallback<ErrorMessage> = (result) => result,
   parser: ValueParser = this.#defaultValueParser
 ): string {
-  return this.#guardMessage(message, callback)
+  return callback(
+    this.#guardMessage(message) && guardFunction(parser),
+    message,
+    this
+  )
     ? this.#buildMessage(message, parser)
     : '';
 }
@@ -381,8 +401,8 @@ public static defineMessage(
 | Name: type                                | Description |
 | :---------------------------------------- | :---------- |
 | `message: ErrorMessage`                   | An [`object`][js-object] of the [`ErrorMessage`](#errormessage) interface to build a message of [`string`][js-string] type. The value is checked against the proper [`object`][js-object] of [`ErrorMessage`](#errormessage) by the static private `ValidationError.#guarMessage()` method. |
-| `callback?: ResultCallback<ErrorMessage>` | An optional callback [`function`][js-function] of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided `message` is the proper [`object`][js-object] of [`ErrorMessage`](#errormessage) which means it contains **required** [`problem`][error-property-problem], [`fix`][error-property-fix] properties, and the **optional** [`template`][error-property-template] property has `[problem]` and `[fix]` tags. |
-| `parser: ValueParser`                     | An optional [`function`][js-function] to convert property `value` from the provided [`ErrorMessage`](#errormessage) to [`string`][js-string] during message creation. It can be set by static [`ValidationError.setValueParser()`](#validationerrorsetvalueparser). |
+| `callback?: ResultCallback<ErrorMessage>` | An optional callback [`function`][js-function] of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided `message` is the proper [`object`][js-object] of [`ErrorMessage`](#errormessage) which means it contains **required** [`problem`][error-property-problem], [`fix`][error-property-fix] properties, and the **optional** [`template`][error-property-template] property has `[problem]` and `[fix]` tags and parser is [`function`][js-funciton] type. |
+| `parser: ValueParser`                     | An optional [`function`][js-function] to **convert** property [`value`][error-property-value] of the provided `message` of [`ErrorMessage`](#errormessage) to a [`string`][js-string] during [`message`][error-property-message] creation. It can be set by static [`ValidationError.setValueParser()`](#validationerrorsetvalueparser) as the default value parser for static and instance [`ValidationError`](#validationerror). |
 
 **Returns:**
 
@@ -394,78 +414,69 @@ The **return value** is a message of [`string`][js-string] type created from the
 // Example usage.
 import { ValidationError } from '@angular-package/error';
 
-const fix = 'There is no solution to the described problem.';
-const problem = 'The problem has no solution.';
-
-/*
-  Returns
-  --------
-  Problem: The problem has no solution. => Fix: There is no solution
-  to the described problem.
-*/
-const errorMessage = ValidationError.defineMessage({ fix, problem });
-```
-
-```typescript
-/*
-  Example usage: create an error message of a string type
-  from the provided object with a different template.
-*/
-import { ValidationError } from '@angular-package/error';
-
-const fix = 'There is no solution to the described problem.';
-const problem = 'The problem has no solution.';
-const template = `[problem] ... [fix]`;
-
-/*
-  Returns
-  --------
-  The problem has no solution. ... There is no solution to the described problem.
-*/
-const errorMessage = ValidationError.defineMessage({
-  fix, problem, template
-});
-```
-
-```typescript
-/*
-  Example usage: create an error message of a string type
-  from the provided object and the changed template.
-*/
-import { ValidationError } from '@angular-package/error';
-
-const fix = 'There is no solution to the described problem.';
-const problem = 'The problem has no solution.';
-
-// Change the template by directly assign a new value.
-ValidationError.template = `\nPROBLEM: [problem]\nFIX: [fix] `;
+// Prepare the values.
+const fix = 'Provide string type value. Read more: https://duckduckgo.com/';
+const id = 427;
+const problem = 'The value must be a string type.';
+const template = `Problem(VE[id]): [problem]\nGot: [value]\nFix: [fix]`;
+const value = Symbol(123);
 
 /*
   Returns
   -------
-  PROBLEM: The problem has no solution.
-  FIX: There is no solution to the described problem. 
+  Problem(VE427): The value must be a string type.
+  Got: Symbol(123)
+  Fix: Provide string type value. Read more: https://duckduckgo.com/
 */
-const errorMessage = ValidationError.defineMessage({ fix, problem });
-```
+ValidationError.defineMessage({ fix, id, problem, value, template });
 
-```typescript
+// Define with only required tags.
 /*
-  Example usage: create an error message of a string type
-  from the provided object and the changed template.
+  Returns
+  -------
+  Problem: The value must be a string type. => Fix: Provide string type value. Read more: https://duckduckgo.com/
 */
-import { ValidationError } from '@angular-package/error';
+ValidationError.defineMessage({ fix, problem });
 
-const fix = 'There is no solution to the described problem.';
-const problem = 'The problem has no solution.';
+// Define the template in static `ValidationError`.
+ValidationError.template = template;
 
-const errorMessage = ValidationError.defineMessage(
-  { fix, problem },
-  (result, value) => {
-    // Do something with the `result` of the `message` check
-    // and `value`.
+// Define the message again without `template`.
+/*
+  Returns
+  -------
+  Problem(VE427): The value must be a string type.
+  Got: Symbol(123)
+  Fix: Provide string type value. Read more: https://duckduckgo.com/
+*/
+ValidationError.defineMessage({ fix, id, problem, value });
+
+// Define with only required tags.
+/*
+  Returns
+  -------
+  Problem(VE): The value must be a string type.
+  Got: undefined
+  Fix: Provide string type value. Read more: https://duckduckgo.com/
+*/
+ValidationError.defineMessage({ fix, problem });
+
+// Define with the callback and value parser.
+/*
+  Returns
+  -------
+  Problem(VE427): The value must be a string type.
+  Got: 12345
+  Fix: Provide string type value. Read more: https://duckduckgo.com/
+*/
+ValidationError.defineMessage(
+  { fix, id, problem, value, template },
+  (result, value, payload) => {
+    result // true
+    value // {fix ... } the given message.
     return result;
-  }
+  },
+  (value) => String(12345) // Should return converted value instead of 12345.
 );
 ```
 
@@ -473,9 +484,11 @@ const errorMessage = ValidationError.defineMessage(
 
 #### `ValidationError.setTemplate()`
 
+DONE
+
 [![new]][error-github-changelog]
 
-Sets the [`template`](#validationerrortemplate) of static [`ValidationError`](#validationerror) and as the default value for [`template`][error-property-template] of an instance.
+Sets the [`template`](#validationerrortemplate) of static [`ValidationError`](#validationerror) and the default value for [`template`][error-property-template] of an instance.
 
 ```typescript
 // Syntax.
@@ -504,12 +517,37 @@ The **return value** is static [`ValidationError`](#validationerror).
 
 ```typescript
 // Example usage.
+import { ValidationError } from '@angular-package/error';
 
+// Prepare the values.
+const fix = 'Provide string type value. Read more: https://duckduckgo.com/';
+const id = 427;
+const problem = 'The value must be a string type.';
+const template = `Problem(VE[id]): [problem]\nGot: [value]\nFix: [fix]`;
+const value = Symbol(123);
+
+/*
+  Returns
+  -------
+  Problem(VE427): The value must be a string type.
+  Got: Symbol(123)
+  Fix: Provide string type value. Read more: https://duckduckgo.com/
+*/
+ValidationError
+  .setTemplate(template, (result) => result)
+  .defineMessage({
+    fix,
+    id,
+    problem,
+    value,
+  });
 ```
 
 <br>
 
 #### `ValidationError.setValueParser()`
+
+DONE
 
 [![new]][error-github-changelog]
 
@@ -541,6 +579,31 @@ The **return value** is static [`ValidationError`](#validationerror).
 
 ```typescript
 // Example usage.
+import { ValidationError } from '@angular-package/error';
+
+// Prepare the values.
+const fix = 'Provide string type value. Read more: https://duckduckgo.com/';
+const id = 427;
+const problem = 'The value must be a string type.';
+const template = `Problem(VE[id]): [problem]\nGot: [value]\nFix: [fix]`;
+const value = Symbol(123);
+
+/*
+  Returns
+  -------
+  Problem(VE427): The value must be a string type.
+  Got: 12345
+  Fix: Provide string type value. Read more: https://duckduckgo.com/
+*/
+ValidationError
+  .setValueParser((value: any) => String(12345), (result) => result)
+  .defineMessage({
+    fix,
+    id,
+    problem,
+    value,
+    template
+  });
 ```
 
 <br>
@@ -549,25 +612,31 @@ The **return value** is static [`ValidationError`](#validationerror).
 
 #### `ValidationError()`
 
+DONE
+
 [![update]][error-github-changelog]
 
-Creates a new instance with the [`message`][error-property-message]. If the provided [`message`][error-property-message] is an [`object`][js-object], then its properties are assigned to the instance.
+Creates a new instance with an optional [`message`][error-property-message] of [`ErrorMessage`](#errormessage) interface.
 
 ```typescript
 // Syntax.
-constructor(message: string | ErrorMessage = '') {
+constructor(message?: ErrorMessage, parser?: ValueParser) {
   super();
 
+  // Sets the parser.
+  isDefined(parser) && this.setValueParser(parser);
+
   // Initializes the message and assigns message properties `fix`, `problem` and optionally `template` to a new instance.
-  this.setMessage(message);
+  isDefined(message) && this.setMessage(message, undefined, parser);
 }
 ```
 
 **Parameters:**
 
-| Name: type                        | Description |
-| :-------------------------------- | :---------- |
-| `message: string \| ErrorMessage` | The message of [`string`][js-string] type or of an [`ErrorMessage`](#errormessage) interface that is used to throw with an [`Error`][js-error]. |
+| Name: type               | Description |
+| :----------------------- | :---------- |
+| `message?: ErrorMessage` | An optional `message` of an [`object`][js-object] of the [`ErrorMessage`](#errormessage) interface to build a [`message`][error-property-message] of [`string`][js-string] and throw with an [`Error`][js-error]. Its properties are assigned to the instance. |
+| `parser: ValueParser`    | An optional [`function`][js-function] to **convert** the property [`value`][error-property-value] of the provided `message` of [`ErrorMessage`](#errormessage) to a [`string`][js-string] during message creation and set as the **default** value parser for the instance. By default, it uses the parser function of private property `#valueParser` of an instance that is set initially to the static `ValidationError.#defaultValueParser`. |
 
 **Returns:**
 
@@ -579,10 +648,21 @@ The **return value** is an instance of [`ValidationError`](#validationerror).
 // Example usage.
 import { ValidationError } from '@angular-package/error';
 
-const fix = 'There is no solution to the described problem.';
-const problem = 'The problem has no solution.';
+// Prepare the values.
+const fix = 'Provide string type value. Read more: https://duckduckgo.com/';
+const id = 427;
+const problem = 'The value must be a string type.';
+const template = `Problem(VE[id]): [problem]\nGot: [value]\nFix: [fix]`;
+const value = Symbol(123);
 
-const validationError = new ValidationError({ fix, problem });
+/*
+  Returns
+  -------
+  ValidationError: Problem(VE427): The value must be a string type.
+  Got: Symbol(123)
+  Fix: Provide string type value. Read more: https://duckduckgo.com/
+*/
+const validationError = new ValidationError({ fix, id, problem, template, value });
 ```
 
 ```typescript
@@ -591,39 +671,33 @@ import { ValidationError } from '@angular-package/error';
 import { Callback, ErrorMessage } from '@angular-package/callback';
 import { ResultCallback } from '@angular-package/type';
 
-// Define a fix.
-const fix = 'There is no solution to the described problem.';
-
-// Define a problem.
-const problem = 'The problem has no solution.';
-
-// Define a template.
-const template = 'PROBLEM: [problem] FIX: [fix]';
+// Prepare the values.
+const fix = 'Provide string type value. Read more: https://duckduckgo.com/';
+const problem = 'The value must be a string type.';
+const template = `Problem(VE[id]): [problem]\nGot: [value]\nFix: [fix]`;
 
 class CustomError {
   #callback = new Callback('setFix', 'setMessage', 'setProblem', 'setTemplate');
   #validationError = new ValidationError();
 
   constructor(
-    message: string | ErrorMessage,
+    message?: ErrorMessage,
     callback?: (
       callback: Callback<'setFix' | 'setMessage' | 'setProblem' | 'setTemplate'>
     ) => void
   ) {
-    if (callback) {
-      callback(this.#callback);
-    }
-
-    this.#validationError.setMessage(message);
+    callback && callback(this.#callback);
+    message && this.#validationError.setMessage(message);
   }
 
   public setMessage(
-    message: string | ErrorMessage,
+    message: ErrorMessage,
     callback: ResultCallback<typeof message> = this.#callback.getResultCallback(
       'setMessage'
     )
-  ) {
+  ): this {
     this.#validationError.setMessage(message, callback);
+    return this;
   }
 
   public throw(): void {
@@ -631,7 +705,7 @@ class CustomError {
   }
 }
 
-const customError = new CustomError('', (callback) =>
+const customError = new CustomError(undefined, (callback) =>
   callback
     .setResultCallback('setFix', (result, value) =>
       console.log(`setFix`, result, value)
@@ -655,18 +729,11 @@ const customError = new CustomError('', (callback) =>
 
 /**
  * ! Console returns
- * ? Checks message if string.
- * setMessage false
+ * setMessage true
  * {
- *    fix: 'There is no solution to the described problem.',
- *    problem: 'The problem has no solution.', template: 'PROBLEM: [problem] FIX: [fix]'
- * }
- *
- * ? Checks message is an object.
- * setMessage false
- * {
- *    fix: 'There is no solution to the described problem.',
- *    problem: 'The problem has no solution.', template: 'PROBLEM: [problem] FIX: [fix]'
+ *    fix: 'Provide string type value. Read more: https://duckduckgo.com/',
+ *    problem: 'The value must be a string type.',
+ *    template: 'Problem(VE[id]): [problem]\nGot: [value]\nFix: [fix]'
  * }
  */
 customError.setMessage({ fix, problem, template });
@@ -675,6 +742,8 @@ customError.setMessage({ fix, problem, template });
 <br>
 
 ### `ValidationError` instance public methods
+
+DONE
 
 #### `ValidationError.prototype.setFix()`
 
@@ -694,7 +763,7 @@ public setFix(fix: string, callback?: ResultCallback<string>): this {
 
 | Name: type                          | Description |
 | :---------------------------------- | :---------- |
-| `fix: string`                       | A possible [solution][error-property-fix] to the described [`problem`][error-property-problem] guarded by [`string`][js-string] type. |
+| `fix: string`                       | A possible [solution][error-property-fix] to the described [`problem`][error-property-problem] guarded by [`string`][js-string] type and a replacement to the `[fix]` tag of [`template`][error-property-template]. |
 | `callback?: ResultCallback<string>` | An optional callback function of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided [`fix`][error-property-fix] is a [`string`][js-string]. |
 
 **Returns:**
@@ -707,13 +776,13 @@ The **return value** is an instance of a [`ValidationError`](#validationerror).
 // Example usage.
 import { ValidationError } from '@angular-package/error';
 
+// Prepare the values.
+const fix = 'Provide string type value. Read more: https://duckduckgo.com/';
+
 // Initialize an instance.
 const validationError = new ValidationError();
 
-// Define a fix.
-const fix = 'There is no solution to the described problem.';
-
-// Returns 'There is no solution to the described problem.'
+// Returns 'Provide string type value. Read more: https://duckduckgo.com/'
 validationError.setFix(fix).fix;
 ```
 
@@ -721,17 +790,17 @@ validationError.setFix(fix).fix;
 // Example usage with a callback.
 import { ValidationError } from '@angular-package/error';
 
+// Prepare the values.
+const fix = 'Provide string type value. Read more: https://duckduckgo.com/';
+
 // Initialize an instance.
 const validationError = new ValidationError();
-
-// Define a fix.
-const fix = 'There is no solution to the described problem.';
 
 // Set the fix and handle the check of it with a callback.
 validationError.setFix(fix, (result, value) => {
   // Returns `true`.
   result;
-  // Returns `There is no solution to the described problem.`.
+  // Returns 'Provide string type value. Read more: https://duckduckgo.com/'
   value;
   return result;
 });
@@ -741,14 +810,16 @@ validationError.setFix(fix, (result, value) => {
 
 #### `ValidationError.prototype.setId()`
 
+DONE
+
 [![new]][error-github-changelog]
 
-Sets the [`id`][error-property-id] an identifier of the described [`problem`][error-property-problem].
+Sets the [`id`][error-property-id] an **identifier** of the described [`problem`][error-property-problem].
 
 ```typescript
 // Syntax.
-public setFix(fix: string, callback?: ResultCallback<string>): this {
-  guardString(fix, callback) && (this.#fix = fix);
+public setId(id: number, callback?: ResultCallback<number>): this {
+  guardNumber(id, callback) && (this.#id = id);
   return this;
 }
 ```
@@ -757,8 +828,8 @@ public setFix(fix: string, callback?: ResultCallback<string>): this {
 
 | Name: type                          | Description |
 | :---------------------------------- | :---------- |
-| `fix: string`                       | The identifier, guarded by [`number`][js-number] type. |
-| `callback?: ResultCallback<string>` | An optional callback function of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided `id` is [`number`][js-number]. |
+| `id: number`                        | The identifier, guarded by [`number`][js-number] type and a replacement to the `[id]` tag of [`template`][error-property-template]. |
+| `callback?: ResultCallback<number>` | An optional callback function of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided `id` is [`number`][js-number]. |
 
 **Returns:**
 
@@ -767,13 +838,30 @@ The **return value** is an instance of a [`ValidationError`](#validationerror).
 **Usage:**
 
 ```typescript
-// Example usage.
+// Example usage with a callback.
 import { ValidationError } from '@angular-package/error';
+
+// Prepare the values.
+const id = 427;
+
+// Initialize an instance.
+const validationError = new ValidationError();
+
+// Set the id and handle the check of it with a callback.
+validationError.setId(id, (result, value) => {
+  // Returns `true`.
+  result;
+  // Returns 427
+  value;
+  return result;
+}).id; // Returns 427
 ```
 
 <br>
 
 #### `ValidationError.prototype.setMessage()`
+
+DONE
 
 [![update]][error-github-changelog]
 
@@ -786,16 +874,15 @@ public setMessage(
   callback?: ResultCallback<typeof message>,
   parser: ValueParser = this.#valueParser
 ): this {
-  (super.message = ValidationError.defineMessage(
+  super.message = ValidationError.defineMessage(
     { ...message, ...{ template: message.template || this.#template } },
-    callback,
+    (result, value, payload) => (
+      isDefined(callback) && callback(result, value, payload),
+      isTrue(result) && this.assignMessageProperties(message),
+      result
+    ),
     parser
-  )) &&
-    this.setFix(message.fix)
-      .setId(message.id || this.#id)
-      .setProblem(message.problem)
-      .setTemplate(message.template || this.#template)
-      .setValue(message.value);
+  );
   return this;
 }
 ```
@@ -804,9 +891,9 @@ public setMessage(
 
 | Name: type                                  | Description |
 | :------------------------------------------ | :---------- |
-| `message: ErrorMessage`                     | An [`object`][js-object] of an [`ErrorMessage`](#errormessage) interface to build the message of [`string`][js-string] type. All properties are being assigned to the instance. The value is checked against the proper [`object`][js-object] of [`ErrorMessage`](#errormessage). |
-| `callback?: ResultCallback<typeof message>` | An optional callback [`function`][js-function] of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided [`message`][error-property-message] is the proper [`object`][js-object] of [`ErrorMessage`](#errormessage) which means it contains required [`problem`][error-property-problem], [`fix`][error-property-fix] properties, and the optional [`template`][error-property-template] property has `[problem]` and `[fix]` tags. |
-| `parser: ValueParser`                       | An optional [`function`][js-function] of the [`ValueParser`](#valueparser) type, to **convert** [`any`][ts-any] value to a [`string`][js-string]. By default, it uses the parser function of private property `#valueParser` of an instance that is set initially to the static `ValidationError.#defaultValueParser`. |
+| `message: ErrorMessage`                     | An [`object`][js-object] of an [`ErrorMessage`](#errormessage) interface to build the message of [`string`][js-string] type. The value is checked against the proper [`object`][js-object] of [`ErrorMessage`](#errormessage) and if it's a proper object then its properties are being assigned to the instance. |
+| `callback?: ResultCallback<typeof message>` | An optional callback [`function`][js-function] of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided [`message`][error-property-message] is the proper [`object`][js-object] of [`ErrorMessage`](#errormessage) which means it contains **required** [`problem`][error-property-problem], [`fix`][error-property-fix] properties, the **optional** [`template`][error-property-template] property has `[problem]` and `[fix]` tags and `parser` is a function type. |
+| `parser: ValueParser`                       | An optional [`function`][js-function] to **convert** property [`value`][error-property-value] of the provided `message` of [`ErrorMessage`](#errormessage) to a [`string`][js-string] during message creation. By default, it uses the parser function of private property `#valueParser` of an instance that is set initially to the static `ValidationError.#defaultValueParser`. |
 
 **Returns:**
 
@@ -818,42 +905,44 @@ The **return value** is an instance of a [`ValidationError`](#validationerror).
 // Example usage with a callback.
 import { ValidationError } from '@angular-package/error';
 
+// Prepare the values.
+const fix = 'Provide string type value. Read more: https://duckduckgo.com/';
+const id = 427;
+const problem = 'The value must be a string type.';
+const template = `Problem(VE[id]): [problem]\nGot: [value]\nFix: [fix]`;
+const value = Symbol(123);
+
 // Initialize an instance.
 const validationError = new ValidationError();
 
-// Define a fix.
-const fix = 'There is no solution to the described problem.';
-
-// Define a problem.
-const problem = 'The problem has no solution.';
-
-// Define a template.
-const template = 'PROBLEM: [problem], FIX: [fix]';
-
 // Set the message and handle the check of it with a callback.
-validationError.setMessage({ fix, problem }, (result, value) => {
-  // Returns `false` then `true`.
+validationError.setMessage({ fix, id, problem, template, value }, (result, value) => {
+  // Returns `true`.
   result;
   /*
-    Returns {
-      "fix": "There is no solution to the described problem.",
-      "problem": "The problem has no solution.",
-      "template": "PROBLEM: [problem] FIX: [fix]"
-    }
+  {
+    fix: 'Provide string type value. Read more: https://duckduckgo.com/', id: 427,
+    problem: 'The value must be a string type.',
+    template: 'Problem(VE[id]): [problem]\nGot: [value]\nFix: [fix]', value: Symbol(123)}
   */
   value;
   return result;
-});
+}, (value) => String(12345));
 /*
   Returns
-  PROBLEM: The problem has no solution. FIX: There is no solution to the described problem.
+  -------
+  Problem(VE427): The value must be a string type.
+  Got: 12345
+  Fix: Provide string type value. Read more: https://duckduckgo.com/
 */
-console.log(validationError.message);
+validationError.message;
 ```
 
 <br>
 
 #### `ValidationError.prototype.setProblem()`
+
+DONE
 
 [![update]][error-github-changelog]
 
@@ -870,7 +959,7 @@ public setProblem(problem: string, callback?: ResultCallback<string>): this {
 
 | Name: type                          | Description |
 | :---------------------------------- | :---------- |
-| `problem: string`                   | Description of the validation [`problem`][error-property-problem] guarded by [`string`][js-string] type. |
+| `problem: string`                   | Description of the validation [`problem`][error-property-problem] guarded by [`string`][js-string] type and a replacement to the `[problem]` tag of [`template`][error-property-template]. |
 | `callback?: ResultCallback<string>` | An optional callback [`function`][js-function] of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided `problem` is a [`string`][js-string]. |
 
 **Returns:**
@@ -880,42 +969,30 @@ The **return value** is an instance of a [`ValidationError`](#validationerror).
 **Usage:**
 
 ```typescript
-// Example usage.
-import { ValidationError } from '@angular-package/error';
-
-// Initialize an instance.
-const validationError = new ValidationError();
-
-// Define a problem.
-const problem = 'The problem has no solution.';
-
-// Returns 'The problem has no solution.'
-validationError.setProblem(problem).problem;
-```
-
-```typescript
 // Example usage with a callback.
 import { ValidationError } from '@angular-package/error';
 
+// Prepare the values.
+const problem = 'The value must be a string type.';
+
 // Initialize an instance.
 const validationError = new ValidationError();
 
-// Define a problem.
-const problem = 'The problem has no solution.';
-
-// Set the problem and handle the check of it with a callback.
+// Returns 'The value must be a string type.'
 validationError.setProblem(problem, (result, value) => {
   // Returns `true`.
   result;
-  // Returns 'The problem has no solution.'
+  // Returns 'The value must be a string type.'
   value;
   return result;
-});
+}).problem;
 ```
 
 <br>
 
 #### `ValidationError.prototype.setTemplate()`
+
+DONE
 
 [![update]][error-github-changelog]
 
@@ -927,7 +1004,7 @@ public setTemplate(
   callback?: ResultCallback<string>
 ): this {
   ValidationError.#guardTemplate(template, callback) &&
-    (this.#tpl = template);
+    (this.#template = template);
   return this;
 }
 ```
@@ -946,45 +1023,36 @@ The **return value** is an instance of a [`ValidationError`](#validationerror).
 **Usage:**
 
 ```typescript
-// Example usage.
-import { ValidationError } from '@angular-package/error';
-
-// Initialize an instance.
-const validationError = new ValidationError();
-
-// Define a template.
-const template = 'PROBLEM: [problem], FIX: [fix]';
-
-// Set the template.
-validationError.setTemplate(template);
-
-// Returns 'PROBLEM: [problem], FIX: [fix]'
-validationError.template;
-```
-
-```typescript
 // Example usage with a callback.
 import { ValidationError } from '@angular-package/error';
 
+// Prepare the values.
+const template = `Problem(VE[id]): [problem]\nGot: [value]\nFix: [fix]`;
+
 // Initialize an instance.
 const validationError = new ValidationError();
 
-// Define a template.
-const template = 'PROBLEM: [problem], FIX: [fix]';
-
-// Set the template and handle the check of it with a callback.
+/*
+  Returns
+  -------
+  Problem(VE[id]): [problem]
+  Got: [value]
+  Fix: [fix]
+*/
 validationError.setTemplate(template, (result, value) => {
   // Returns `true`.
   result;
-  // Returns 'PROBLEM: [problem], FIX: [fix]'
+  // Returns 'Problem(VE[id]): [problem]\nGot: [value]\nFix: [fix]'
   value;
   return result;
-});
+}).template;
 ```
 
 <br>
 
 #### `ValidationError.prototype.setValue()`
+
+DONE
 
 [![new]][error-github-changelog]
 
@@ -1013,28 +1081,42 @@ The **return value** is an instance of a [`ValidationError`](#validationerror).
 // Example usage.
 import { ValidationError } from '@angular-package/error';
 
+// Prepare the values.
+const value = Symbol(123);
+
+// Initialize an instance.
+const validationError = new ValidationError();
+
+// Symbol(123)
+validationError.setValue(value).value;
 ```
 
 <br>
 
 #### `ValidationError.prototype.setValueParser()`
 
+DONE
+
 [![new]][error-github-changelog]
 
-Sets the [`function`][js-function] to automatically **convert** [`any`][ts-any] [`value`][error-property-value] to the [`string`][js-string] during [`message`][error-property-message] creation.
+Sets the [`function`][js-function] to automatically **convert** the [`value`][error-property-value] of [`any`][ts-any] type to the [`string`][js-string] during [`message`][error-property-message] creation. The defined [`function`][js-function] is being used implicitly by the [`updateMessage()`][error-method-updatemessage] and [`throw()`][error-method-throw] methods and by the [`setMessage()`][error-method-setmessage] method as the default value of parameter `parser`.
 
 ```typescript
-public setValueParser(parser: ValueParser): this {
-  guardFunction(parser) && (this.#valueParser = parser);
+public setValueParser(
+  parser: ValueParser,
+  callback?: ResultCallback<ValueParser>
+): this {
+  guardFunction(parser, callback) && (this.#valueParser = parser);
   return this;
 }
 ```
 
 **Parameters:**
 
-| Name: type            | Description |
-| :-------------------- | :---------- |
-| `parser: ValueParser` | The [`function`][js-function] of the [`ValueParser`](#valueparser) type, to convert [`any`][ts-any] [`value`][error-property-value] to a [`string`][js-string]. |
+| Name: type                               | Description |
+| :--------------------------------------- | :---------- |
+| `parser: ValueParser`                    | The [`function`][js-function] of the [`ValueParser`](#valueparser) type, to **convert** the [`value`][error-property-value] of [`any`][ts-any] type to [`string`][js-string]. |
+| `callback?: ResultCallback<ValueParser>` | An optional callback function of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided `parser` is [`function`][js-function]. |
 
 **Returns:**
 
@@ -1046,20 +1128,53 @@ The **return value** is an instance of a [`ValidationError`](#validationerror).
 // Example usage.
 import { ValidationError } from '@angular-package/error';
 
+// Prepare the values.
+const fix = 'Provide string type value. Read more: https://duckduckgo.com/';
+const id = 427;
+const problem = 'The value must be a string type.';
+const template = `Problem(VE[id]): [problem]\nGot: [value]\nFix: [fix]`;
+const value = Symbol(123);
+
+// Initialize an instance.
+const validationError = new ValidationError();
+
+// Symbol(123)
+validationError.setValueParser(value => String(12345));
+
+// Set the message with predefined parser, the value instead of Symbol(123) is 12345
+/*
+  Returns
+  -------
+  Problem(VE427): The value must be a string type.
+  Got: 12345
+  Fix: Provide string type value. Read more: https://duckduckgo.com/
+*/
+validationError.setMessage({ fix, id, problem, value, template }).message;
 ```
 
 <br>
 
 #### `ValidationError.prototype.throw()`
 
+DONE
+
 [![update]][error-github-changelog]
 
-Throws an error of [`ValidationError`](#validationerror) with the message built from the stored required [`fix`][error-property-fix], [`problem`][error-property-problem] and optional [`id`][error-property-id], [`template`][error-property-template] and [`value`][error-property-value] properties or optionally from the provided `message`. The provided `message` of the [`ErrorMessage`](#errormessage) is set to the instance. If the `message` parameter is not provided, then if the `problem` of an instance of `ValidationError` is not an empty [`string`][js-string] it builds and overwrites the `message`.
+Throws an error of new instance [`ValidationError`](#validationerror) with the message built from the stored **required** [`fix`][error-property-fix], [`problem`][error-property-problem] and **optional** [`id`][error-property-id], [`template`][error-property-template] and [`value`][error-property-value] properties or optionally from the provided `message`.
 
 ```typescript
 public throw(message?: ErrorMessage): void {
   isDefined(message) ? this.setMessage(message) : this.updateMessage();
-  throw this;
+  throw new ValidationError(
+    {
+      fix: this.#fix,
+      id: this.#id,
+      problem: this.#problem,
+      template: this.#template,
+      value: this.#value,
+    },
+    this.#valueParser
+  );
 }
 ```
 
@@ -1067,7 +1182,7 @@ public throw(message?: ErrorMessage): void {
 
 | Name: type               | Description |
 | :----------------------- | :---------- |
-| `message?: ErrorMessage` | An optional [`object`][js-object] of an [`ErrorMessage`](#errormessage) interface to build the message of [`string`][js-string] type. The value is checked against the proper [`object`][js-object] of [`ErrorMessage`](#errormessage). |
+| `message?: ErrorMessage` | An optional [`object`][js-object] of an [`ErrorMessage`](#errormessage) interface to build the message of [`string`][js-string] type. The value is checked against the proper [`object`][js-object] of [`ErrorMessage`](#errormessage) and if it's a proper [`object`][js-object] then its properties are being assigned to the instance. |
 
 **Usage:**
 
@@ -1075,45 +1190,42 @@ public throw(message?: ErrorMessage): void {
 // Example usage.
 import { ValidationError } from '@angular-package/error';
 
-// Define a fix.
-const fix = 'There is no solution to the described problem.';
-
-// Define a problem.
-const problem = 'The problem has no solution.';
-
-// Define a template.
-const template = 'PROBLEM: [problem] FIX: [fix]';
+// Prepare the values.
+const fix = 'Provide string type value. Read more: https://duckduckgo.com/';
+const id = 427;
+const problem = 'The value must be a string type.';
+const template = `Problem(VE[id]): [problem]\nGot: [value]\nFix: [fix]`;
+const value = Symbol(123);
 
 // Initialize an instance.
-const validationError = new ValidationError({ fix, problem, template });
+const validationError = new ValidationError({ fix, id, problem, value, template });
 
-// Throw an error.
-validationError.throw();
-```
-
-```typescript
-// Example usage.
-import { ValidationError } from '@angular-package/error';
-
-// Define a fix.
-const fix = 'There is no solution to the described problem.';
-
-// Define a problem.
-const problem = 'The problem has no solution.';
-
-// Define a template.
-const template = 'PROBLEM: [problem] FIX: [fix]';
-
-// Initialize an instance.
-const validationError = new ValidationError();
-
-// Throw an error with message.
-validationError.throw({ fix, problem, template });
+// throw
+try {
+  validationError.throw();
+} catch (e) {
+  // Provide string type value. Read more: https://duckduckgo.com/
+  console.log(e.fix);
+  // 427
+  console.log(e.id);
+  // The value must be a string type.
+  console.log(e.problem);
+  // Symbol(123)
+  console.log(e.value);
+  /*
+    Problem(VE[id]): [problem]
+    Got: [value]
+    Fix: [fix]
+  */
+  console.log(e.template);
+}
 ```
 
 <br>
 
 #### `ValidationError.prototype.updateMessage()`
+
+DONE
 
 [![update]][error-github-changelog]
 
@@ -1152,20 +1264,23 @@ The **return value** is an instance of a [`ValidationError`](#validationerror).
 // Example usage.
 import { ValidationError } from '@angular-package/error';
 
-// Define a fix.
-const fix = 'There is no solution to the described problem.';
-
-// Define a problem.
-const problem = 'The problem has no solution.';
-
-// Define a template.
-const template = 'PROBLEM: [problem] FIX: [fix]';
+// Prepare the values.
+const fix = 'Provide string type value. Read more: https://duckduckgo.com/';
+const id = 427;
+const problem = 'The value must be a string type.';
+const template = `Problem(VE[id]): [problem]\nGot: [value]\nFix: [fix]`;
+const value = Symbol(123);
 
 // Initialize an instance.
 const validationError = new ValidationError();
 
 // Sets defined above fix, problem, and template.
-validationError.setProblem(problem).setFix(fix).setTemplate(template);
+validationError
+  .setFix(fix)
+  .setId(id)
+  .setProblem(problem)
+  .setTemplate(template)
+  .setValue(value);
 
 // Returns empty string.
 validationError.message;
@@ -1175,7 +1290,10 @@ validationError.updateMessage();
 
 /*
   Returns
-  PROBLEM: The problem has no solution. FIX: There is no solution to the described problem.
+  -------
+  Problem(VE427): The value must be a string type.
+  Got: Symbol(123)
+  Fix: Provide string type value. Read more: https://duckduckgo.com/
 */
 validationError.message;
 
@@ -1188,7 +1306,7 @@ throw validationError;
 
 <br>
 
-### Another example usage of `ValidationError`
+### More example usage of `ValidationError`
 
 ```typescript
 // Example usage.
@@ -1239,14 +1357,13 @@ addPerson({
 // Example usage.
 import { ValidationError } from '@angular-package/error'; 
 
+// Initialize an instance.
 const validationError = new ValidationError();
 
 try {
-  validationError
-    .setMessage('message of validation error')
-    .throw();
+  validationError.throw();
 } catch (e) {
-  // message of validation error
+  // Problem:  => Fix:
   console.log(e.message);
   // Empty string.
   console.log(e.problem);
@@ -1256,7 +1373,6 @@ try {
 
 try {
   validationError
-    .setMessage('message of validation error')
     .setProblem('my problem')
     .setFix('my fix')
     .throw();
@@ -1269,38 +1385,11 @@ try {
   console.log(e.fix);
 }
 
-try {
-  validationError
-    .setMessage('message of validation error')
-    .setProblem('my problem')
-    .setFix('my fix')
-    .setMessage('message of validation error')
-    .throw();
-} catch (e) {
-  // message of validation error
-  console.log(e.message);
-  // Empty string
-  console.log(e.problem);
-  // Empty string
-  console.log(e.fix);
-}
 
 try {
   validationError
     .setMessage({ problem: 'my problem', fix: 'my fix'})
     .throw();
-} catch (e) {
-  // Problem: my problem => Fix: my fix
-  console.log(e.message);
-  // my problem
-  console.log(e.problem);
-  // my fix
-  console.log(e.fix);
-}
-
-try {
-  validationError
-    .throw({ problem: 'my problem', fix: 'my fix'});
 } catch (e) {
   // Problem: my problem => Fix: my fix
   console.log(e.message);
@@ -1322,9 +1411,10 @@ The shape of an [`object`][js-object] for an [`error`][js-error] message that co
 ```typescript
 export interface ErrorMessage {
   fix: string;
+  id?: number;
   problem: string;
   template?: string;
-  value?: string;
+  value?: any;
 }
 ```
 
@@ -1333,15 +1423,30 @@ export interface ErrorMessage {
 **`fix: string`**  
 A possible solution to the described problem of a [`string`][js-string] type.
 
+**`id: number`**  
+An optional **identifier** of the described problem.  
+
 **`problem: string`**  
-Description of validation problem of a [`string`][js-string] type.
+Description of validation problem of a [`string`][js-string] type.  
 
 **`template?: string`**  
-An optional error message template of a [`string`][js-string] type.
+An optional error message template of a [`string`][js-string] type.  
 
 **`value?: string`**  
 [![new]][error-github-changelog]  
-An optional value affected by the validation error, which must be parsed to [`string`][js-string].
+An optional value affected by the validation error, which must be converted to [`string`][js-string].
+
+<br>
+
+## Type
+
+#### `ValueParser`
+
+The type of [`function`][js-function] to convert the value of [`any`][ts-any] type to a [`string`][js-string].
+
+```typescript
+type ValueParser = (value: any) => string;
+```
 
 <br>
 
