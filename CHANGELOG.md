@@ -6,21 +6,58 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [3.0.0] - 2021-10-05
+## [3.0.0] - 2021-10-10
+
+- Added `id` the identifier of the described `problem`, guarded by number type and it's a replacement for an optional tag [id] of the `template`.
+- Added the `value` of any type affected by the validation error, which must be converted to a `string` to build a message and it's a replacement for an optional tag [value] of the `template`.
+- Added `setTemplate()` static method to set the `template` of static `ValidationError` and as the default value for the `template` of an instance.
+- Added `setValueParser()` static method to set the `function` to convert `any` value to `string` during message creation performed by the static `ValidationError.defineMessage()` method and as the default parser for the instance.
+- Added `setId()` to set the `id` as an identifier of the described `problem`.
+- Added `setValue()` to set the `value` affected by the validation error (must be converted to string).
+- Added `setValueParser()` to sets the `function` to automatically convert the value of `any` type to the `string` during message creation.
+- Updated `template` by adding optional `[id]`, `[value]` tags.
+- Update `throw()` method to throw a **new** instance instead of this.
 
 ### 3.0.0 Added
 
-- [53c2043]  
-  Added `setValue()` method.
-  Added private property `#value` by default equal to `''`.
-  Added tag `[value]`.
-  Added `value` instance property that refers to private `#value`.
+- [53c2043] [c00758a]  
+
+  **property `template`**  
+  Added static public method `setTemplate()` to set the `template`.  
+  Added tag `[id]` to the static private property `#defaultTemplate`.  
+
+  **property `value`**  
+  Added private property `#value` by default equal to `''`.  
+  Added `value` instance property that refers to private `#value`.  
+  Added tag `[value]`.  
+  Added `setValue()` method to set the `value` affected by the validation error.  
+  Added static private `#defaultValueParser` property of the default value equal to `(value) => String(value)`.
+  Added private property `#valueParser` function of `ValueParser` type to convert the value of `any` type to `string` with the default value equal to static `ValidationError.#defaultValueParser`.
+  Added `setValueParser()` method of an instance to convert property `value` of an instance to `string` during message creation.  
+  Added `setValueParser()` of static `ValidationError` to set value parser.  
+
+  **property `id`**  
+  Added private property `#id` of an instance as an identifier of the described problem.
+  Added a public property `id` as an identifier of the described `problem`, guarded by `number` type, and as a replacement for an optional tag `[id]`.  
+  Added tag `[id]` to static private property `#tags`.
+  Added public `setId()` method of an instance to set the `id`.  
 
 - [285ef51]  
-  Added property `template` of an instance that refers to private property `#tpl`.  
+  Added property `template` of an instance that refers to private property `#tpl`. (changed to `#template` [c00758a])  
   Added private property `#tags` of `string[]` to replace the template `[problem]` and `[fix]` tags.  
 
 ### 3.0.0 Changed
+
+- [c00758a]  
+  Changed `updateMessage()` by adding an optional `callback` parameter and use of value parser function.
+  Changed `setMessage()` method of an instance by adding an optional parameter `parser` of `ValueParser` type and the way it assigns the message properties to only when they are all proper.
+  Changed `throw()` method to throw new instance of `ValidationError` based on actual settings.
+  Changed `constructor()` by adding an optional `parser` parameter of `ValueParser` type that initialize the default parser for the instance.  
+
+  **property `template`**
+  Changed private property `#tpl` of an instance change name to `#template`.  
+  Changed static private property `#template` change name to `#defaultTemplate`.
+  Changed public property `template` of an instance to refers to private property `#template` of an instance. (changes [285ef51])  
 
 - [53c2043]  
   Changed `updateMessage()` method to include `#value` property.
@@ -29,28 +66,31 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   Changed library to `es2020`.  
 
 - [285ef51] [25ea72b]
-  Changed all conditionals to short if expressions.  
+  Changed conditionals to short if expressions.  
   Changed use of static `ValidationError` to `this`.  
   Changed to `ResultCallback` with generic type variable `Value`.  
   Changed usage of `is` and `guard` objects to use functions of `@angular-package/type`.  
-  Changed the `setMessage()` method to set the `problem` and `fix` properties to empty string if the provided message is a `string` type.  
-  Changed `setMessage()` method to use as first, template from the given `message` parameter, and if it's empty the private property `#tpl`.  
+  ~~Changed the `setMessage()` method to set the `problem` and `fix` properties to empty string if the provided message is a `string` type~~.  
+  Changed `setMessage()` method to use as first, template from the given `message` parameter, and if it's empty the private property ~~`#tpl`~~ `#template`.  
   Changed `defineMessage()` static method to use private property `#tags` to replace them in the template.  
 
 - [25ea72b]  
-  Change `set` prefix to `replace` of methods.
-
-[53c2043]: https://github.com/angular-package/error/commit/53c20435df2225cb38e8d45d8f07e9c60db4d95a
-[25ea72b]: https://github.com/angular-package/error/commit/25ea72b733939264b6546d01ef2945cc1e716fa5
-[8a0f58d]: https://github.com/angular-package/error/commit/8a0f58dae2b8a474848a2eccbe3218a0da0c017e
-[285ef51]: https://github.com/angular-package/error/commit/285ef51805a3f1528b62d389214c106c3f213dfa
+  Changed `set` prefix to `replace` of methods.
 
 ### 3.0.0 Removed
+
+- [c00758a]  
+  Removed possibility to add `string` type message in the `constructor`, `throw()`, `setMessage()` methods of an instance.  
 
 - [7ed2b5c] [96c5563] [4af703a]  
   Removed the default usage of callback.
   Removed `AllowedCallback` type because the removed default usage of callback.  
 
+[53c2043]: https://github.com/angular-package/error/commit/53c20435df2225cb38e8d45d8f07e9c60db4d95a
+[25ea72b]: https://github.com/angular-package/error/commit/25ea72b733939264b6546d01ef2945cc1e716fa5
+[8a0f58d]: https://github.com/angular-package/error/commit/8a0f58dae2b8a474848a2eccbe3218a0da0c017e
+[285ef51]: https://github.com/angular-package/error/commit/285ef51805a3f1528b62d389214c106c3f213dfa
+[c00758a]: https://github.com/angular-package/error/commit/c00758a02cd32e61b813719df7ee8b0f7d18cb12
 [7ed2b5c]: https://github.com/angular-package/error/commit/7ed2b5c90ed9922b8ced3622db4e0aa9b51afc38
 [96c5563]: https://github.com/angular-package/error/commit/96c5563285f86eb2ce5d1ecff39aa2110507f220
 [4af703a]: https://github.com/angular-package/error/commit/4af703afa7c2c432a902faad96fa535640bc5671
