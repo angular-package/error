@@ -32,15 +32,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   Added `value` instance property that refers to private `#value`.  
   Added tag `[value]`.  
   Added `setValue()` method to set the `value` affected by the validation error.  
-  Added static private `#defaultValueParser` property of the default value equal to `(value) => String(value)`.
-  Added private property `#valueParser` function of `ValueParser` type to convert the value of `any` type to `string` with the default value equal to static `ValidationError.#defaultValueParser`.
+  Added static private `#defaultValueParser` property of the default value equal to `(value) => String(value)`.  
+  Added private property `#valueParser` function of `ValueParser` type to convert the value of `any` type to `string` with the default value equal to static `ValidationError.#defaultValueParser`.  
   Added `setValueParser()` method of an instance to convert property `value` of an instance to `string` during message creation.  
   Added `setValueParser()` of static `ValidationError` to set value parser.  
 
   **property `id`**  
-  Added private property `#id` of an instance as an identifier of the described problem.
+  Added private property `#id` of an instance as an identifier of the described problem.  
   Added a public property `id` as an identifier of the described `problem`, guarded by `number` type, and as a replacement for an optional tag `[id]`.  
-  Added tag `[id]` to static private property `#tags`.
+  Added tag `[id]` to static private property `#tags`.  
   Added public `setId()` method of an instance to set the `id`.  
 
 - [285ef51]  
@@ -50,14 +50,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### 3.0.0 Changed
 
 - [c00758a]  
-  Changed `updateMessage()` by adding an optional `callback` parameter and use of value parser function.
-  Changed `setMessage()` method of an instance by adding an optional parameter `parser` of `ValueParser` type and the way it assigns the message properties to only when they are all proper.
-  Changed `throw()` method to throw new instance of `ValidationError` based on actual settings.
+  Changed `updateMessage()` by adding an optional `callback` parameter and use of value parser function.  
+  Changed `setMessage()` method of an instance by adding an optional parameter `parser` of `ValueParser` type and the way it assigns the message properties to only when they are all proper.  
+  Changed `throw()` method to throw new instance of `ValidationError` based on actual settings.  
   Changed `constructor()` by adding an optional `parser` parameter of `ValueParser` type that initialize the default parser for the instance.  
 
-  **property `template`**
+  **property `template`**  
   Changed private property `#tpl` of an instance change name to `#template`.  
-  Changed static private property `#template` change name to `#defaultTemplate`.
+  Changed static private property `#template` change name to `#defaultTemplate`.  
   Changed public property `template` of an instance to refers to private property `#template` of an instance. (changes [285ef51])  
 
 - [53c2043]  
@@ -66,7 +66,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - [8a0f58d]  
   Changed library to `es2020`.  
 
-- [285ef51] [25ea72b]
+- [285ef51] [25ea72b]  
   Changed conditionals to short if expressions.  
   Changed use of static `ValidationError` to `this`.  
   Changed to `ResultCallback` with generic type variable `Value`.  
@@ -84,7 +84,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   Removed possibility to add `string` type message in the `constructor`, `throw()`, `setMessage()` methods of an instance.  
 
 - [7ed2b5c] [96c5563] [4af703a]  
-  Removed the default usage of callback.
+  Removed the default usage of callback.  
   Removed `AllowedCallback` type because the removed default usage of callback.  
 
 [53c2043]: https://github.com/angular-package/error/commit/53c20435df2225cb38e8d45d8f07e9c60db4d95a
