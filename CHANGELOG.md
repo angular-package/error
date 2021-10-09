@@ -32,6 +32,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   Added `value` instance property that refers to private `#value`.  
   Added tag `[value]`.  
   Added `setValue()` method to set the `value` affected by the validation error.  
+
+  **property `#valueParser`**  
   Added static private `#defaultValueParser` property of the default value equal to `(value) => String(value)`.  
   Added private property `#valueParser` function of `ValueParser` type to convert the value of `any` type to `string` with the default value equal to static `ValidationError.#defaultValueParser`.  
   Added `setValueParser()` method of an instance to convert property `value` of an instance to `string` during message creation.  
@@ -56,8 +58,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   Changed `constructor()` by adding an optional `parser` parameter of `ValueParser` type that initialize the default parser for the instance.  
 
   **property `template`**  
-  Changed private property `#tpl` of an instance change name to `#template`.  
-  Changed static private property `#template` change name to `#defaultTemplate`.  
+  Changed private property name `#tpl` of an instance to `#template`.  
+  Changed static private property name `#template` to `#defaultTemplate`.  
   Changed public property `template` of an instance to refers to private property `#template` of an instance. (changes [285ef51])  
 
 - [53c2043]  
