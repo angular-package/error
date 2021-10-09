@@ -91,6 +91,12 @@ Run `ng build error` to build the package. The build artifacts will be stored in
 
 ### Running unit tests
 
+Install `@angular-package/testing` with command:
+
+```typescript
+npm i @angular-package/testing --no-save
+```
+
 Run `ng test error` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
 <br>
