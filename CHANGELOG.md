@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Added `setId()` to set the `id` as an identifier of the described `problem`.
 - Added `setValue()` to set the `value` affected by the validation error (must be converted to string).
 - Added `setValueParser()` to sets the `function` to automatically convert the value of `any` type to the `string` during message creation.
-- Updated `template` by adding optional `[id]`, `[value]` tags.
+- Added `template` property with optional `[id]`, `[value]` tags.
 - Update `throw()` method to throw a **new** instance instead of this.
 
 ### 3.0.0 Added
