@@ -340,7 +340,7 @@ The value of [`any`][ts-any] type affected by the validation error, which must b
 The conversion is performed only during [`message`][error-property-message] creation and can be done in **two** ways, **automatic** or **manual**.  
 
 * The **manual**, by providing parser function as parameter (`parser?: ValueParser`) to the [`setMessage()`][error-method-setmessage] method of an instance.  
-* The **automatic** by the previously defined function of the [`ValueParser`](#valueparser) type, set by the [`setValueParser()`][error-method-setvalueparser] method of an instance to automatize [`setMessage()`][error-method-setmessage] method.
+* The **automatic** by the previously defined function of the [`ValueParser`][package-type-valueparser] type, set by the [`setValueParser()`][error-method-setvalueparser] method of an instance to automatize [`setMessage()`][error-method-setmessage] method.
 
 ```typescript
 public get value(): any {
@@ -361,7 +361,7 @@ public set value(value: any) {
 
 Defines the validation [`error`][js-error] message of [`string`][js-string] type from the provided `message` of the [`ErrorMessage`](#errormessage) interface. The message is built on the provided `template` or the template from the static property [`ValidationError.template`](#validationerrortemplate).
 
-> The **automatic** convert of the `value` of an [`ErrorMessage`](#errormessage) is performed by the defined function of the [`ValueParser`](#valueparser) type, set by the static [`ValidationError.setValueParser()`](#validationerrorsetvalueparser) method.
+> The **automatic** convert of the `value` of an [`ErrorMessage`](#errormessage) is performed by the defined function of the [`ValueParser`][package-type-valueparser] type, set by the static [`ValidationError.setValueParser()`](#validationerrorsetvalueparser) method.
 
 ```typescript
 // Syntax.
@@ -372,8 +372,7 @@ public static defineMessage(
 ): string {
   return callback(
     this.#guardMessage(message) && guardFunction(parser),
-    message,
-    this
+    message
   )
     ? this.#buildMessage(message, parser)
     : '';
@@ -548,7 +547,7 @@ public static setValueParser(
 
 | Name: type                               | Description |
 | :--------------------------------------- | :---------- |
-| `parser: ValueParser`                    | The [`function`][js-function] of the [`ValueParser`](#valueparser) type to convert the value of [`any`][ts-any] type to [`string`][js-string]. |
+| `parser: ValueParser`                    | The [`function`][js-function] of the [`ValueParser`][package-type-valueparser] type to convert the value of [`any`][ts-any] type to [`string`][js-string]. |
 | `callback?: ResultCallback<ValueParser>` | An optional callback [`function`][js-function] of [`ResultCallback`][package-callback-resultcallback] type to handle the result of the check whether the provided `parser` is [`function`][js-function] type. |
 
 **Returns:**
@@ -605,7 +604,7 @@ constructor(message?: ErrorMessage, parser?: ValueParser) {
   isDefined(parser) && this.setValueParser(parser);
 
   // Initializes the message and assigns its properties to a new instance.
-  isDefined(message) && this.setMessage(message, undefined, parser);
+  isDefined(message) && this.setMessage(message);
 }
 ```
 
@@ -1079,7 +1078,7 @@ public setValueParser(
 
 | Name: type                               | Description |
 | :--------------------------------------- | :---------- |
-| `parser: ValueParser`                    | The [`function`][js-function] of the [`ValueParser`](#valueparser) type, to **convert** the [`value`][error-property-value] of [`any`][ts-any] type to [`string`][js-string]. |
+| `parser: ValueParser`                    | The [`function`][js-function] of the [`ValueParser`][package-type-valueparser] type, to **convert** the [`value`][error-property-value] of [`any`][ts-any] type to [`string`][js-string]. |
 | `callback?: ResultCallback<ValueParser>` | An optional callback function of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided `parser` is [`function`][js-function]. |
 
 **Returns:**
@@ -1398,18 +1397,6 @@ An optional value affected by the validation error, which must be converted to [
 
 <br>
 
-## Type
-
-#### `ValueParser`
-
-The type of [`function`][js-function] to convert the value of [`any`][ts-any] type to a [`string`][js-string].
-
-```typescript
-type ValueParser = (value: any) => string;
-```
-
-<br>
-
 ## Experimental
 
 ![experimental] [![update]][error-github-changelog]
@@ -1693,8 +1680,9 @@ MIT © angular-package ([license][error-license])
   <!-- GitHub -->
   [type-github-readme]: https://github.com/angular-package/type#readme
 
-  [package-type-resultcallback]: https://github.com/angular-package/type#resultcallback
+  [package-type-valueparser]: https://github.com/angular-package/type#valueparser
   [package-type-key]: https://github.com/angular-package/type#key
+  [package-type-resultcallback]: https://github.com/angular-package/type#resultcallback
 
 <!-- Package: ui -->
   <!-- npm -->
