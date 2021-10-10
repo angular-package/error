@@ -85,9 +85,18 @@ This package was built by the [library skeleton][skeleton] which was generated w
 
 Copy this package to the `packages/error` folder of the [library skeleton][skeleton] then run the commands below.
 
+### Code scaffolding
+
+Run `ng generate component component-name --project error` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project storage`.
+> Note: Don't forget to add `--project error` or else it will be added to the default project in your `angular.json` file.
+
 ### Build
 
 Run `ng build error` to build the package. The build artifacts will be stored in the `dist/` directory.
+
+### Publishing
+
+After building your library with `ng build error`, go to the dist folder `cd dist/error` and run `npm publish`.
 
 ### Running unit tests
 
