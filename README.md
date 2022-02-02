@@ -33,6 +33,8 @@ The angular-package supports the development process of [angular][angulario]-bas
 
 Click on the package name to visit its [GitHub](https://github.com/) page.
 
+<br>
+
 ## angular-package/error
 
 Manages an [`Error`][js-error].
