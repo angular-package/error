@@ -2,11 +2,13 @@
  * The `CommonError` abstract object to throw an identified error with a solution to the described problem.
  */
 export abstract class CommonError<Id extends string = string> extends Error {
+  //#region public static properties.
   /**
    * A template of the error message of `string` type with the replaceable `{problem}`, `{fix}` and optional `{id}` words.
    * By default, it's set to `Problem{id}: {problem} => Fix: {fix}`. It can be set directly or by the `setTemplate()`.
    */
   public static template = `Problem{id}: {problem} => Fix: {fix}`;
+  //#endregion public static properties.
 
   //#region public instance accessors.
   /**
