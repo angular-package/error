@@ -4,6 +4,25 @@ import { CommonError } from './common-error.class';
  * a solution to the described problem.
  */
 export class RangeError<Id extends string> extends CommonError<Id> {
+  //#region public instance accessors.
+  /**
+   * Error name of a `string` type, set to `RangeError` that is being thrown.
+   */
+  public get name(): string {
+    return 'RangeError';
+  }
+
+  /**
+   * The `get` accessor, with the help of `toStringTag`, changes the default tag to `'RangeError'` for an instance of
+   * `RangeError`. It can be read by the `typeOf()` function of `@angular-package/type`.
+   * @returns The return value is the word 'RangeError` of a `string`.
+   * @angularpackage
+   */
+  public get [Symbol.toStringTag](): string {
+    return 'RangeError';
+  }
+  //#endregion public instance accessors.
+
   //#region public static methods.
   /**
    * Defines the `RangeError` instance with the given required `problem`, `fix` and optional `id` and `template`.
@@ -16,13 +35,31 @@ export class RangeError<Id extends string> extends CommonError<Id> {
    * `template`.
    * @angularpackage
    */
-   public static define<Id extends string = ''>(
+  public static define<Id extends string = ''>(
     problem: string,
     fix: string,
     id?: Id,
     template = RangeError.template
   ): RangeError<Id> {
     return new this(problem, fix, id, template);
+  }
+
+  /**
+   * Checks whether the value of any type is an instance of `RangeError` of any or the given identification.
+   * @param value The value of any type to check against the `RangeError` instance.
+   * @param id Optional identification of generic type variable `Id` that the given `value` contains.
+   * @returns The return value is a `boolean` type indicating whether the given `value` is an instance of `RangeError` of any or the given
+   * `id`.
+   */
+  public static isRangeError<Id extends string>(
+    value: any,
+    id?: Id
+  ): value is RangeError<Id> {
+    return typeof value === 'object' &&
+      value instanceof this &&
+      typeof id === 'string'
+      ? value.id === id
+      : true;
   }
 
   /**
@@ -44,29 +81,10 @@ export class RangeError<Id extends string> extends CommonError<Id> {
   }
   //#endregion public static methods.
 
-  //#region public instance accessors.
-  /**
-   * Error name of a `string` type, set to `RangeError` that is being thrown.
-   */
-  public get name(): string {
-    return 'RangeError';
-  }
-
-  /**
-   * The `get` accessor, with the help of `toStringTag`, changes the default tag to `'RangeError'` for an instance of
-   * `RangeError`. It can be read by the `typeOf()` function of `@angular-package/type`.
-   * @returns The return value is the word 'RangeError` of a `string`.
-   * @angularpackage
-   */
-  public get [Symbol.toStringTag](): string {
-    return 'RangeError';
-  }
-  //#endregion public instance accessors.
-
   //#region constructor.
   /**
-   * Creates a `RangeError` instance that represents range error with the described problem and its solution, optionally marked
-   * with an explicit identification.
+   * Creates a `RangeError` instance that represents range error with the described problem and its solution, optionally marked with an
+   * explicit identification.
    * @param problem Description of the range problem of a `string` type.
    * @param fix A solution to the given range issue of a `string` type.
    * @param id Optional unique identification to the given `problem` of generic type variable `Id`.
