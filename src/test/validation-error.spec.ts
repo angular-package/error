@@ -2,15 +2,10 @@
 import { Testing, TestingToBeMatchers } from '@angular-package/testing';
 // Class.
 import { ValidationError } from '../lib/validation-error.class';
-// Interface.
-import { ErrorMessage } from '../interface/error-message.interface';
 /**
  * Initialize `Testing`.
  */
-const testing = new Testing(true, true, {
-  // describe: [1, 8],
-  // it: [1, 2]
-});
+const testing = new Testing(true, true);
 const toBe = new TestingToBeMatchers();
 /**
  * Tests.
@@ -18,383 +13,176 @@ const toBe = new TestingToBeMatchers();
 testing.describe('[counter] ValidationError', () => {
   let errorMessage: string;
   let fix: string;
-  let id: number;
-  let message: ErrorMessage;
+  let id: string;
   let problem: string;
   let template: string;
   let value: any;
-  let validationError: ValidationError;
+  let validationError: ValidationError<string>;
 
   // Prepare the values.
   fix = 'Provide string type value. Read more: https://duckduckgo.com/';
-  id = 427;
+  id = '427';
   problem = 'The value must be a string type.';
-  template = `Problem(VE[id]): [problem]\nGot: [value]\nFix: [fix]`;
+  template = `Problem(VE{id}): {problem}\nFix: {fix}`;
   value = Symbol(123);
 
   beforeEach(() => {
     // Prepare the values.
     fix = 'Provide string type value. Read more: https://duckduckgo.com/';
-    id = 427;
+    id = '427';
     problem = 'The value must be a string type.';
-    template = `Problem(VE[id]): [problem]\nGot: [value]\nFix: [fix]`;
+    template = `Problem(VE{id}): {problem}\nFix: {fix}`;
     value = Symbol(123);
-    validationError = new ValidationError();
+    validationError = new ValidationError(problem, fix, id, template);
   });
 
   testing
-    /**
-     * defineMessage()
-     */
-    .describe('[counter] .defineMessage()', () => {
-      testing.it(`[counter] with the message of the \`ErrorMessage\` interface`, () => {
-        errorMessage = ValidationError.defineMessage({ fix, id, problem, template, value});
-        toBe.string(errorMessage);
-        // toContain.
-        expect(errorMessage).toContain(fix);
-        expect(errorMessage).toContain(String(id));
-        expect(errorMessage).toContain(problem);
-        expect(errorMessage).toContain(String(value));
-      })
-      .it(`[counter] with the message of the \`ErrorMessage\` interface with the provided \`parser\``, () => {
-        message = { fix, id, problem, template, value };
-        errorMessage = ValidationError.defineMessage(
-          message,
-          (result, checkedValue, payload) => {
-            toBe
-              .true(result)
-              .object(checkedValue)
-              .undefined(payload);
-
-            expect(checkedValue).toEqual(message);
-            return result;
-        } , valueToConvert => String(12345));
-        toBe.string(errorMessage);
-        // toContain.
-        expect(errorMessage).toContain(fix);
-        expect(errorMessage).toContain(String(id));
-        expect(errorMessage).toContain(problem);
-        expect(errorMessage).toContain(String(12345));
-      });
-    })
 
     /**
-     * setTemplate()
+     * Accessors.
      */
-     .describe('[counter] .setTemplate()', () => {
-      testing.it(`[counter] propery set the static \`template\``, () => {
-        expect(ValidationError.template).toEqual(`Problem[id]: [problem] => Fix: [fix]`);
-        ValidationError.setTemplate(template, (result, checkedValue) => {
-          toBe.true(result).string(checkedValue);
-          expect(checkedValue).toEqual(template);
-          return result;
-        });
-        expect(ValidationError.template).toEqual(template);
-      });
-    })
-
-    /**
-     * setValueParser()
-     */
-    .describe('[counter] .setValueParser()', () => {
-      testing.it(`[counter] properly set the static private \`#defaultValueParser\``, () => {
-        ValidationError.setValueParser(valueToConvert => String(12345678910), (result, checkedValue) => {
-          toBe.true(result).function(checkedValue);
-          return result;
-        });
-        expect(ValidationError.defineMessage({ fix, problem, value, template })).toContain(String(12345678910));
-        // The default value parser.
-        ValidationError.setValueParser(valueToConvert => String(valueToConvert));
-      });
-    })
-
-    /**
-     * constructor()
-     */
-    .describe('[counter] instantiate', () => {
-      beforeEach(() => validationError = new ValidationError({
-        fix, id, problem, template, value
-      }));
-
-      testing.it(`[counter] with the message of the \`ErrorMessage\` interface`, () => {
-        toBe
-          .string(validationError.fix)
-          .number(validationError.id)
-          .string(validationError.message)
-          .string(validationError.problem)
-          .string(validationError.template)
-          .symbol(validationError.value);
-
-        // to Equal.
-        expect(validationError.fix).toEqual(fix);
-        expect(validationError.id).toEqual(id);
-        expect(validationError.problem).toEqual(problem);
-        expect(validationError.template).toEqual(template);
-        expect(validationError.value).toEqual(value);
-
-        // toContain.
-        expect(validationError.message).toContain(fix);
-        expect(validationError.message).toContain(String(id));
-        expect(validationError.message).toContain(problem);
-        expect(validationError.message).toContain(String(value));
-      })
-      .it(`[counter] with the provided \`parser\``, () => {
-        validationError = new ValidationError({
-          fix, id, problem, template, value
-        }, (valueToConvert: any) => String(12345));
-        toBe
-          .string(validationError.fix)
-          .number(validationError.id)
-          .string(validationError.message)
-          .string(validationError.problem)
-          .string(validationError.template)
-          .symbol(validationError.value);
-
-        // to Equal.
-        expect(validationError.fix).toEqual(fix);
-        expect(validationError.id).toEqual(id);
-        expect(validationError.problem).toEqual(problem);
-        expect(validationError.template).toEqual(template);
-        expect(validationError.value).toEqual(value);
-
-        // toContain.
-        expect(validationError.message).toContain(fix);
-        expect(validationError.message).toContain(String(id));
-        expect(validationError.message).toContain(problem);
-        expect(validationError.message).toContain(String(12345));
-      });
-    })
-
-    /**
-     * .prototype.setFix()
-     */
-    .describe('[counter] .prototype.setFix()', () => {
-      testing.it(`set ${fix}`, () => {
-        validationError.setFix(fix, (result, checkedValue, payload) => {
-          expect(checkedValue).toEqual(fix);
-          toBe.boolean(result).string(checkedValue).undefined(payload);
-          return result;
-        });
-        expect(validationError.fix).toEqual(fix);
-      });
-    })
-
-    /**
-     * .prototype.setId()
-     */
-     .describe('[counter] .prototype.setId()', () => {
-      testing.it(`set ${id}`, () => {
-        validationError.setFix(fix, (result, checkedValue, payload) => {
-          expect(checkedValue).toEqual(fix);
-          toBe.boolean(result).string(checkedValue).undefined(payload);
-          return result;
-        });
-        expect(validationError.fix).toEqual(fix);
-      });
-    })
-
-    /**
-     * .prototype.setMessage()
-     */
-    .describe('[counter] .prototype.setMessage()', () => {
+    .describe(`accessors`, () => {
       testing
-        .it(`[counter] set works properly`, () => {
-          validationError.setMessage({ fix, id, problem, template, value }, (result, checkedValue) => {
-            expect(checkedValue.fix).toEqual(fix);
-            expect(checkedValue.id).toEqual(id);
-            expect(checkedValue.problem).toEqual(problem);
-            expect(checkedValue.value).toEqual(value);
-            toBe.true(result).object(checkedValue);
-            return result;
-          });
-          expect(validationError.message).toContain(fix);
-          expect(validationError.message).toContain(String(id));
-          expect(validationError.message).toContain(problem);
-          expect(validationError.message).toContain(String(value));
-        })
-        .it(`[counter] set works properly with the provided \`parser\``, () => {
-          validationError.setMessage(
-            { fix, id, problem, template, value },
-            (result, checkedValue) => {
-            expect(checkedValue.fix).toEqual(fix);
-            expect(checkedValue.id).toEqual(id);
-            expect(checkedValue.problem).toEqual(problem);
-            expect(checkedValue.value).toEqual(value);
-            toBe.true(result).object(checkedValue);
-            return result;
-          }, valueToConvert => String(12345));
-          expect(validationError.message).toContain(fix);
-          expect(validationError.message).toContain(String(id));
-          expect(validationError.message).toContain(problem);
-          expect(validationError.message).toContain(String(12345));
-        });
-    })
 
-    /**
-     * .prototype.setProblem()
-     */
-    .describe('[counter] .prototype.setProblem()', () => {
-      testing.it(`[counter] set ${problem}`, () => {
-        validationError.setProblem(problem, (result, checkedValue) => {
-          expect(checkedValue).toEqual(problem);
-          toBe.boolean(result).string(checkedValue);
-          return result;
-        });
-        expect(validationError.problem).toEqual(problem);
-      });
-    })
-
-    /**
-     * .prototype.setTemplate()
-     */
-    .describe('[counter] .prototype.setTemplate()', () => {
-      template = `[problem] must be fixed by using [fix]`;
-      testing.it(`[counter] set ${template}`, () => {
-        validationError.setTemplate(template, (result, checkedValue, payload) => {
-          expect(checkedValue).toEqual(template);
-          toBe.boolean(result).string(checkedValue).object(payload);
-          return result;
-        });
-        expect(validationError.template).toEqual(template);
-      });
-    })
-
-    /**
-     * .prototype.setValue()
-     */
-    .describe('[counter] .prototype.setValue()', () => {
-      testing.it(`[counter] set ${String(value)}`, () => {
-        validationError.setValue(value);
-        expect(validationError.value).toEqual(value);
-      });
-    })
-
-    /**
-     * .prototype.updateMessage()
-     */
-    .describe('[counter] .prototype.updateMessage()', () => {
-      testing.it(`[counter] works properly`, () => {
-        validationError
-          .setFix('')
-          .setId(0)
-          .setProblem('')
-          .setTemplate(template)
-          .setValue('')
-          .setValueParser(valueToConvert => String(12345678910))
-          .updateMessage();
-
-        expect(validationError.fix).toEqual('');
-        expect(validationError.id).toEqual(0);
-        expect(validationError.problem).toEqual('');
-        expect(validationError.value).toEqual('');
-        expect(validationError.message).toContain(String(12345678910));
-
-        validationError
-          .setFix(fix)
-          .setId(id)
-          .setProblem(problem)
-          .setTemplate(template)
-          .setValue(value)
-          .setValueParser(valueToConvert => String(valueToConvert))
-          .updateMessage((result, checkedValue) => {
-            toBe.true(result).object(checkedValue);
-            expect(checkedValue).toEqual({
-              fix, id, problem, template, value
-            });
-            return result;
-          });
-
+      /**
+       * ValidationError.prototype.fix
+       */
+      .it(`ValidationError.prototype.fix`, () => {
         expect(validationError.fix).toEqual(fix);
+      })
+
+      /**
+       * ValidationError.prototype.id
+       */
+      .it(`ValidationError.prototype.id`, () => {
         expect(validationError.id).toEqual(id);
+      })
+
+      /**
+       * ValidationError.prototype.problem
+       */
+      .it(`ValidationError.prototype.problem`, () => {
         expect(validationError.problem).toEqual(problem);
-        expect(validationError.value).toEqual(value);
-        expect(validationError.message).toContain(String(value));
+      })
+
+      /**
+       * ValidationError.prototype.template
+       */
+      .it(`ValidationError.prototype.template`, () => {
+        expect(validationError.template).toEqual(template);
+      })
+      // .it(`[Symbol.toStringTag]`, () => {});
+    })
+
+    /**
+     * Static methods.
+     */
+    .describe(`Static methods`, () => {
+      testing
+      /**
+       * isValidationError()
+       */
+      .it(`ValidationError.isValidationError()`, () => {
+        expect(validationError.id).toEqual(id);
+      })
+
+      /**
+       * defineMessage()
+       */
+      .it(`ValidationError.defineMessage`, () => {
+        errorMessage = ValidationError.defineMessage`${'problem'}${'fix'}${'id'}${'{problem} {fix} {id}'}`;
+        expect(errorMessage).toEqual('problem fix id');
       });
     })
 
     /**
-     * .prototype.throw()
+     * Instance methods.
      */
-    .describe('[counter] throw', () => {
-      try {
-        throw new ValidationError({ fix, id, problem, template, value });
-      } catch (e: any) {
-        testing
-          .toBeClass(ValidationError)
-          .toBe('instanceof ValidationError', e instanceof ValidationError, true)
-          .toBeStringType(e.fix, undefined, '`e.fix` must be of a `string` type')
-          .toBeNumberType(e.id, undefined, '`e.fix` must be of a `string` type')
-          .toBeStringType(e.problem, undefined, '`e.problem` must be of a `string` type');
-      }
-    })
-
-    .describe('[counter] .prototype.throw()', () => {
+    .describe(`Instance methods`, () => {
       testing
-        .it(`[counter] with object of ErrorMessage`, () => {
-          try {
-            validationError
-              .setFix(fix)
-              .setProblem(problem)
-              .setTemplate(`[problem], [fix]`);
-            validationError.throw({
-              problem: 'new problem',
-              fix: 'new fix',
-            });
-          } catch (e) {
-            expect(e.message).toEqual(`new problem, new fix`);
-            expect(e.problem).toEqual('new problem');
-            expect(e.fix).toEqual('new fix');
-          }
-        })
-        .it(
-          `[counter] with the actual \`problem\`, \`fix\` and \`value\``,
-          () => {
-            value = '27';
-            try {
-              validationError
-                .setProblem(problem)
-                .setFix(fix)
-                .setValue(value)
-                .setTemplate(`[problem], [fix], [value]`)
-                .throw();
-            } catch (e) {
-              expect(e.message).toEqual(`${problem}, ${fix}, ${String(value)}`);
-              expect(e.fix).toEqual(fix);
-              expect(e.problem).toEqual(problem);
-              expect(e.value).toEqual(value);
-            }
+      /**
+       * ValidationError.prototype.setFix()
+       */
+      .it(`ValidationError.prototype.setFix()`, () => {
+        validationError.setFix('my new fix');
+        expect(validationError.fix).toEqual('my new fix');
+      })
 
-            try {
-              validationError
-                .setMessage({
-                  fix,
-                  problem,
-                  value,
-                  template: `[problem] [fix] [value]`,
-                })
-                .throw();
-            } catch (e) {
-              expect(e.message).toEqual(`${problem} ${fix} ${String(value)}`);
-              expect(e.fix).toEqual(fix);
-              expect(e.problem).toEqual(problem);
-              expect(e.value).toEqual(value);
-            }
+      /**
+       * ValidationError.prototype.setId()
+       */
+      .it(`ValidationError.prototype.setId()`, () => {
+        validationError.setId('my new id');
+        expect(validationError.id).toEqual('my new id');
+      })
 
-            try {
-              validationError
-                .setMessage({
-                  fix,
-                  problem,
-                  template: `[problem] [fix] [value]`,
-                })
-                .throw();
-            } catch (e) {
-              expect(e.message).toEqual(`${problem} ${fix} ${String(value)}`);
-              expect(e.fix).toEqual(fix);
-              expect(e.problem).toEqual(problem);
-              expect(e.value).toEqual(value);
-            }
-          }
-        );
+      // .it(`ValidationError.prototype.setMessage()`, () => {
+      //   validationError.setMessage('my new id');
+      //   expect(validationError.id).toEqual('my new id');
+      // })
+
+      /**
+       * ValidationError.prototype.setProblem()
+       */
+      .it(`ValidationError.prototype.setProblem()`, () => {
+        validationError.setProblem('my new problem');
+        expect(validationError.problem).toEqual('my new problem');
+      })
+
+      /**
+       * ValidationError.prototype.setTemplate()
+       */
+      .it(`ValidationError.prototype.setTemplate()`, () => {
+        validationError.setTemplate('my new template');
+        expect(validationError.template).toEqual('my new template');
+      })
+
+      /**
+       * ValidationError.prototype.throw()
+       */
+      .it(`ValidationError.prototype.throw()`, () => {
+        try {
+          validationError.throw();
+        } catch (e: any) {
+          toBe.instance(e, ValidationError);
+          expect(e.fix).toEqual(fix);
+          expect(e.id).toEqual(id);
+          expect(e.problem).toEqual(problem);
+          expect(e.template).toEqual(template);
+          expect(e.message).toEqual(ValidationError.defineMessage`${problem}${fix}${id}${template}`);
+        }
+        try {
+          validationError
+            .setFix('new FIX')
+            .setId('new ID')
+            .setProblem('new PROBLEM')
+            .setTemplate('{problem}{fix}{id}');
+          validationError.throw();
+        } catch (e: any) {
+          toBe.instance(e, ValidationError);
+          expect(e.fix).toEqual('new FIX');
+          expect(e.id).toEqual('new ID');
+          expect(e.problem).toEqual('new PROBLEM');
+          expect(e.template).toEqual('{problem}{fix}{id}');
+          expect(e.message).toEqual(ValidationError.defineMessage`${'new PROBLEM'}${'new FIX'}${'new ID'}${'{problem}{fix}{id}'}`);
+        }
+      })
+
+      /**
+       * ValidationError.prototype.updateMessage()
+       */
+      .it(`ValidationError.prototype.updateMessage()`, () => {
+        validationError
+        .setFix('new FIX')
+        .setId('new ID')
+        .setProblem('new PROBLEM')
+        .setTemplate('{problem}{fix}{id}')
+        .updateMessage();
+        expect(validationError.fix).toEqual('new FIX');
+        expect(validationError.id).toEqual('new ID');
+        expect(validationError.problem).toEqual('new PROBLEM');
+        expect(validationError.template).toEqual('{problem}{fix}{id}');
+        expect(validationError.message).toEqual(ValidationError.defineMessage`${'new PROBLEM'}${'new FIX'}${'new ID'}${'{problem}{fix}{id}'}`);
+      });
     });
 });
