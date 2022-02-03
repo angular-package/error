@@ -4,46 +4,6 @@ import { CommonError } from './common-error.class';
  * expected type, along with additional identification and a solution to the described problem.
  */
 export class TypeError<Id extends string> extends CommonError<Id> {
-  //#region public static methods.
-  /**
-   * Defines the `TypeError` instance with the given required `problem`, `fix` and optional `id` and `template`.
-   * @param problem Description of the problem of a `string` type.
-   * @param fix A solution to the given `problem` of a `string` type.
-   * @param id Optional unique identification to the given `problem` of generic type variable `Id`.
-   * @param template A template of error message with the replaceable `{problem}`, `{fix}` and optional `{id}` words. By default, the value
-   * is picked from the static property `template`.
-   * @returns The return value is a new instance of the `TypeError` with the given required `problem`, `fix` and optional `id` and
-   * `template`.
-   * @angularpackage
-   */
-  public static define<Id extends string = ''>(
-    problem: string,
-    fix: string,
-    id?: Id,
-    template = TypeError.template
-  ): TypeError<Id> {
-    return new this(problem, fix, id, template);
-  }
-
-  /**
-   * Throws the `TypeError` with the given required `problem`, `fix` and optional `id` and `template`.
-   * @param problem Description of the problem of a `string` type.
-   * @param fix A solution to the given `problem` of a `string` type.
-   * @param id Optional unique identification to the given `problem` of generic type variable `Id`.
-   * @param template A template of error message with the replaceable `{problem}`, `{fix}` and optional `{id}` words. By default, the value
-   * is picked from the static property `template`.
-   * @angularpackage
-   */
-  public static throw(
-    problem: string,
-    fix: string,
-    id?: string,
-    template?: string
-  ): void {
-    throw this.define(problem, fix, id, template);
-  }
-  //#endregion public static methods.
-
   //#region public instance accessors.
   /**
    * Error name of a `string` type that is being thrown. By default, it's `TypeError`.
@@ -62,6 +22,60 @@ export class TypeError<Id extends string> extends CommonError<Id> {
     return 'TypeError';
   }
   //#endregion public instance accessors.
+
+  //#region public static methods.
+  /**
+   * Defines the `TypeError` instance with the given required `problem`, `fix` and optional `id` and `template`.
+   * @param problem Description of the problem of a `string` type.
+   * @param fix A solution to the given `problem` of a `string` type.
+   * @param id Optional unique identification to the given `problem` of generic type variable `Id`.
+   * @param template A template of error message with the replaceable `{problem}`, `{fix}` and optional `{id}` words. By default, the value
+   * is picked from the static property `template`.
+   * @returns The return value is a new instance of the `TypeError` with the given required `problem`, `fix` and optional `id` and
+   * `template`.
+   * @angularpackage
+   */
+  public static define<Id extends string = ''>(
+    problem: string,
+    fix: string,
+    id?: Id,
+    template = TypeError.template
+  ): TypeError<Id> {
+    return super.define(problem, fix, id, template, this);
+  }
+
+  /**
+   * Checks whether the value of any type is an instance of `TypeError` of any or the given identification.
+   * @param value The value of any type to check against the `TypeError` instance.
+   * @param id Optional identification of generic type variable `Id` that the given `value` contains.
+   * @returns The return value is a `boolean` type indicating whether the given `value` is an instance of `TypeError` of any or the given
+   * `id`.
+   */
+  public static isTypeError<Id extends string>(
+    value: any,
+    id?: Id
+  ): value is TypeError<Id> {
+    return super.isError(value, id);
+  }
+
+  /**
+   * Throws the `TypeError` with the given required `problem`, `fix` and optional `id` and `template`.
+   * @param problem Description of the problem of a `string` type.
+   * @param fix A solution to the given `problem` of a `string` type.
+   * @param id Optional unique identification to the given `problem` of generic type variable `Id`.
+   * @param template A template of error message with the replaceable `{problem}`, `{fix}` and optional `{id}` words. By default, the value
+   * is picked from the static property `template`.
+   * @angularpackage
+   */
+  public static throw(
+    problem: string,
+    fix: string,
+    id?: string,
+    template?: string
+  ): void {
+    super.throw(problem, fix, id, template);
+  }
+  //#endregion public static methods.
 
   //#region constructor.
   /**
