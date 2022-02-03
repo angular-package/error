@@ -1,6 +1,7 @@
 import { CommonError } from './common-error.class';
 /**
- * The `ValidationError` object to throw an error with a solution to the described problem.
+ * The `ValidationError` object is thrown when an operation could not be performed despite proper type and proper expected value, along with
+ * additional identification and a solution to the described problem.
  */
 export class ValidationError<Id extends string = ''> extends CommonError {
   //#region public static methods.
@@ -83,13 +84,13 @@ export class ValidationError<Id extends string = ''> extends CommonError {
 
   //#region constructor.
   /**
-   * Creates a `ValidationError` instance that represents an error with the described problem and its solution, optionally marked with an
-   * explicit identification.
-   * @param problem Description of the problem of a `string` type.
-   * @param fix A solution to the given `problem` of a `string` type.
+   * Creates a `ValidationError` instance that represents validation error with the described problem and its solution, optionally marked
+   * with an explicit identification.
+   * @param problem Description of the validation problem of a `string` type.
+   * @param fix A solution to the given validation issue of a `string` type.
    * @param id Optional unique identification to the given `problem` of generic type variable `Id`.
-   * @param template A template of error message with the replaceable `{problem}`, `{fix}` and optional `{id}` words. By default, the value
-   * is picked from the static property `template`.
+   * @param template Optional template of error message with the replaceable `{problem}`, `{fix}` and optional `{id}` words. By default, the
+   * value is picked from the static property `template`.
    * @angularpackage
    */
   constructor(
