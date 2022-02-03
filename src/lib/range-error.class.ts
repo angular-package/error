@@ -7,6 +7,7 @@ export class RangeError<Id extends string> extends CommonError<Id> {
   //#region public instance accessors.
   /**
    * Error name of a `string` type, set to `RangeError` that is being thrown.
+   * @angularpackage
    */
   public get name(): string {
     return 'RangeError';
@@ -41,7 +42,7 @@ export class RangeError<Id extends string> extends CommonError<Id> {
     id?: Id,
     template = RangeError.template
   ): RangeError<Id> {
-    return new this(problem, fix, id, template);
+    return super.define(problem, fix, id, template, this);
   }
 
   /**
@@ -50,16 +51,13 @@ export class RangeError<Id extends string> extends CommonError<Id> {
    * @param id Optional identification of generic type variable `Id` that the given `value` contains.
    * @returns The return value is a `boolean` type indicating whether the given `value` is an instance of `RangeError` of any or the given
    * `id`.
+   * @angularpackage
    */
   public static isRangeError<Id extends string>(
     value: any,
     id?: Id
   ): value is RangeError<Id> {
-    return typeof value === 'object' &&
-      value instanceof this &&
-      typeof id === 'string'
-      ? value.id === id
-      : true;
+    return super.isError(value, id);
   }
 
   /**
@@ -77,7 +75,7 @@ export class RangeError<Id extends string> extends CommonError<Id> {
     id?: string,
     template?: string
   ): void {
-    throw this.define(problem, fix, id, template);
+    super.throw(problem, fix, id, template);
   }
   //#endregion public static methods.
 
