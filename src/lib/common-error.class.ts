@@ -64,7 +64,7 @@ export abstract class CommonError<Id extends string = string> extends Error {
   /**
    * A privately stored unique identification to the described problem of generic type variable `Id`.
    */
-  #id: Id = '' as Id;
+  #id: Id;
 
   /**
    * A privately stored problem of a `string` type.
@@ -112,13 +112,13 @@ export abstract class CommonError<Id extends string = string> extends Error {
   constructor(
     problem: string,
     fix: string,
-    id?: Id,
+    id: Id = '' as Id,
     template = CommonError.template
   ) {
     super(CommonError.defineMessage`${problem}${fix}${id}${template}`);
     this.#fix = fix;
+    this.#id = id;
     this.#problem = problem;
-    this.#id = id as Id;
     this.#template = template;
   }
   //#endregion constructor.
