@@ -98,6 +98,63 @@ export abstract class CommonError<Id extends string = string> extends Error {
       .replace('{fix}', fix)
       .replace('{id}', id);
   }
+
+  /**
+   * Defines the instance from the given `constructor` with the given required `problem`, `fix` and optional `id` and `template`.
+   * @param problem Description of the problem of a `string` type.
+   * @param fix A solution to the given `problem` of a `string` type.
+   * @param id Optional unique identification to the given `problem` of generic type variable `Id`.
+   * @param template A template of error message with the replaceable `{problem}`, `{fix}` and optional `{id}` words. By default, the value
+   * is picked from the static property `template`.
+   * @param constructor
+   * @returns The return value is a new instance from the given `constructor` with the given required `problem`, `fix` and optional `id` and
+   * `template`.
+   * @angularpackage
+   */
+  protected static define<Id extends string = ''>(
+    problem: string,
+    fix: string,
+    id?: Id,
+    template = CommonError.template,
+    constructor?: any
+  ): any {
+    return new constructor(problem, fix, id, template);
+  }
+
+  /**
+   * Checks whether the value of any type is an instance of `Error` of any or the given identification.
+   * @param value The value of any type to check against the `Error` instance.
+   * @param id Optional identification of generic type variable `Id` that the given `value` contains.
+   * @returns The return value is a `boolean` type indicating whether the given `value` is an instance of `Error` of any or the given `id`.
+   */
+  protected static isError<Id extends string, Var>(
+    value: any,
+    id?: Id
+  ): value is CommonError<Id> {
+    return typeof value === 'object' &&
+      value instanceof this &&
+      typeof id === 'string'
+      ? value.id === id
+      : true;
+  }
+
+  /**
+   * Throws the `RangeError` with the given required `problem`, `fix` and optional `id` and `template`.
+   * @param problem Description of the problem of a `string` type.
+   * @param fix A solution to the given `problem` of a `string` type.
+   * @param id Optional unique identification to the given `problem` of generic type variable `Id`.
+   * @param template A template of error message with the replaceable `{problem}`, `{fix}` and optional `{id}` words. By default, the value
+   * is picked from the static property `template`.
+   * @angularpackage
+   */
+  protected static throw(
+    problem: string,
+    fix: string,
+    id?: string,
+    template?: string
+  ): void {
+    throw this.define(problem, fix, id, template, this);
+  }
   //#endregion public static methods.
 
   //#region constructor.
@@ -111,7 +168,7 @@ export abstract class CommonError<Id extends string = string> extends Error {
    * is picked from the static property `template`.
    * @angularpackage
    */
-  constructor(
+  protected constructor(
     problem: string,
     fix: string,
     id: Id = '' as Id,
