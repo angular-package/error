@@ -40,7 +40,7 @@ export class Error<Id extends string> extends CommonError<Id> {
     id?: Id,
     template = Error.template
   ): Error<Id> {
-    return super.define(problem, fix, id, template, this);
+    return new this(problem, fix, id, template);
   }
 
   /**
@@ -55,24 +55,6 @@ export class Error<Id extends string> extends CommonError<Id> {
     id?: Id
   ): value is Error<Id> {
     return super.isError(value, id);
-  }
-
-  /**
-   * Throws the `RangeError` with the given required `problem`, `fix` and optional `id` and `template`.
-   * @param problem Description of the problem of a `string` type.
-   * @param fix A solution to the given `problem` of a `string` type.
-   * @param id Optional unique identification to the given `problem` of generic type variable `Id`.
-   * @param template A template of error message with the replaceable `{problem}`, `{fix}` and optional `{id}` words. By default, the value
-   * is picked from the static property `template`.
-   * @angularpackage
-   */
-  public static throw(
-    problem: string,
-    fix: string,
-    id?: string,
-    template?: string
-  ): void {
-    super.throw(problem, fix, id, template);
   }
   //#endregion public static methods.
 
@@ -93,7 +75,7 @@ export class Error<Id extends string> extends CommonError<Id> {
     id?: Id,
     template = Error.template
   ) {
-    super(problem, fix, id, template);
+    super(problem, fix, undefined, id, template);
   }
   //#endregion constructor.
 }
