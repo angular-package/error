@@ -79,7 +79,7 @@ export abstract class CommonError<Id extends string = string> extends Error {
   #template: string;
   //#endregion private instance properties.
 
-  //#region public static methods.
+  //#region protected static methods.
   /**
    * The static "tag" method builds from the given `values` the error message of a string type on the template.
    * @param templateStringsArray -
@@ -87,45 +87,29 @@ export abstract class CommonError<Id extends string = string> extends Error {
    * @returns The return value is the error message of a `string` type created from the expressions given in the `values`.
    * @angularpackage
    */
-  public static defineMessage(
+  protected static defineMessage(
     templateStringsArray: TemplateStringsArray,
     ...values: any[]
   ): string {
-    let problem: string, fix: string, id: string, template: string;
-    [problem, fix, id, template] = values;
+    let problem: string,
+      fix: string,
+      range: { min?: number; max?: number },
+      id: string,
+      template: string;
+    [problem, fix, range, id, template] = values;
     return template
       .replace('{problem}', problem)
       .replace('{fix}', fix)
-      .replace('{id}', id);
+      .replace('{id}', id)
+      .replace(`{max}`, range?.max ? String(range?.max) : '')
+      .replace(`{min}`, range?.min ? String(range?.min) : '');
   }
 
   /**
-   * Defines the instance from the given `constructor` with the given required `problem`, `fix` and optional `id` and `template`.
-   * @param problem Description of the problem of a `string` type.
-   * @param fix A solution to the given `problem` of a `string` type.
-   * @param id Optional unique identification to the given `problem` of generic type variable `Id`.
-   * @param template A template of error message with the replaceable `{problem}`, `{fix}` and optional `{id}` words. By default, the value
-   * is picked from the static property `template`.
-   * @param constructor
-   * @returns The return value is a new instance from the given `constructor` with the given required `problem`, `fix` and optional `id` and
-   * `template`.
-   * @angularpackage
-   */
-  protected static define<Id extends string = ''>(
-    problem: string,
-    fix: string,
-    id?: Id,
-    template = CommonError.template,
-    constructor?: any
-  ): any {
-    return new constructor(problem, fix, id, template);
-  }
-
-  /**
-   * Checks whether the value of any type is an instance of `Error` of any or the given identification.
-   * @param value The value of any type to check against the `Error` instance.
+   * Checks whether the value of any type is a `this` instance of any or the given identification.
+   * @param value The value of any type to check against the `this` instance.
    * @param id Optional identification of generic type variable `Id` that the given `value` contains.
-   * @returns The return value is a `boolean` type indicating whether the given `value` is an instance of `Error` of any or the given `id`.
+   * @returns The return value is a `boolean` type indicating whether the given `value` is a `this` instance of any or the given `id`.
    */
   protected static isError<Id extends string, Var>(
     value: any,
@@ -137,25 +121,7 @@ export abstract class CommonError<Id extends string = string> extends Error {
       ? value.id === id
       : true;
   }
-
-  /**
-   * Throws the `RangeError` with the given required `problem`, `fix` and optional `id` and `template`.
-   * @param problem Description of the problem of a `string` type.
-   * @param fix A solution to the given `problem` of a `string` type.
-   * @param id Optional unique identification to the given `problem` of generic type variable `Id`.
-   * @param template A template of error message with the replaceable `{problem}`, `{fix}` and optional `{id}` words. By default, the value
-   * is picked from the static property `template`.
-   * @angularpackage
-   */
-  protected static throw(
-    problem: string,
-    fix: string,
-    id?: string,
-    template?: string
-  ): void {
-    throw this.define(problem, fix, id, template, this);
-  }
-  //#endregion public static methods.
+  //#endregion protected static methods.
 
   //#region constructor.
   /**
@@ -171,10 +137,11 @@ export abstract class CommonError<Id extends string = string> extends Error {
   protected constructor(
     problem: string,
     fix: string,
+    range?: { min?: number; max?: number },
     id: Id = '' as Id,
     template = CommonError.template
   ) {
-    super(CommonError.defineMessage`${problem}${fix}${id}${template}`);
+    super(CommonError.defineMessage`${problem}${fix}${range}${id}${template}`);
     this.#fix = fix;
     this.#id = id;
     this.#problem = problem;
