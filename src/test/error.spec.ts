@@ -42,11 +42,12 @@ testing.describe('[counter] Error', () => {
      * Static properties.
      */
     .describe(`Static properties`, () => {
-      testing.it(`Error.template`, () => {
-        expect(Error.template).toEqual(`Problem{id}: {problem} => Fix: {fix}`);
-        Error.template = `{problem} => Fix: {fix} of {id}`;
-        expect(Error.template).toEqual(`{problem} => Fix: {fix} of {id}`);
-        Error.template = `Problem{id}: {problem} => Fix: {fix}`;
+      testing
+        .it(`Error.template`, () => {
+          expect(Error.template).toEqual(`Problem{id}: {problem} => Fix: {fix}`);
+          Error.template = `{problem} => Fix: {fix} of {id}`;
+          expect(Error.template).toEqual(`{problem} => Fix: {fix} of {id}`);
+          Error.template = `Problem{id}: {problem} => Fix: {fix}`;
       });
     })
 
@@ -124,28 +125,6 @@ testing.describe('[counter] Error', () => {
         .it(`Error.isError()`, () => {
           expect(Error.isError(error)).toBeTrue();
           expect(Error.isError(error, id)).toBeTrue();
-        })
-
-        /**
-         * Error.throw()
-         */
-        .it(`Error.throw()`, () => {
-          try {
-            Error.throw(problem, fix, id);
-          } catch (e: any) {
-            expect(e.message).toEqual(`Problem${e.id}: ${e.problem} => Fix: ${e.fix}`);
-            expect(e.fix).toEqual(fix);
-            expect(e.id).toEqual(id);
-            expect(e.problem).toEqual(problem);
-          }
-          try {
-            Error.throw(problem, fix, id, template);
-          } catch (e: any) {
-            expect(e.message).toEqual(`Problem(VE${id}): ${problem}\nFix: ${fix}`);
-            expect(e.fix).toEqual(fix);
-            expect(e.id).toEqual(id);
-            expect(e.problem).toEqual(problem);
-          }
         });
     })
 
@@ -154,21 +133,21 @@ testing.describe('[counter] Error', () => {
      */
     .describe(`constructor()`, () => {
       testing
-        .it(`without with id`, () => {
+        .it(`(problem, fix, id)`, () => {
           const e = new Error(problem, fix, id);
           expect(e.message).toEqual(`Problem${id}: ${e.problem} => Fix: ${e.fix}`);
           expect(e.fix).toEqual(fix);
           expect(e.id).toEqual(id);
           expect(e.problem).toEqual(problem);
         })
-        .it(`without with id with template`, () => {
+        .it(`(problem, fix, id, template)`, () => {
           const e = new Error(problem, fix, id, template);
           expect(e.message).toEqual(`Problem(VE${id}): ${problem}\nFix: ${fix}`);
           expect(e.fix).toEqual(fix);
           expect(e.id).toEqual(id);
           expect(e.problem).toEqual(problem);
         })
-        .it(`without template`, () => {
+        .it(`(problem, fix)`, () => {
           const e = new Error(problem, fix);
           expect(e.message).toEqual(`Problem: ${e.problem} => Fix: ${e.fix}`);
           expect(e.fix).toEqual(fix);
