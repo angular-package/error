@@ -1,0 +1,178 @@
+// External class.
+import { Testing, TestingToBeMatchers } from '@angular-package/testing';
+import { typeOf } from '@angular-package/type';
+// Class.
+import { Error } from '../lib/error.class';
+/**
+ * Initialize `Testing`.
+ */
+const testing = new Testing(true, true);
+const toBe = new TestingToBeMatchers();
+/**
+ * Tests.
+ */
+testing.describe('[counter] Error', () => {
+  let fix: string;
+  let id: string;
+  let problem: string;
+  let template: string;
+  let value: any;
+  let error: Error<string>;
+
+  // Prepare the values.
+  fix = 'Provide string type value. Read more: https://duckduckgo.com/';
+  id = '427';
+  problem = 'The value must be a string type.';
+  template = `Problem(VE{id}): {problem}\nFix: {fix}`;
+  value = Symbol(123);
+
+  beforeEach(() => {
+    // Prepare the values.
+    fix = 'Provide string type value. Read more: https://duckduckgo.com/';
+    id = '427';
+    problem = 'The value must be a string type.';
+    template = `Problem(VE{id}): {problem}\nFix: {fix}`;
+    value = Symbol(123);
+    error = new Error(problem, fix, id, template);
+  });
+
+  testing
+
+    /**
+     * Static properties.
+     */
+    .describe(`Static properties`, () => {
+      testing.it(`Error.template`, () => {
+        expect(Error.template).toEqual(`Problem{id}: {problem} => Fix: {fix}`);
+        Error.template = `{problem} => Fix: {fix} of {id}`;
+        expect(Error.template).toEqual(`{problem} => Fix: {fix} of {id}`);
+        Error.template = `Problem{id}: {problem} => Fix: {fix}`;
+      });
+    })
+
+    /**
+     * Instance accessors.
+     */
+    .describe(`Instance accessors`, () => {
+      testing
+
+        /**
+         * Error.prototype.fix
+         */
+        .it(`Error.prototype.fix`, () => {
+          expect(error.fix).toEqual(fix);
+          toBe.string(fix);
+        })
+
+        /**
+         * Error.prototype.id
+         */
+        .it(`Error.prototype.id`, () => {
+          expect(error.id).toEqual(id);
+        })
+
+        /**
+         * Error.prototype.name
+         */
+        .it(`Error.prototype.name`, () => {
+          expect(error.name).toEqual('Error');
+        })
+
+        /**
+         * Error.prototype.problem
+         */
+        .it(`Error.prototype.problem`, () => {
+          expect(error.problem).toEqual(problem);
+        })
+
+        /**
+         * Error.prototype.template
+         */
+        .it(`Error.prototype.template`, () => {
+          expect(error.template).toEqual(template);
+        })
+
+        /**
+         * [Symbol.toStringTag]
+         */
+        .it(`[Symbol.toStringTag]`, () => {
+          expect(typeOf(error)).toEqual('error');
+          expect(Object.prototype.toString.call(error)).toEqual('[object Error]');
+        });
+    })
+
+    /**
+     * Static methods.
+     */
+    .describe(`Static methods`, () => {
+      testing
+
+        /**
+         * Error.define()
+         */
+        .it(`Error.define()`, () => {
+          const e = Error.define(problem, fix, id, template);
+          expect(e.message).toEqual(`Problem(VE${id}): ${problem}\nFix: ${fix}`);
+          expect(e.fix).toEqual(fix);
+          expect(e.id).toEqual(id);
+          expect(e.problem).toEqual(problem);
+        })
+
+        /**
+         * Error.isError()
+         */
+        .it(`Error.isError()`, () => {
+          expect(Error.isError(error)).toBeTrue();
+          expect(Error.isError(error, id)).toBeTrue();
+        })
+
+        /**
+         * Error.throw()
+         */
+        .it(`Error.throw()`, () => {
+          try {
+            Error.throw(problem, fix, id);
+          } catch (e: any) {
+            expect(e.message).toEqual(`Problem${e.id}: ${e.problem} => Fix: ${e.fix}`);
+            expect(e.fix).toEqual(fix);
+            expect(e.id).toEqual(id);
+            expect(e.problem).toEqual(problem);
+          }
+          try {
+            Error.throw(problem, fix, id, template);
+          } catch (e: any) {
+            expect(e.message).toEqual(`Problem(VE${id}): ${problem}\nFix: ${fix}`);
+            expect(e.fix).toEqual(fix);
+            expect(e.id).toEqual(id);
+            expect(e.problem).toEqual(problem);
+          }
+        });
+    })
+
+    /**
+     * Constructor.
+     */
+    .describe(`constructor()`, () => {
+      testing
+        .it(`without with id`, () => {
+          const e = new Error(problem, fix, id);
+          expect(e.message).toEqual(`Problem${id}: ${e.problem} => Fix: ${e.fix}`);
+          expect(e.fix).toEqual(fix);
+          expect(e.id).toEqual(id);
+          expect(e.problem).toEqual(problem);
+        })
+        .it(`without with id with template`, () => {
+          const e = new Error(problem, fix, id, template);
+          expect(e.message).toEqual(`Problem(VE${id}): ${problem}\nFix: ${fix}`);
+          expect(e.fix).toEqual(fix);
+          expect(e.id).toEqual(id);
+          expect(e.problem).toEqual(problem);
+        })
+        .it(`without template`, () => {
+          const e = new Error(problem, fix);
+          expect(e.message).toEqual(`Problem: ${e.problem} => Fix: ${e.fix}`);
+          expect(e.fix).toEqual(fix);
+          expect(e.problem).toEqual(problem);
+        });
+    });
+});
