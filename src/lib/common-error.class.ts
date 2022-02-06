@@ -4,15 +4,15 @@
 export abstract class CommonError<Id extends string = string> extends Error {
   //#region public static properties.
   /**
-   * A template of the error message of `string` type with the replaceable `{problem}`, `{fix}` and optional `{id}` words.
-   * By default, it's set to `Problem{id}: {problem} => Fix: {fix}`.
+   * A template of the error message of `string` type with the replaceable `{problem}`, `{fix}` and optional `{id}`, `{max}`, `{min}`,
+   * `{type}` tags. By default, it's set to `Problem{id}: {problem} => Fix: {fix}`.
    */
   public static template = `Problem{id}: {problem} => Fix: {fix}`;
   //#endregion public static properties.
 
   //#region public instance accessors.
   /**
-   * The get `accessor` obtains a possible solution to the described problem by returning the `#fix` property of a specified object.
+   * The `get` accessor obtains a possible solution to the described problem by returning the `#fix` property of a specified object.
    * @returns The return value is the fix of a `string` type.
    * @angularpackage
    */
@@ -22,15 +22,15 @@ export abstract class CommonError<Id extends string = string> extends Error {
 
   /**
    * The `get` accessor gets the error identification by returning the `#id` property of a specified object.
-   * @returns The return value is the error identification of the generic type variable `Id`.
+   * @returns The return value is the error identification of the generic type variable `Id` or `undefined`.
    * @angularpackage
    */
-  public get id(): Id {
+  public get id(): Id | undefined {
     return this.#id;
   }
 
   /**
-   * The `get` accessor gets the error message by returning the parent `message` property of a specified object.
+   * The `get` accessor gets the error message by returning the parent `message` property of the `Error` object.
    * @returns The return value is the error message of a `string` type.
    * @angularpackage
    */
@@ -66,7 +66,7 @@ export abstract class CommonError<Id extends string = string> extends Error {
   /**
    * A privately stored unique identification to the described problem of generic type variable `Id`.
    */
-  #id: Id;
+  #id?: Id;
 
   /**
    * A privately stored problem of a `string` type.
@@ -74,7 +74,8 @@ export abstract class CommonError<Id extends string = string> extends Error {
   #problem: string;
 
   /**
-   * A string-type privately stored template of the error message that contains replaceable `{fix}`, `{problem}` and optional `{id}` words.
+   * A string-type privately stored template of the error message that contains replaceable required `{fix}`, `{problem}` and optional
+   * `{id}`, `{max}`, `{min}`, `{type}` tags.
    */
   #template: string;
   //#endregion private instance properties.
@@ -83,7 +84,7 @@ export abstract class CommonError<Id extends string = string> extends Error {
   /**
    * The static "tag" method builds from the given `values` the error message of a string type on the template.
    * @param templateStringsArray -
-   * @param values A rest parameter of expressions in order the `problem`, `fix`, `id` and `template`.
+   * @param values A rest parameter of expressions in order the `problem`, `fix`, `id`, `template` and `additional`.
    * @returns The return value is the error message of a `string` type created from the expressions given in the `values`.
    * @angularpackage
    */
@@ -93,55 +94,61 @@ export abstract class CommonError<Id extends string = string> extends Error {
   ): string {
     let problem: string,
       fix: string,
-      range: { min?: number; max?: number },
-      id: string,
-      template: string;
-    [problem, fix, range, id, template] = values;
-    return template
-      .replace('{problem}', problem)
-      .replace('{fix}', fix)
-      .replace('{id}', id)
-      .replace(`{max}`, range?.max ? String(range?.max) : '')
-      .replace(`{min}`, range?.min ? String(range?.min) : '');
+      id: string | undefined,
+      template: string,
+      additional: { min?: number; max?: number; type?: string; };
+    [problem, fix, id, template, additional] = values;
+    template = (template || CommonError.template)
+      .replace('{fix}', fix || '')
+      .replace(/{id}/g, id || '')
+      .replace('{problem}', problem || '')
+      .replace(/{max}/g, additional?.max ? String(additional?.max) : '')
+      .replace(/{min}/g, additional?.min ? String(additional?.min) : '')
+      .replace(/{type}/g, additional?.type ? additional?.type : '');
+    return template;
   }
 
   /**
    * Checks whether the value of any type is a `this` instance of any or the given identification.
    * @param value The value of any type to check against the `this` instance.
-   * @param id Optional identification of generic type variable `Id` that the given `value` contains.
+   * @param id Optional identification of generic type variable `Id` to check whether the given `value` contains.
    * @returns The return value is a `boolean` type indicating whether the given `value` is a `this` instance of any or the given `id`.
+   * @angularpackage
    */
-  protected static isError<Id extends string, Var>(
+  protected static isError<Id extends string>(
     value: any,
     id?: Id
   ): value is CommonError<Id> {
-    return typeof value === 'object' &&
-      value instanceof this &&
-      typeof id === 'string'
-      ? value.id === id
-      : true;
+    return typeof value === 'object' && value instanceof this
+      ? typeof id === 'string'
+        ? value.id === id
+        : true
+      : false;
   }
   //#endregion protected static methods.
 
   //#region constructor.
   /**
-   * Creates an instance that represents an error with the described problem and its solution, optionally marked with an explicit
-   * identification.
-   * @param problem Description of the problem of a string type.
-   * @param fix A solution to the given `problem` of a string type.
+   * Creates an instance that represents an error with the described problem and its solution, optionally with expected type, range, an
+   * explicit identification, and an error message template.
+   * @param problem Description of the problem of a `string` type.
+   * @param fix A solution to the given `problem` of a `string` type.
    * @param id Optional unique identification to the given `problem` of generic type variable `Id`.
-   * @param template A template of error message with the replaceable `{problem}`, `{fix}` and optional `{id}` words. By default, the value
-   * is picked from the static property `template`.
+   * @param template A template of error message with the replaceable `{problem}`, `{fix}` and optional `{id}`, `{max}`, `{min}` and
+   * `{type}` tags. By default, the value is equal to the static property `template`.
+   * @param additional Optional object consists of optional `max`, `min`, and `type` properties to define the error message.
    * @angularpackage
    */
-  protected constructor(
+  constructor(
     problem: string,
     fix: string,
-    range?: { min?: number; max?: number },
-    id: Id = '' as Id,
-    template = CommonError.template
+    id?: Id,
+    template = CommonError.template,
+    additional?: { max?: number; min?: number; type?: string }
   ) {
-    super(CommonError.defineMessage`${problem}${fix}${range}${id}${template}`);
+    super(
+      CommonError.defineMessage`${problem}${fix}${id}${template}${additional}`
+    );
     this.#fix = fix;
     this.#id = id;
     this.#problem = problem;
