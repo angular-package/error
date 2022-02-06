@@ -55,6 +55,12 @@ Manages an [`Error`][js-error].
 
 <br>
 
+## Documentation
+
+For the detailed documentation go to [**https://error.angular-package.dev/**](https://error.angular-package.dev/)
+
+<br>
+
 ## Table of contents
 
 * [Skeleton](#skeleton)
@@ -104,31 +110,6 @@ Install `@angular-package/error` package with command:
 
 ```bash
 npm i @angular-package/error --save
-```
-
-<br>
-
-## Api
-
-```typescript
-import {
-  // Class.
-  ValidationError,
-  // Interface.
-  ErrorMessage,
-} from '@angular-package/error';
-```
-
-```typescript
-/*
- * Experimental.
- */
-import {
-  // Class.
-  MessageBuilder,
-  MessageBuilderTemplate,
-  MessageFunctionBuilder,
-} from '@angular-package/error';
 ```
 
 <br>
