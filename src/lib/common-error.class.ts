@@ -1,5 +1,6 @@
 /**
- * The `CommonError` abstract object to throw an identified error with a solution to the described problem.
+ * The `CommonError` abstract object to throw an identified error with a solution to the described problem, additional type, and range built
+ * on the template.
  */
 export abstract class CommonError<Id extends string = string> extends Error {
   //#region public static properties.
@@ -129,8 +130,8 @@ export abstract class CommonError<Id extends string = string> extends Error {
 
   //#region constructor.
   /**
-   * Creates an instance that represents an error with the described problem and its solution, optionally with expected type, range, an
-   * explicit identification, and an error message template.
+   * Creates an error instance with the message built from the given problem, its solution, optional type, range, an explicit identification
+   * on the error message template.
    * @param problem Description of the problem of a `string` type.
    * @param fix A solution to the given `problem` of a `string` type.
    * @param id Optional unique identification to the given `problem` of generic type variable `Id`.
