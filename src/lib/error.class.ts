@@ -1,7 +1,7 @@
 import { CommonError } from './common-error.class';
 /**
- * The `Error` class is an extension of the` CommonError` class
- * The `Error` object is thrown when a runtime error occurs, but with additional identification and a solution to the described problem.
+ * The `Error` object is an extension of the `CommonError` class and is thrown when a runtime error occurs with a message built from a
+ * solution to the described problem but with additional identification, on the template.
  */
 export class Error<Id extends string> extends CommonError<Id> {
   //#region public instance accessors.
