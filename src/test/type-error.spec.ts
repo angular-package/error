@@ -3,9 +3,6 @@ import { Testing, TestingToBeMatchers } from '@angular-package/testing';
 import { typeOf } from '@angular-package/type';
 // Class.
 import { TypeError } from '../lib/type-error.class';
-
-const et = new TypeError('problem', 'fix', 'string');
-
 /**
  * Initialize `Testing`.
  */
@@ -19,7 +16,7 @@ testing.describe('[counter] TypeError', () => {
   let id: string;
   let problem: string;
   let template: string;
-  let expectedType: string;
+  let type: string;
   let typeError: TypeError<string>;
 
   // Prepare the values.
@@ -27,7 +24,7 @@ testing.describe('[counter] TypeError', () => {
   id = '427';
   problem = 'The value must be a string type.';
   template = `Problem(VE{id}): {problem} {type}\nFix: {fix}`;
-  expectedType = 'Symbol';
+  type = 'Symbol';
 
   beforeEach(() => {
     // Prepare the values.
@@ -35,8 +32,8 @@ testing.describe('[counter] TypeError', () => {
     id = '427';
     problem = 'The value must be a string type.';
     template = `Problem(VE{id}): {problem} {type}\nFix: {fix}`;
-    expectedType = 'Symbol';
-    typeError = new TypeError(problem, fix, expectedType, id, template);
+    type = 'Symbol';
+    typeError = new TypeError(problem, fix, id, type, template);
   });
 
   testing
@@ -47,10 +44,10 @@ testing.describe('[counter] TypeError', () => {
     .describe(`Static properties`, () => {
       testing
         .it(`TypeError.template`, () => {
-          expect(TypeError.template).toEqual(`Problem{id}: {problem} must be of {type} => Fix: {fix}`);
+          expect(TypeError.template).toEqual(`Problem{id}: {problem} => Fix: {fix} must be of the {type}`);
           TypeError.template = `{problem} => Fix: {fix} of {id}`;
           expect(TypeError.template).toEqual(`{problem} => Fix: {fix} of {id}`);
-          TypeError.template = `Problem{id}: {problem} must be of {type} => Fix: {fix}`;
+          TypeError.template = `Problem{id}: {problem} => Fix: {fix} must be of the {type}`;
       });
     })
 
@@ -63,7 +60,7 @@ testing.describe('[counter] TypeError', () => {
         /**
          * TypeError.prototype.expectedType
          */
-         .it(`TypeError.prototype.expectedType`, () => expect(typeError.expectedType).toEqual(expectedType))
+         .it(`TypeError.prototype.expectedType`, () => expect(typeError.type).toEqual(type))
 
         /**
          * TypeError.prototype.fix
@@ -108,14 +105,14 @@ testing.describe('[counter] TypeError', () => {
         /**
          * TypeError.define()
          */
-        .it(`TypeError.define()`, () => {
-          const e = TypeError.define(problem, fix, expectedType, id, template);
-          expect(e.message).toEqual(`Problem(VE${id}): ${problem} ${expectedType}\nFix: ${fix}`);
+        .it(`TypeError.define(problem, fix, id, type, template)`, () => {
+          const e = TypeError.define(problem, fix, id, type, template);
+          expect(e.message).toEqual(`Problem(VE${id}): ${problem} ${type}\nFix: ${fix}`);
           // Required.
           expect(e.fix).toEqual(fix);
           expect(e.problem).toEqual(problem);
           // Optional.
-          expect(e.expectedType).toEqual(expectedType);
+          expect(e.type).toEqual(type);
           expect(e.id).toEqual(id);
           expect(e.template).toEqual(template);
         })
@@ -125,7 +122,7 @@ testing.describe('[counter] TypeError', () => {
          */
         .it(`TypeError.isTypeError()`, () => {
           expect(TypeError.isTypeError(typeError)).toBeTrue();
-          expect(TypeError.isTypeError(typeError, expectedType, id)).toBeTrue();
+          expect(TypeError.isTypeError(typeError, id, type)).toBeTrue();
         });
     })
 
@@ -136,57 +133,57 @@ testing.describe('[counter] TypeError', () => {
       testing
         .it(`(problem, fix)`, () => {
           const e = new TypeError(problem, fix);
-          expect(e.message).toEqual(`Problem${''}: ${problem} must be of ${''} => Fix: ${fix}`);
+          expect(e.message).toEqual(`Problem${''}: ${problem} => Fix: ${fix} must be of the ${''}`);
           // Required.
           expect(e.fix).toEqual(fix);
           expect(e.problem).toEqual(problem);
           // Optional.
           expect(e.id).toBeUndefined();
-          expect(e.expectedType).toBeUndefined();
+          expect(e.type).toBeUndefined();
           expect(e.template).toEqual(TypeError.template);
         })
-        .it(`(problem, fix, type)`, () => {
-          const e = new TypeError(problem, fix, expectedType);
-          expect(e.message).toEqual(`Problem${''}: ${problem} must be of ${expectedType} => Fix: ${fix}`);
+        .it(`(problem, fix, undefined, type)`, () => {
+          const e = new TypeError(problem, fix, undefined, type);
+          expect(e.message).toEqual(`Problem${''}: ${problem} => Fix: ${fix} must be of the ${type}`);
           // Required.
           expect(e.fix).toEqual(fix);
           expect(e.problem).toEqual(problem);
           // Optional.
           expect(e.id).toBeUndefined();
-          expect(e.expectedType).toEqual(expectedType);
+          expect(e.type).toEqual(type);
           expect(e.template).toEqual(TypeError.template);
         })
-        .it(`(problem, fix, undefined, id)`, () => {
-          const e = new TypeError(problem, fix, undefined, id);
-          expect(e.message).toEqual(`Problem${id}: ${problem} must be of ${''} => Fix: ${fix}`);
+        .it(`(problem, fix, id)`, () => {
+          const e = new TypeError(problem, fix, id);
+          expect(e.message).toEqual(`Problem${id}: ${problem} => Fix: ${fix} must be of the ${''}`);
           // Required.
           expect(e.fix).toEqual(fix);
           expect(e.problem).toEqual(problem);
           // Optional.
           expect(e.id).toEqual(id);
-          expect(e.expectedType).toBeUndefined();
+          expect(e.type).toBeUndefined();
           expect(e.template).toEqual(TypeError.template);
         })
-        .it(`(problem, fix, type, id)`, () => {
-          const e = new TypeError(problem, fix, expectedType, id);
-          expect(e.message).toEqual(`Problem${id}: ${problem} must be of ${expectedType} => Fix: ${fix}`);
+        .it(`(problem, fix, id, type)`, () => {
+          const e = new TypeError(problem, fix, id, type);
+          expect(e.message).toEqual(`Problem${id}: ${problem} => Fix: ${fix} must be of the ${type}`);
           // Required.
           expect(e.fix).toEqual(fix);
           expect(e.problem).toEqual(problem);
           // Optional.
           expect(e.id).toEqual(id);
-          expect(e.expectedType).toEqual(expectedType);
+          expect(e.type).toEqual(type);
           expect(e.template).toEqual(TypeError.template);
         })
-        .it(`(problem, fix, type, id, template)`, () => {
-          const e = new TypeError(problem, fix, expectedType, id, template);
-          expect(e.message).toEqual(`Problem(VE${id}): ${problem} ${expectedType}\nFix: ${fix}`);
+        .it(`(problem, fix, id, type, template)`, () => {
+          const e = new TypeError(problem, fix, id, type, template);
+          expect(e.message).toEqual(`Problem(VE${id}): ${problem} ${type}\nFix: ${fix}`);
           // Required.
           expect(e.fix).toEqual(fix);
           expect(e.problem).toEqual(problem);
           // Optional.
           expect(e.id).toEqual(id);
-          expect(e.expectedType).toEqual(expectedType);
+          expect(e.type).toEqual(type);
           expect(e.template).toEqual(template);
         });
     });
