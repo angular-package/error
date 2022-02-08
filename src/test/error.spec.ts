@@ -68,30 +68,22 @@ testing.describe('[counter] Error', () => {
         /**
          * Error.prototype.id
          */
-        .it(`Error.prototype.id`, () => {
-          expect(error.id).toEqual(id);
-        })
+        .it(`Error.prototype.id`, () => expect(error.id).toEqual(id))
 
         /**
          * Error.prototype.name
          */
-        .it(`Error.prototype.name`, () => {
-          expect(error.name).toEqual('Error');
-        })
+        .it(`Error.prototype.name`, () => expect(error.name).toEqual('Error'))
 
         /**
          * Error.prototype.problem
          */
-        .it(`Error.prototype.problem`, () => {
-          expect(error.problem).toEqual(problem);
-        })
+        .it(`Error.prototype.problem`, () => expect(error.problem).toEqual(problem))
 
         /**
          * Error.prototype.template
          */
-        .it(`Error.prototype.template`, () => {
-          expect(error.template).toEqual(template);
-        })
+        .it(`Error.prototype.template`, () => expect(error.template).toEqual(template))
 
         /**
          * [Symbol.toStringTag]
