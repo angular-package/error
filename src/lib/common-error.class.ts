@@ -131,13 +131,13 @@ export abstract class CommonError<Id extends string = string> extends Error {
   //#region constructor.
   /**
    * Creates an error instance with the message built from the given problem, its solution, optional type, range, an explicit identification
-   * on the error message template.
+   * on the supplied or stored template.
    * @param problem Description of the problem of a `string` type.
    * @param fix A solution to the given `problem` of a `string` type.
    * @param id Optional unique identification to the given `problem` of generic type variable `Id`.
    * @param template A template of error message with the replaceable `{problem}`, `{fix}` and optional `{id}`, `{max}`, `{min}` and
    * `{type}` tags. By default, the value is equal to the static property `template`.
-   * @param additional Optional object consists of optional `max`, `min`, and `type` properties to define the error message.
+   * @param additional An optional object consists of optional `min`, `max`, and `type` properties to define the error message.
    * @angularpackage
    */
   constructor(
