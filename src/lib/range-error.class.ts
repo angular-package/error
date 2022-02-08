@@ -1,8 +1,8 @@
 import { CommonError } from './common-error.class';
 /**
  * The `RangeError` object is an extension of the `CommonError` class and is thrown when a value is not in the set or range of allowed
- * values with the message built from the described problem and its solution, optional explicit identification on the given or stored
- * template.
+ * values with the message built from the described problem and its solution, optional explicit identification and minimum/maximum range
+ * on the given or stored template.
  */
 export class RangeError<Id extends string> extends CommonError<Id> {
   /**
@@ -86,8 +86,9 @@ export class RangeError<Id extends string> extends CommonError<Id> {
    * @param id Optional unique identification to the given `problem` of generic type variable `Id`.
    * @param min The optional minimum range of a `number` type that causes an error to be thrown(or not thrown).
    * @param max The optional maximum range of a `number` type that causes an error to be thrown(or not thrown).
-   * @param template A template of error message with the replaceable `{problem}`, `{fix}` and optional `{id}` tags. By default, the value
-   * is picked from the static property `RangeError.template`.
+   * @param template A template of error message with the replaceable `{problem}`, `{fix}` and optional `{id}`, `{max}`, `{min}` and
+   * `{type}` tags. By default, the value is equal to the static property `template`. By default, the value is picked from the static
+   * property `RangeError.template`.
    * @returns The return value is a new instance of the `RangeError` with the message built from the given required `problem`, `fix` and
    * optional `id`, `min`, `max` on the given or stored `template`.
    * @angularpackage
