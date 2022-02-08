@@ -49,7 +49,7 @@ export class Error<Id extends string> extends CommonError<Id> {
   /**
    * Checks whether the value of any type is an instance of `Error` of any or the given identification.
    * @param value The value of any type to check against the `Error` instance.
-   * @param id Optional identification of generic type variable `Id` that the given `value` contains.
+   * @param id Optional unique identification of generic type variable `Id` that the given `value` contains.
    * @returns The return value is a `boolean` type indicating whether the given `value` is an instance of `Error` of any or the given `id`.
    * @angularpackage
    */
@@ -63,8 +63,8 @@ export class Error<Id extends string> extends CommonError<Id> {
 
   //#region constructor.
   /**
-   * Creates the `Error` instance that represents an error with the message built of the described `problem` and its solution, optionally
-   * marked with an explicit identification on the given or stored `template`.
+   * Creates the `Error` instance with the message built from the given described `problem` and its solution, optional explicit
+   * identification on the given or stored `template`.
    * @param problem Description of the problem of a string type.
    * @param fix A solution to the given `problem` of a string type.
    * @param id Optional unique identification to the given `problem` of generic type variable `Id`.
