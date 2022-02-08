@@ -39,7 +39,7 @@ testing.describe('[counter] RangeError', () => {
     problem = 'The value';
     template = `Problem(VE{id}): {problem} {min} and {max}.\nFix: {fix}.`;
     value = Symbol(123);
-    rangeError = new RangeError(problem, fix, min, max, id, template);
+    rangeError = new RangeError(problem, fix, id, min, max, template);
   });
 
   testing
@@ -122,8 +122,8 @@ testing.describe('[counter] RangeError', () => {
         /**
          * RangeError.define()
          */
-        .it(`RangeError.define()`, () => {
-          const e = RangeError.define(problem, fix, min, max, id, template);
+        .it(`RangeError.define(problem, fix, id, min, max, template)`, () => {
+          const e = RangeError.define(problem, fix, id, min, max, template);
           expect(e.message).toEqual(`Problem(VE${id}): ${problem} ${min} and ${max}.\nFix: ${fix}.`);
           // Required.
           expect(e.fix).toEqual(fix);
@@ -140,13 +140,13 @@ testing.describe('[counter] RangeError', () => {
          */
         .it(`RangeError.isRangeError()`, () => {
           expect(RangeError.isRangeError(rangeError)).toBeTrue();
-          expect(RangeError.isRangeError(rangeError, undefined, undefined, id)).toBeTrue();
-          expect(RangeError.isRangeError(rangeError, min)).toBeTrue();
-          expect(RangeError.isRangeError(rangeError, undefined, max)).toBeTrue();
-          expect(RangeError.isRangeError(rangeError, min, max)).toBeTrue();
-          expect(RangeError.isRangeError(rangeError, min, undefined, id)).toBeTrue();
-          expect(RangeError.isRangeError(rangeError, undefined, max, id)).toBeTrue();
-          expect(RangeError.isRangeError(rangeError, min, max, id)).toBeTrue();
+          expect(RangeError.isRangeError(rangeError, id)).toBeTrue();
+          expect(RangeError.isRangeError(rangeError, undefined, min)).toBeTrue();
+          expect(RangeError.isRangeError(rangeError, undefined, undefined, max)).toBeTrue();
+          expect(RangeError.isRangeError(rangeError, undefined, min, max)).toBeTrue();
+          expect(RangeError.isRangeError(rangeError, id, min, undefined)).toBeTrue();
+          expect(RangeError.isRangeError(rangeError, id, undefined, max)).toBeTrue();
+          expect(RangeError.isRangeError(rangeError, id, min, max)).toBeTrue();
         });
     })
 
@@ -168,8 +168,8 @@ testing.describe('[counter] RangeError', () => {
           expect(e.template).toEqual(RangeError.template);
         })
 
-        .it(`(problem, fix, min, undefined, id)`, () => {
-          const e = new RangeError(problem, fix, min, undefined, id);
+        .it(`(problem, fix, id, min, undefined)`, () => {
+          const e = new RangeError(problem, fix, id, min, undefined);
           expect(e.message).toEqual(`Problem${id}: ${problem} must be between ${min} and ${''} => Fix: ${fix}`);
           // Required.
           expect(e.fix).toEqual(fix);
@@ -180,8 +180,8 @@ testing.describe('[counter] RangeError', () => {
           expect(e.min).toEqual(min);
           expect(e.template).toEqual(RangeError.template);
         })
-        .it(`(problem, fix, undefined, max, id)`, () => {
-          const e = new RangeError(problem, fix, undefined, max, id);
+        .it(`(problem, fix, id, undefined, max)`, () => {
+          const e = new RangeError(problem, fix, id, undefined, max);
           expect(e.message).toEqual(`Problem${id}: ${problem} must be between ${''} and ${max} => Fix: ${fix}`);
           // Required.
           expect(e.fix).toEqual(fix);
@@ -192,8 +192,8 @@ testing.describe('[counter] RangeError', () => {
           expect(e.min).toBeUndefined();
           expect(e.template).toEqual(RangeError.template);
         })
-        .it(`(problem, fix, min, max, id)`, () => {
-          const e = new RangeError(problem, fix, min, max, id);
+        .it(`(problem, fix, id, min, max)`, () => {
+          const e = new RangeError(problem, fix, id, min, max);
           expect(e.message).toEqual(`Problem${id}: ${problem} must be between ${min} and ${max} => Fix: ${fix}`);
           // Required.
           expect(e.fix).toEqual(fix);
@@ -204,13 +204,13 @@ testing.describe('[counter] RangeError', () => {
           expect(e.min).toEqual(min);
           expect(e.template).toEqual(RangeError.template);
         })
-        .it(`(problem, fix, min, max, id, template)`, () => {
+        .it(`('The age', 'Try to change minimum or maximum', id, min, max, template)`, () => {
           const e = new RangeError(
             `The age`,
             `Try to change minimum or maximum`,
+            id,
             min,
             max,
-            id,
             template
           );
           expect(e.message).toEqual(`Problem(VE${id}): ${'The age'} ${min} and ${max}.\nFix: ${'Try to change minimum or maximum'}.`);
