@@ -5,8 +5,8 @@
 export abstract class CommonError<Id extends string = string> extends Error {
   //#region public static properties.
   /**
-   * A template of the error message of `string` type with the replaceable `{problem}`, `{fix}` and optional `{id}`, `{max}`, `{min}`,
-   * `{type}` tags. By default, it's set to `Problem{id}: {problem} => Fix: {fix}`.
+   * A template of the error message of `string` type with the replaceable `{problem}`, `{fix}` and optional `{id}`, `{link}`, `{max}`,
+   * `{min}`, `{type}` tags. By default, it's set to `Problem{id}: {problem} => Fix: {fix}`.
    */
   public static template = `Problem{id}: {problem} => Fix: {fix}`;
   //#endregion public static properties.
@@ -28,6 +28,15 @@ export abstract class CommonError<Id extends string = string> extends Error {
    */
   public get id(): Id | undefined {
     return this.#id;
+  }
+
+  /**
+   * The `get` accessor gets the link(to read more about the thrown error) by returning the `#link` property of a specified object.
+   * @returns The return value is the link of a `string` type or `undefined`.
+   * @angularpackage
+   */
+  public get link(): string | undefined {
+    return this.#link;
   }
 
   /**
@@ -70,6 +79,11 @@ export abstract class CommonError<Id extends string = string> extends Error {
   #id?: Id;
 
   /**
+   * A privately stored link redirects to read more about the thrown error.
+   */
+  #link?: string;
+
+  /**
    * A privately stored problem of a `string` type.
    */
   #problem: string;
@@ -97,15 +111,16 @@ export abstract class CommonError<Id extends string = string> extends Error {
       fix: string,
       id: string | undefined,
       template: string,
-      additional: { min?: number; max?: number; type?: string; };
+      additional: { link?: string; min?: number; max?: number; type?: string };
     [problem, fix, id, template, additional] = values;
     template = (template || CommonError.template)
-      .replace('{fix}', fix || '')
-      .replace(/{id}/g, id || '')
       .replace('{problem}', problem || '')
-      .replace(/{max}/g, additional?.max ? String(additional?.max) : '')
-      .replace(/{min}/g, additional?.min ? String(additional?.min) : '')
-      .replace(/{type}/g, additional?.type ? additional?.type : '');
+      .replace(/{id}/g, id || '')
+      .replace(/{link}/g, additional?.link ? additional.link : '')
+      .replace(/{max}/g, additional?.max ? String(additional.max) : '')
+      .replace(/{min}/g, additional?.min ? String(additional.min) : '')
+      .replace(/{type}/g, additional?.type ? additional.type : '')
+      .replace('{fix}', fix || '');
     return template;
   }
 
@@ -135,9 +150,9 @@ export abstract class CommonError<Id extends string = string> extends Error {
    * @param problem Description of the problem of a `string` type.
    * @param fix A solution to the given `problem` of a `string` type.
    * @param id Optional unique identification to the given `problem` of generic type variable `Id`.
-   * @param template A template of error message with the replaceable `{problem}`, `{fix}` and optional `{id}`, `{max}`, `{min}` and
-   * `{type}` tags. By default, the value is equal to the static property `template`.
-   * @param additional An optional object consists of optional `min`, `max`, and `type` properties to define the error message.
+   * @param template A template of error message with the replaceable `{problem}`, `{fix}` and optional `{id}`, `{link}`, `{max}`, `{min}`
+   * and `{type}` tags. By default, the value is equal to the static property `template`.
+   * @param additional An optional object consists of optional `link`, `min`, `max`, and `type` properties to define the error message.
    * @angularpackage
    */
   constructor(
@@ -145,7 +160,7 @@ export abstract class CommonError<Id extends string = string> extends Error {
     fix: string,
     id?: Id,
     template = CommonError.template,
-    additional?: { max?: number; min?: number; type?: string }
+    additional?: { link?: string; max?: number; min?: number; type?: string }
   ) {
     super(
       CommonError.defineMessage`${problem}${fix}${id}${template}${additional}`
