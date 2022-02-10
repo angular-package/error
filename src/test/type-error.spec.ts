@@ -12,29 +12,18 @@ const toBe = new TestingToBeMatchers();
  * Tests.
  */
 testing.describe('[counter] TypeError', () => {
-  let fix: string;
-  let id: string;
-  let problem: string;
-  let template: string;
-  let type: string;
-  let typeError: TypeError<string>;
-
   // Prepare the values.
-  fix = 'Provide string type value. Read more: https://duckduckgo.com/';
-  id = '427';
-  problem = 'The value must be a string type.';
-  template = `Problem(VE{id}): {problem} {type}\nFix: {fix}`;
-  type = 'Symbol';
+  const fix = 'Provide string type value. Read more: https://duckduckgo.com/';
+  const id = '427';
+  const problem = 'The value must be a string type.';
+  const template = `Problem(VE{id}): {problem} {type}\nFix: {fix}`;
+  const type = 'Symbol';
+  let typeError = new TypeError(problem, fix, id, type, template);
 
-  beforeEach(() => {
-    // Prepare the values.
-    fix = 'Provide string type value. Read more: https://duckduckgo.com/';
-    id = '427';
-    problem = 'The value must be a string type.';
-    template = `Problem(VE{id}): {problem} {type}\nFix: {fix}`;
-    type = 'Symbol';
-    typeError = new TypeError(problem, fix, id, type, template);
-  });
+  beforeEach(() => (
+    TypeError.template = `Problem{id}: {problem} => Fix: {fix} must be of the {type}`,
+    typeError = new TypeError(problem, fix, id, type, template)
+  ));
 
   testing
 
@@ -47,7 +36,6 @@ testing.describe('[counter] TypeError', () => {
           expect(TypeError.template).toEqual(`Problem{id}: {problem} => Fix: {fix} must be of the {type}`);
           TypeError.template = `{problem} => Fix: {fix} of {id}`;
           expect(TypeError.template).toEqual(`{problem} => Fix: {fix} of {id}`);
-          TypeError.template = `Problem{id}: {problem} => Fix: {fix} must be of the {type}`;
       });
     })
 
