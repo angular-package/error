@@ -12,35 +12,20 @@ const toBe = new TestingToBeMatchers();
  * Tests.
  */
 testing.describe('[counter] RangeError', () => {
-  let fix: string;
-  let id: string;
-  let min: number;
-  let max: number;
-  let problem: string;
-  let template: string;
-  let value: any;
-  let rangeError: RangeError<string>;
-
   // Prepare the values.
-  fix = 'Provide string type value. Read more: https://duckduckgo.com/';
-  id = '427';
-  min = 9;
-  max = 27;
-  problem = 'The value';
-  template = `Problem(VE{id}): {problem} {min} and {max}.\nFix: {fix}.`;
-  value = Symbol(123);
+  const fix = 'Provide string type value. Read more: https://duckduckgo.com/';
+  const id = '427';
+  const min = 9;
+  const max = 27;
+  const problem = 'The value';
+  const template = `Problem(VE{id}): {problem} {min} and {max}.\nFix: {fix}.`;
 
-  beforeEach(() => {
-    // Prepare the values.
-    fix = 'Provide string type value. Read more: https://duckduckgo.com/';
-    id = '427';
-    min = 9;
-    max = 27;
-    problem = 'The value';
-    template = `Problem(VE{id}): {problem} {min} and {max}.\nFix: {fix}.`;
-    value = Symbol(123);
-    rangeError = new RangeError(problem, fix, id, min, max, template);
-  });
+  let rangeError = new RangeError(problem, fix, id, min, max, template);
+
+  beforeEach(() => (
+    RangeError.template = `Problem{id}: {problem} must be between {min} and {max} => Fix: {fix}`,
+    rangeError = new RangeError(problem, fix, id, min, max, template)
+  ));
 
   testing
 
@@ -52,7 +37,6 @@ testing.describe('[counter] RangeError', () => {
         expect(RangeError.template).toEqual(`Problem{id}: {problem} must be between {min} and {max} => Fix: {fix}`);
         RangeError.template = `{problem} => Fix: {fix} of {id}`;
         expect(RangeError.template).toEqual(`{problem} => Fix: {fix} of {id}`);
-        RangeError.template = `Problem{id}: {problem} must be between {min} and {max} => Fix: {fix}`;
       });
     })
 
