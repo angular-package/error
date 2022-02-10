@@ -11,30 +11,15 @@ const toBe = new TestingToBeMatchers();
  * Tests.
  */
 testing.describe('[counter] ValidationError', () => {
-  let errorMessage: string;
-  let fix: string;
-  let id: string;
-  let problem: string;
-  let template: string;
-  let value: any;
-  let validationError: ValidationError<string>;
-
   // Prepare the values.
-  fix = 'Provide string type value. Read more: https://duckduckgo.com/';
-  id = '427';
-  problem = 'The value must be a string type.';
-  template = `Problem(VE{id}): {problem}\nFix: {fix}`;
-  value = Symbol(123);
+  const fix = 'Provide string type value. Read more: https://duckduckgo.com/';
+  const id = '427';
+  const problem = 'The value must be a string type.';
+  const template = `Problem(VE{id}): {problem}\nFix: {fix}`;
+  const value = Symbol(123);
+  let validationError = new ValidationError(problem, fix, id, template);
 
-  beforeEach(() => {
-    // Prepare the values.
-    fix = 'Provide string type value. Read more: https://duckduckgo.com/';
-    id = '427';
-    problem = 'The value must be a string type.';
-    template = `Problem(VE{id}): {problem}\nFix: {fix}`;
-    value = Symbol(123);
-    validationError = new ValidationError(problem, fix, id, template);
-  });
+  beforeEach(() => validationError = new ValidationError(problem, fix, id, template));
 
   testing
 
