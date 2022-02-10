@@ -4,7 +4,11 @@ import { CommonError } from './common-error.class';
  * values with the message built from the described problem and its solution, optional explicit identification and minimum/maximum range
  * on the given or stored template.
  */
-export class RangeError<Id extends string> extends CommonError<Id> {
+export class RangeError<
+  Id extends string,
+  Min extends number | undefined = undefined,
+  Max extends number | undefined = undefined
+> extends CommonError<Id> {
   /**
    * A template of the error message of `string` type with the replaceable required `{problem}`, `{fix}` and optional `{id}`, `{max}`,
    * `{min}`, `{type}` tags. By default, it's set to `Problem{id}: {problem} must be between {min} and {max} => Fix: {fix}`.
@@ -13,22 +17,22 @@ export class RangeError<Id extends string> extends CommonError<Id> {
 
   //#region public instance accessors.
   /**
-   * The `get` accessor obtains the maximum range of `number` type that causes an error to be thrown(or not thrown), if set, otherwise
-   * returns `undefined`.
-   * @returns The return value is the maximum range of a `number` type or `undefined`.
+   * The `get` accessor obtains the maximum range of generic type variable `Max` that causes an error to be thrown(or not thrown), if set,
+   * otherwise returns `undefined`.
+   * @returns The return value is the maximum range of generic type variable `Max` or `undefined`.
    * @angularpackage
    */
-  public get max(): number | undefined {
+  public get max(): Max | undefined {
     return this.#max;
   }
 
   /**
-   * The `get` accessor obtains the minimum range of `number` type that causes an error to be thrown(or not thrown), if set, otherwise
-   * returns `undefined`.
-   * @returns The return value is the minimum range of a `number` type or undefined.
+   * The `get` accessor obtains the minimum range of generic type variable `Min` that causes an error to be thrown(or not thrown), if set,
+   * otherwise returns `undefined`.
+   * @returns The return value is the minimum range of generic type variable `Min` or undefined.
    * @angularpackage
    */
-  public get min(): number | undefined {
+  public get min(): Min | undefined {
     return this.#min;
   }
 
@@ -47,7 +51,7 @@ export class RangeError<Id extends string> extends CommonError<Id> {
    * `max` property.
    * @angularpackage
    */
-  public get range(): { min?: number; max?: number } {
+  public get range(): { min?: Min; max?: Max } {
     return {
       min: this.#min,
       max: this.#max,
@@ -67,14 +71,14 @@ export class RangeError<Id extends string> extends CommonError<Id> {
 
   //#region private instance properties.
   /**
-   * Private property of the maximum range of a `number` type that causes an error to be thrown(or not thrown).
+   * Private property of the maximum range of generic type variable `Max` that causes an error to be thrown(or not thrown).
    */
-  #max?: number;
+  #max?: Max;
 
   /**
-   * Private property of the minimum range of a `number` type that causes an error to be thrown(or not thrown).
+   * Private property of the minimum range of generic type variable `Min` that causes an error to be thrown(or not thrown).
    */
-  #min?: number;
+  #min?: Min;
   //#endregion private instance properties.
 
   //#region public static methods.
@@ -84,23 +88,27 @@ export class RangeError<Id extends string> extends CommonError<Id> {
    * @param problem Description of the problem of a `string` type.
    * @param fix A solution to the given `problem` of a `string` type.
    * @param id Optional unique identification to the given `problem` of generic type variable `Id`.
-   * @param min The optional minimum range of a `number` type that causes an error to be thrown(or not thrown).
-   * @param max The optional maximum range of a `number` type that causes an error to be thrown(or not thrown).
+   * @param min The optional minimum range of generic type variable `Min` that causes an error to be thrown(or not thrown).
+   * @param max The optional maximum range of generic type variable `Max` that causes an error to be thrown(or not thrown).
    * @param template A template of error message with the replaceable `{problem}`, `{fix}` and optional `{id}`, `{max}`, `{min}` and
-   * `{type}` tags. By default, the value is equal to the static property `template`. By default, the value is picked from the static
+   * `{type}` tags. By default, the value is picked from the static
    * property `RangeError.template`.
    * @returns The return value is a new instance of the `RangeError` with the message built from the given required `problem`, `fix` and
    * optional `id`, `min`, `max` on the given or stored `template`.
    * @angularpackage
    */
-  public static define<Id extends string>(
+  public static define<
+    Id extends string,
+    Min extends number | undefined = undefined,
+    Max extends number | undefined = undefined
+  >(
     problem: string,
     fix: string,
     id?: Id,
-    min?: number,
-    max?: number,
+    min?: Min,
+    max?: Max,
     template = RangeError.template
-  ): RangeError<Id> {
+  ): RangeError<Id, Min, Max> {
     return new this(problem, fix, id, min, max, template);
   }
 
@@ -108,20 +116,24 @@ export class RangeError<Id extends string> extends CommonError<Id> {
    * Checks whether the value of any type is an instance of `RangeError` of any or the given minimum/maximum range and identification.
    * @param value The value of any type to check against the `RangeError` instance.
    * @param id Optional identification of generic type variable `Id` to check whether the given `value` contains.
-   * @param min The optional minimum range of a `number` type that causes an error to be thrown(or not thrown) to check whether the given
-   * `value` contains.
-   * @param max The optional maximum range of a `number` type that causes an error to be thrown(or not thrown) to check whether the given
-   * `value` contains.
+   * @param min The optional minimum range of generic type variable `Min` that causes an error to be thrown(or not thrown) to check whether
+   * the given `value` contains.
+   * @param max The optional maximum range of generic type variable `Max` that causes an error to be thrown(or not thrown) to check whether
+   * the given `value` contains.
    * @returns The return value is a `boolean` type indicating whether the given `value` is an instance of `RangeError` of any or the given
    * `min`, max` and `id` properties.
    * @angularpackage
    */
-  public static isRangeError<Id extends string>(
+  public static isRangeError<
+    Id extends string,
+    Min extends number | undefined = undefined,
+    Max extends number | undefined = undefined
+  >(
     value: any,
     id?: Id,
-    min?: number,
-    max?: number
-  ): value is RangeError<Id> {
+    min?: Min,
+    max?: Max
+  ): value is RangeError<Id, Min, Max> {
     return (
       super.isError(value, id) &&
       (typeof min === 'number' ? (value as any).min === min : true) &&
@@ -136,8 +148,8 @@ export class RangeError<Id extends string> extends CommonError<Id> {
    * optional `min`/`max` range, and an explicit identification on the given or stored error message template.
    * @param problem Description of the range problem of a `string` type.
    * @param fix A solution to the given range issue of a `string` type.
-   * @param min The optional minimum range of a `number` type that causes an error to be thrown(or not thrown).
-   * @param max The optional maximum range of a `number` type that causes an error to be thrown(or not thrown).
+   * @param min The optional minimum range of generic type variable `Min` that causes an error to be thrown(or not thrown).
+   * @param max The optional maximum range of generic type variable `Max` that causes an error to be thrown(or not thrown).
    * @param id Optional unique identification to the given `problem` of generic type variable `Id`.
    * @param template A template of error message with the replaceable required `{problem}`, `{fix}` and optional `{id}`, `{max}`, `{min}`
    * tags. By default, the value is equal to the static property `template`.
@@ -147,8 +159,8 @@ export class RangeError<Id extends string> extends CommonError<Id> {
     problem: string,
     fix: string,
     id?: Id,
-    min?: number,
-    max?: number,
+    min?: Min,
+    max?: Max,
     template = RangeError.template
   ) {
     super(problem, fix, id, template, { min, max });
