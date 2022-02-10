@@ -31,15 +31,22 @@ testing.describe('[counter] CommonError', () => {
   const problem = 'The value must be string type.';
   const fix = 'Provide the string type instead of number.';
   const id = 'AE: 427';
+  const max = 427;
+  const min = 9;
+  const link = 'http://duckduckgo.com';
   const template = `{problem} {fix} {id} {max} {min} {type}`;
-  const additional = { max: 427, min: 9, type: 'string' };
-  const testError = new TestError(problem, fix, id, template, additional);
+  const type = 'string';
+  const additional = { link, max, min, type };
+  let testError = new TestError(problem, fix, id, template, additional);
+
+  beforeEach(() => testError = new TestError(problem, fix, id, template, additional));
 
   testing
   .describe(`Accessors`, () => {
     testing
       .it(`TestError.prototype.fix`, () => expect(testError.fix).toEqual(fix))
       .it(`TestError.prototype.id`, () => expect(testError.id).toEqual(id))
+      .it(`TestError.prototype.link`, () => expect(testError.link).toEqual(link))
       .it(`TestError.prototype.message`, () =>
         expect(testError.message).toEqual(
           `${problem} ${fix} ${id} ${additional.max} ${additional.min} ${additional.type}`
