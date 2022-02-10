@@ -12,29 +12,17 @@ const toBe = new TestingToBeMatchers();
  * Tests.
  */
 testing.describe('[counter] Error', () => {
-  let fix: string;
-  let id: string;
-  let problem: string;
-  let template: string;
-  let value: any;
-  let error: Error<string>;
-
   // Prepare the values.
-  fix = 'Provide string type value. Read more: https://duckduckgo.com/';
-  id = '427';
-  problem = 'The value must be a string type.';
-  template = `Problem(VE{id}): {problem}\nFix: {fix}`;
-  value = Symbol(123);
+  const fix = 'Provide string type value. Read more: https://duckduckgo.com/';
+  const id = '427';
+  const problem = 'The value must be a string type.';
+  const template = `Problem(VE{id}): {problem}\nFix: {fix}`;
+  let error = new Error(problem, fix, id, template);
 
-  beforeEach(() => {
-    // Prepare the values.
-    fix = 'Provide string type value. Read more: https://duckduckgo.com/';
-    id = '427';
-    problem = 'The value must be a string type.';
-    template = `Problem(VE{id}): {problem}\nFix: {fix}`;
-    value = Symbol(123);
-    error = new Error(problem, fix, id, template);
-  });
+  beforeEach(() => (
+    Error.template = `Problem{id}: {problem} => Fix: {fix}`,
+    error = new Error(problem, fix, id, template)
+  ));
 
   testing
 
@@ -47,7 +35,6 @@ testing.describe('[counter] Error', () => {
           expect(Error.template).toEqual(`Problem{id}: {problem} => Fix: {fix}`);
           Error.template = `{problem} => Fix: {fix} of {id}`;
           expect(Error.template).toEqual(`{problem} => Fix: {fix} of {id}`);
-          Error.template = `Problem{id}: {problem} => Fix: {fix}`;
       });
     })
 
