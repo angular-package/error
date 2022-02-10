@@ -4,7 +4,7 @@ import { CommonError } from './common-error.class';
  * proper type(but not exclusively) with the message built from the described problem and its solution, along with additional identification
  * on the given or stored template.
  */
-export class ValidationError<Id extends string = ''> extends CommonError {
+export class ValidationError<Id extends string> extends CommonError {
   //#region public instance accessors.
   /**
    * The `get` accessor obtains error name of a `string` type, set to 'ValidationError' that is being thrown.
