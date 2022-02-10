@@ -167,6 +167,7 @@ export abstract class CommonError<Id extends string = string> extends Error {
     );
     this.#fix = fix;
     this.#id = id;
+    this.#link = additional?.link;
     this.#problem = problem;
     this.#template = template;
   }
