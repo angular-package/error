@@ -18,12 +18,10 @@ testing.describe('[counter] TypeError', () => {
   const problem = 'The value must be a string type.';
   const template = `Problem(VE{id}): {problem} {type}\nFix: {fix}`;
   const type = 'Symbol';
+
   let typeError = new TypeError(problem, fix, id, type, template);
 
-  beforeEach(() => (
-    TypeError.template = `Problem{id}: {problem} => Fix: {fix} must be of the {type}`,
-    typeError = new TypeError(problem, fix, id, type, template)
-  ));
+  beforeEach(() => typeError = new TypeError(problem, fix, id, type, template));
 
   testing
 
@@ -36,6 +34,7 @@ testing.describe('[counter] TypeError', () => {
           expect(TypeError.template).toEqual(`Problem{id}: {problem} => Fix: {fix} must be of the {type}`);
           TypeError.template = `{problem} => Fix: {fix} of {id}`;
           expect(TypeError.template).toEqual(`{problem} => Fix: {fix} of {id}`);
+          TypeError.template = `Problem{id}: {problem} => Fix: {fix} must be of the {type}`;
       });
     })
 
