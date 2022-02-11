@@ -19,10 +19,7 @@ testing.describe('[counter] Error', () => {
   const template = `Problem(VE{id}): {problem}\nFix: {fix}`;
   let error = new Error(problem, fix, id, template);
 
-  beforeEach(() => (
-    Error.template = `Problem{id}: {problem} => Fix: {fix}`,
-    error = new Error(problem, fix, id, template)
-  ));
+  beforeEach(() => error = new Error(problem, fix, id, template));
 
   testing
 
@@ -35,6 +32,7 @@ testing.describe('[counter] Error', () => {
           expect(Error.template).toEqual(`Problem{id}: {problem} => Fix: {fix}`);
           Error.template = `{problem} => Fix: {fix} of {id}`;
           expect(Error.template).toEqual(`{problem} => Fix: {fix} of {id}`);
+          Error.template = `Problem{id}: {problem} => Fix: {fix}`;
       });
     })
 
