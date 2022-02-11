@@ -22,10 +22,7 @@ testing.describe('[counter] RangeError', () => {
 
   let rangeError = new RangeError(problem, fix, id, min, max, template);
 
-  beforeEach(() => (
-    RangeError.template = `Problem{id}: {problem} must be between {min} and {max} => Fix: {fix}`,
-    rangeError = new RangeError(problem, fix, id, min, max, template)
-  ));
+  beforeEach(() => rangeError = new RangeError(problem, fix, id, min, max, template));
 
   testing
 
@@ -37,6 +34,7 @@ testing.describe('[counter] RangeError', () => {
         expect(RangeError.template).toEqual(`Problem{id}: {problem} must be between {min} and {max} => Fix: {fix}`);
         RangeError.template = `{problem} => Fix: {fix} of {id}`;
         expect(RangeError.template).toEqual(`{problem} => Fix: {fix} of {id}`);
+        RangeError.template = `Problem{id}: {problem} must be between {min} and {max} => Fix: {fix}`;
       });
     })
 
