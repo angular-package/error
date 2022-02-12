@@ -1,7 +1,8 @@
 import { CommonErrors } from './common-errors.class';
 import { Error } from './error.class';
 /**
- * The `Errors` object represents multiple identification numbers under which the `Error` object are stored.
+ * The `Errors` is an extension of the `CommonErrors` object that represents multiple identification numbers under which the errors of the
+ * `Error` type are prepared to throw.
  */
 export class Errors<Id extends string> extends CommonErrors<Id> {
   //#region constructor.
