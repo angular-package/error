@@ -1,5 +1,5 @@
 /**
- * The `CommonErrors` object represents the errors storage of unique identification numbers.
+ * The `CommonErrors` object represents the storage of errors with unique identification numbers.
  */
 export abstract class CommonErrors<Id extends string> {
   /**
@@ -10,6 +10,8 @@ export abstract class CommonErrors<Id extends string> {
   //#region protected instance accessors.
   /**
    * The `get` accessor returns the errors of `Map` type by returning the `#errors` property of a specified object.
+   * @returns The return value is the `Map` object of errors.
+   * @angularpackage
    */
   protected get errors(): Map<Id, any> {
     return this.#errors;
@@ -30,8 +32,9 @@ export abstract class CommonErrors<Id extends string> {
 
   //#region constructor.
   /**
-   * Creates an instance of the storage with unique identification numbers.
-   * @param id The unique identification numbers of the errors.
+   * Creates an instance of the errors storage with unique identification numbers.
+   * @param id A rest parameter of generic type variable `Id` indicates unique identification numbers under which the errors are stored in
+   * the object.
    * @angularpackage
    */
   constructor(...id: Id[]) {
@@ -41,8 +44,8 @@ export abstract class CommonErrors<Id extends string> {
 
   //#region instance public methods.
   /**
-   * Deletes the error of a specified `id`.
-   * @param id The unique identification of a generic type variable `DeleteId` to remove the error from the object.
+   * Deletes the error of a specified `id` from the object.
+   * @param id The unique identification of a generic type variable `ErrorId` to remove the error from the object.
    * @returns The return value is an instance of an `ValidationError`.
    * @angularpackage
    */
@@ -52,7 +55,7 @@ export abstract class CommonErrors<Id extends string> {
   }
 
   /**
-   * The `has()` method checks whether the error of the given `id` exists.
+   * The `has()` method checks whether the error of the given `id` exists in a specified object.
    * @param id The error identification number of generic type variable `ErrorId` to test for the presence of the error in the object.
    * @returns The return value is a `boolean` indicating whether the error of the given `id` exists in the object.
    * @angularpackage
@@ -62,7 +65,7 @@ export abstract class CommonErrors<Id extends string> {
   }
 
   /**
-   * Throws an error of the given `id` if the unique id was provided in the constructor and the errors was set.
+   * Throws an error of the given `id` if the unique id was provided in the constructor.
    * @param id The unique identification number of generic type variable `ErrorId` to obtain an error to throw.
    * @angularpackage
    */
