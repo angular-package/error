@@ -7,6 +7,9 @@ export {
   Error,
   Errors,
   RangeError,
+  RangeErrors,
   TypeError,
-  ValidationError
+  TypeErrors,
+  ValidationError,
+  ValidationErrors
 } from './lib';
