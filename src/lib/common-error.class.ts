@@ -2,7 +2,7 @@
  * The `CommonError` abstract object to throw an identified error with a solution to the described problem, additional type, and range built
  * on the template.
  */
-export abstract class CommonError<Id extends string = string> extends Error {
+export abstract class CommonError<Id extends string> extends Error {
   //#region public static properties.
   /**
    * A template of the error message of `string` type with the replaceable `{problem}`, `{fix}` and optional `{id}`, `{link}`, `{max}`,
