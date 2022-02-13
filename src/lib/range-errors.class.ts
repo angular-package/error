@@ -20,14 +20,14 @@ export class RangeErrors<Id extends string> extends CommonErrors<Id> {
   //#region instance public methods.
   /**
    * Sets the `RangeError` object with the message built from the given required `problem`, `fix`, `id` and optional `min`, `max` on the
-   * given or stored `template`.
+   * given or stored `template` under the given `id`.
    * @param problem Description of the problem of a string type.
    * @param fix A solution to the given `problem` of a string type.
-   * @param id The unique identification to the given `problem` of generic type variable `Id`.
+   * @param id The unique identification to the given `problem` of generic type variable `ErrorId`.
    * @param min The optional minimum range of `number` type that causes an error to be thrown(or not thrown).
    * @param max The optional maximum range of `number` type that causes an error to be thrown(or not thrown).
-   * @param template A template of error message with the replaceable `{problem}`, `{fix}` and optional `{id}`, `{max}`, `{min}` and
-   * `{type}` tags. By default, the value is equal to the static property `RangeErrors.template`.
+   * @param template A template of error message with the replaceable `{problem}`, `{fix}`, `{id}`, and optional `{max}`, `{min}` tags. By
+   * default, the value is equal to the static property `RangeErrors.template`.
    * @returns The return value is an instance of `RangeErrors`.
    * @angularpackage
    */
