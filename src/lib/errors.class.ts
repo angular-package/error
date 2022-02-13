@@ -19,13 +19,13 @@ export class Errors<Id extends string> extends CommonErrors<Id> {
 
   //#region instance public methods.
   /**
-   * Sets the `Error` object with the message built from the given required `problem`, `id`, `fix` on the given or stored `template` under
+   * Sets the `Error` object with the message built from the given required `problem`, `fix`, `id` on the given or stored `template` under
    * the given `id`.
    * @param problem Description of the problem of a `string` type.
    * @param fix A solution to the given `problem` of a `string` type.
-   * @param id The unique identification to the given `problem` of generic type variable `Id`.
-   * @param template A template of error message with the replaceable `{problem}`, `{fix}` and optional `{id}`, `{max}`, `{min}` and
-   * `{type}` tags. By default, the value is equal to the static property `Errors.template`.
+   * @param id The unique identification to the given `problem` of generic type variable `ErrorId`.
+   * @param template A template of the error message with a replaceable `{problem}`, `{fix}`, `{id}` tags. By default, the value is equal to
+   * the static property `Errors.template`.
    * @returns The return value is an instance of `Errors`.
    * @angularpackage
    */
