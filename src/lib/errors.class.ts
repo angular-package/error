@@ -8,7 +8,8 @@ export class Errors<Id extends string> extends CommonErrors<Id> {
   //#region constructor.
   /**
    * Creates the `Errors` instance of unique identification numbers under which the `Error` objects are stored.
-   * @param id The unique identification numbers of an `array` of generic type variable `Id`.
+   * @param id A rest parameter of generic type variable `Id` indicates unique identification numbers under which the errors are stored in
+   * the object.
    * @angularpackage
    */
   constructor(...id: Id[]) {
@@ -18,9 +19,10 @@ export class Errors<Id extends string> extends CommonErrors<Id> {
 
   //#region instance public methods.
   /**
-   * Sets the `Error` object with the given required `problem`, `fix`, `id` and optional `template` parameters.
-   * @param problem Description of the problem of a string type.
-   * @param fix A solution to the given `problem` of a string type.
+   * Sets the `Error` object with the message built from the given required `problem`, `id`, `fix` on the given or stored `template` under
+   * the given `id`.
+   * @param problem Description of the problem of a `string` type.
+   * @param fix A solution to the given `problem` of a `string` type.
    * @param id The unique identification to the given `problem` of generic type variable `Id`.
    * @param template A template of error message with the replaceable `{problem}`, `{fix}` and optional `{id}`, `{max}`, `{min}` and
    * `{type}` tags. By default, the value is equal to the static property `Errors.template`.
@@ -40,7 +42,7 @@ export class Errors<Id extends string> extends CommonErrors<Id> {
 
   /**
    * The method returns the JSON object of set errors, where the key is a unique identification.
-   * @returns The return value is an object of set errors.
+   * @returns The return value is an `object` of set errors.
    * @angularpackage
    */
   public toObject(): { [Key in Id]: Error<Id> } {
