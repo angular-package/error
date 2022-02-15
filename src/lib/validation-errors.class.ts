@@ -40,6 +40,7 @@ export class ValidationErrors<Id extends string> extends CommonErrors<Id> {
   /**
    * Sets the `ValidationError` object with the message built from the given required `problem`, `fix`, `id` on the given or stored
    * `template` under the given `id`.
+   * ! The error is not set, if the given `id` was not provided in the constructor.
    * @param problem Description of the problem of a `string` type.
    * @param fix A solution to the given `problem` of a string type.
    * @param id The unique identification to the given `problem` of generic type variable `ErrorId`.
