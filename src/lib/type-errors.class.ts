@@ -19,6 +19,25 @@ export class TypeErrors<Id extends string> extends CommonErrors<Id> {
 
   //#region instance public methods.
   /**
+   * Returns the `TypeError` instance of the given unique identification `id` if set, otherwise `undefined`.
+   * @param id The unique identification number of generic type variable `ErrorId` to pick an error from the object.
+   * @returns The return value is the `TypeError` instance of the given `id` if set, otherwise undefined.
+   * @angularpackage
+   */
+  public get<ErrorId extends Id>(id: ErrorId): TypeError<ErrorId> | undefined {
+    return this.errors.get(id);
+  }
+
+  /**
+   * The method returns the object of set type errors, where the key is a unique identification.
+   * @returns The return value is an `object` of set errors.
+   * @angularpackage
+   */
+   public getErrors(): { [Key in Id]: TypeError<Key> } {
+    return Object.fromEntries(this.errors.entries()) as any;
+  }
+
+  /**
    * Sets the `TypeError` object with the message built from the given required `problem`, `fix`, `id` and optional `type` on the given or
    * stored `template` under the given `id`.
    * @param problem Description of the problem of a string type.
@@ -41,15 +60,5 @@ export class TypeErrors<Id extends string> extends CommonErrors<Id> {
       this.errors.set(id, new TypeError(problem, fix, id, type, template));
     return this;
   }
-
-  /**
-   * The method returns the JSON object of set errors, where the key is a unique identification.
-   * @returns The return value is an `object` of set errors.
-   * @angularpackage
-   */
-  public toObject(): { [Key in Id]: TypeError<Id> } {
-    return Object.fromEntries(this.errors.entries()) as any;
-  }
-
   //#endregion instance public methods.
 }
