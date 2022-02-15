@@ -19,6 +19,25 @@ export class RangeErrors<Id extends string> extends CommonErrors<Id> {
 
   //#region instance public methods.
   /**
+   * Returns the `RangeError` instance of the given unique identification `id` if set, otherwise `undefined`.
+   * @param id The unique identification number of generic type variable `ErrorId` to pick an error from the object.
+   * @returns The return value is the `RangeError` instance of the given `id` if set, otherwise undefined.
+   * @angularpackage
+   */
+  public get<ErrorId extends Id>(id: ErrorId): RangeError<ErrorId> | undefined {
+    return this.errors.get(id);
+  }
+
+  /**
+   * The method returns the object of set type errors, where the key is a unique identification.
+   * @returns The return value is an `object` of set type errors.
+   * @angularpackage
+   */
+  public getErrors(): { [Key in Id]: RangeError<Key> } {
+    return Object.fromEntries(this.errors.entries()) as any;
+  }
+
+  /**
    * Sets the `RangeError` object with the message built from the given required `problem`, `fix`, `id` and optional `min`, `max` on the
    * given or stored `template` under the given `id`.
    * @param problem Description of the problem of a string type.
@@ -42,15 +61,6 @@ export class RangeErrors<Id extends string> extends CommonErrors<Id> {
     this.isAllowedId(id) &&
       this.errors.set(id, new RangeError(problem, fix, id, min, max, template));
     return this;
-  }
-
-  /**
-   * The method returns the JSON object of set errors, where the key is a unique identification.
-   * @returns The return value is an `object` of set errors.
-   * @angularpackage
-   */
-  public toObject(): { [Key in Id]: RangeError<Id> } {
-    return Object.fromEntries(this.errors.entries()) as any;
   }
   //#endregion instance public methods.
 }
