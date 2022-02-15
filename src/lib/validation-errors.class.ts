@@ -24,16 +24,18 @@ export class ValidationErrors<Id extends string> extends CommonErrors<Id> {
    * @returns The return value is the `ValidationError` instance of the given `id` if set, otherwise undefined.
    * @angularpackage
    */
-  public get<ErrorId extends Id>(id: ErrorId): ValidationError<ErrorId> | undefined {
+  public get<ErrorId extends Id>(
+    id: ErrorId
+  ): ValidationError<ErrorId> | undefined {
     return this.errors.get(id);
   }
 
   /**
-   * The method returns the JSON object of set errors, where the key is a unique identification.
-   * @returns The return value is an `object` of set errors.
+   * Returns the object of set validation errors, where the key is a unique identification.
+   * @returns The return value is an `object` of set validation errors.
    * @angularpackage
    */
-  public getErrors(): { [Key in Id]: ValidationError<Key> } {
+  public getErrors(): { [Key in Id]: ValidationError<Key> | undefined } {
     return Object.fromEntries(this.errors.entries()) as any;
   }
 
