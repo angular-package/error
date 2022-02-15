@@ -74,12 +74,12 @@ export abstract class CommonError<Id extends string> extends Error {
   #fix: string;
 
   /**
-   * A privately stored unique identification to the described problem of generic type variable `Id`.
+   * Optional privately stored unique identification of the described problem of generic type variable `Id`.
    */
   #id?: Id;
 
   /**
-   * A privately stored link redirects to read more about the thrown error.
+   * The optional privately stored link redirects to read more about the thrown error of `string` type.
    */
   #link?: string;
 
