@@ -29,11 +29,11 @@ export class RangeErrors<Id extends string> extends CommonErrors<Id> {
   }
 
   /**
-   * The method returns the object of set type errors, where the key is a unique identification.
-   * @returns The return value is an `object` of set type errors.
+   * Returns the object of set range errors, where the key is a unique identification.
+   * @returns The return value is an `object` of set range errors.
    * @angularpackage
    */
-  public getErrors(): { [Key in Id]: RangeError<Key> } {
+  public getErrors(): { [Key in Id]: RangeError<Key> | undefined } {
     return Object.fromEntries(this.errors.entries()) as any;
   }
 
