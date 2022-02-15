@@ -30,10 +30,10 @@ export class TypeErrors<Id extends string> extends CommonErrors<Id> {
 
   /**
    * The method returns the object of set type errors, where the key is a unique identification.
-   * @returns The return value is an `object` of set errors.
+   * @returns The return value is an `object` of set type errors.
    * @angularpackage
    */
-   public getErrors(): { [Key in Id]: TypeError<Key> } {
+  public getErrors(): { [Key in Id]: TypeError<Key> | undefined } {
     return Object.fromEntries(this.errors.entries()) as any;
   }
 
