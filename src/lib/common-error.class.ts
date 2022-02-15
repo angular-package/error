@@ -79,7 +79,7 @@ export abstract class CommonError<Id extends string> extends Error {
   #id?: Id;
 
   /**
-   * The optional privately stored link redirects to read more about the thrown error of `string` type.
+   * The optional privately stored link of `string` type redirects to read more about the thrown error.
    */
   #link?: string;
 
