@@ -57,8 +57,8 @@ export class TypeError<
    * @param fix A solution to the given `problem` of a `string` type.
    * @param id Optional unique identification to the given `problem` of generic type variable `Id`.
    * @param type The optional type of generic type variable `Type` that causes an error to be thrown(or not thrown).
-   * @param template A template of error message with the replaceable `{problem}`, `{fix}` and optional `{id}`, `{min}`, `{max}` and
-   * `{type}` tags. By default, the value is picked from the static property `TypeError.template`.
+   * @param template A template of error message with the replaceable `{problem}`, `{fix}` and optional `{id}`, `{type}` tags. By default,
+   * the value is picked from the static property `TypeError.template`.
    * @returns The return value is a new instance of the `TypeError` with the message built from the given required `problem`, `fix` and
    * optional `id`, `type` on the given or stored `template`.
    * @angularpackage
