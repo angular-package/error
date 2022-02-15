@@ -11,9 +11,9 @@ export class RangeError<
 > extends CommonError<Id> {
   /**
    * A template of the error message of `string` type with the replaceable required `{problem}`, `{fix}` and optional `{id}`, `{max}`,
-   * `{min}`, `{type}` tags. By default, it's set to `Problem{id}: {problem} must be between {min} and {max} => Fix: {fix}`.
+   * `{min}` tags. By default, it's set to `Problem{id}: {problem} => Fix: {fix} between {min} and {max}`.
    */
-  public static template = `Problem{id}: {problem} must be between {min} and {max} => Fix: {fix}`;
+  public static template = `Problem{id}: {problem} => Fix: {fix} between {min} and {max}`;
 
   //#region public instance accessors.
   /**
@@ -90,9 +90,8 @@ export class RangeError<
    * @param id Optional unique identification to the given `problem` of generic type variable `Id`.
    * @param min The optional minimum range of generic type variable `Min` that causes an error to be thrown(or not thrown).
    * @param max The optional maximum range of generic type variable `Max` that causes an error to be thrown(or not thrown).
-   * @param template A template of error message with the replaceable `{problem}`, `{fix}` and optional `{id}`, `{max}`, `{min}` and
-   * `{type}` tags. By default, the value is picked from the static
-   * property `RangeError.template`.
+   * @param template A template of error message with the replaceable `{problem}`, `{fix}` and optional `{id}`, `{max}`, `{min}` and tags.
+   * By default, the value is picked from the static property `RangeError.template`.
    * @returns The return value is a new instance of the `RangeError` with the message built from the given required `problem`, `fix` and
    * optional `id`, `min`, `max` on the given or stored `template`.
    * @angularpackage
