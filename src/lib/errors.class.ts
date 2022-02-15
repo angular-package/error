@@ -21,7 +21,7 @@ export class Errors<Id extends string> extends CommonErrors<Id> {
   /**
    * Returns the `Error` instance of the given unique identification `id` if set, otherwise `undefined`.
    * @param id The unique identification number of generic type variable `ErrorId` to pick an error from the object.
-   * @returns The return value is the `Error` instance of the given `id` if set, otherwise undefined.
+   * @returns The return value is the `Error` instance of the given `id` if set, otherwise `undefined`.
    * @angularpackage
    */
   public get<ErrorId extends Id>(id: ErrorId): Error<ErrorId> | undefined {
@@ -29,11 +29,11 @@ export class Errors<Id extends string> extends CommonErrors<Id> {
   }
 
   /**
-   * The method returns the object of set errors, where the key is a unique identification.
+   * Returns an `object` of set errors, where the key is a unique identification.
    * @returns The return value is an `object` of set errors.
    * @angularpackage
    */
-  public getErrors(): { [Key in Id]: Error<Key> } {
+  public getErrors(): { [Key in Id]: Error<Key> | undefined } {
     return Object.fromEntries(this.errors.entries()) as any;
   }
 
