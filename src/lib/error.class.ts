@@ -68,8 +68,8 @@ export class Error<Id extends string> extends CommonError<Id> {
    * @param problem Description of the problem of a string type.
    * @param fix A solution to the given `problem` of a string type.
    * @param id Optional unique identification to the given `problem` of generic type variable `Id`.
-   * @param template A template of error message with the replaceable `{problem}`, `{fix}` and optional `{id}`, `{max}`, `{min}` and
-   * `{type}` tags. By default, the value is equal to the static property `template`.
+   * @param template A template of error message with the replaceable `{problem}`, `{fix}` and optional `{id}`, `{max}`, `{min}` and tags.
+   * By default, the value is equal to the static property `template`.
    * @angularpackage
    */
   constructor(
