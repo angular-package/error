@@ -66,6 +66,7 @@ For the detailed documentation go to [**https://error.angular-package.dev**](htt
 * [Skeleton](#skeleton)
 * [Installation](#installation)
 * [Changelog](#changelog)
+* [Api](#api)
 * [Git](#git)
   * [Commit](#commit)
   * [Versioning](#versioning)
@@ -81,7 +82,7 @@ Copy this package to the `packages/error` folder of the [library skeleton][skele
 
 ### Code scaffolding
 
-Run `ng generate component component-name --project error` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project storage`.
+Run `ng generate component component-name --project error` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project error`.
 > Note: Don't forget to add `--project error` or else it will be added to the default project in your `angular.json` file.
 
 ### Build
@@ -110,6 +111,25 @@ Install `@angular-package/error` package with command:
 
 ```bash
 npm i @angular-package/error --save
+```
+
+<br>
+
+## Api
+
+```typescript
+import {
+  // Class.
+  CommonError,
+  Error,
+  Errors,
+  RangeError,
+  RangeErrors,
+  TypeError,
+  TypeErrors,
+  ValidationError,
+  ValidationErrors
+} from '@angular-package/error';
 ```
 
 <br>
