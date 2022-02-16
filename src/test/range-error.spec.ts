@@ -31,10 +31,10 @@ testing.describe('[counter] RangeError', () => {
      */
     .describe(`Static properties`, () => {
       testing.it(`RangeError.template`, () => {
-        expect(RangeError.template).toEqual(`Problem{id}: {problem} must be between {min} and {max} => Fix: {fix}`);
+        expect(RangeError.template).toEqual(`Problem{id}: {problem} => Fix: {fix} between {min} and {max}`);
         RangeError.template = `{problem} => Fix: {fix} of {id}`;
         expect(RangeError.template).toEqual(`{problem} => Fix: {fix} of {id}`);
-        RangeError.template = `Problem{id}: {problem} must be between {min} and {max} => Fix: {fix}`;
+        RangeError.template = `Problem{id}: {problem} => Fix: {fix} between {min} and {max}`;
       });
     })
 
@@ -139,7 +139,7 @@ testing.describe('[counter] RangeError', () => {
       testing
         .it(`(problem, fix)`, () => {
           const e = new RangeError(problem, fix);
-          expect(e.message).toEqual(`Problem${''}: ${problem} must be between ${''} and ${''} => Fix: ${fix}`);
+          expect(e.message).toEqual(`Problem${''}: ${problem} => Fix: ${fix} between ${''} and ${''}`);
           // Required.
           expect(e.fix).toEqual(fix);
           expect(e.problem).toEqual(problem);
@@ -152,7 +152,7 @@ testing.describe('[counter] RangeError', () => {
 
         .it(`(problem, fix, id, min, undefined)`, () => {
           const e = new RangeError(problem, fix, id, min, undefined);
-          expect(e.message).toEqual(`Problem${id}: ${problem} must be between ${min} and ${''} => Fix: ${fix}`);
+          expect(e.message).toEqual(`Problem${id}: ${problem} => Fix: ${fix} between ${min} and ${''}`);
           // Required.
           expect(e.fix).toEqual(fix);
           expect(e.problem).toEqual(problem);
@@ -164,7 +164,7 @@ testing.describe('[counter] RangeError', () => {
         })
         .it(`(problem, fix, id, undefined, max)`, () => {
           const e = new RangeError(problem, fix, id, undefined, max);
-          expect(e.message).toEqual(`Problem${id}: ${problem} must be between ${''} and ${max} => Fix: ${fix}`);
+          expect(e.message).toEqual(`Problem${id}: ${problem} => Fix: ${fix} between ${''} and ${max}`);
           // Required.
           expect(e.fix).toEqual(fix);
           expect(e.problem).toEqual(problem);
@@ -176,7 +176,7 @@ testing.describe('[counter] RangeError', () => {
         })
         .it(`(problem, fix, id, min, max)`, () => {
           const e = new RangeError(problem, fix, id, min, max);
-          expect(e.message).toEqual(`Problem${id}: ${problem} must be between ${min} and ${max} => Fix: ${fix}`);
+          expect(e.message).toEqual(`Problem${id}: ${problem} => Fix: ${fix} between ${min} and ${max}`);
           // Required.
           expect(e.fix).toEqual(fix);
           expect(e.problem).toEqual(problem);
