@@ -1,27 +1,47 @@
-# Packages
+# angular-package
 
-Useful and simple to use packages based on the [angular.io][angulario].
+<img align="left" width="100" height="100" src="https://avatars.githubusercontent.com/u/31412194?s=400&u=c9929aa36826318ccac8f7b84516e1ce3af7e21c&v=4" />
 
-| Package                              | Description                                            | Status |
-| :----------------------------------- | :----------------------------------------------------- | -----: |
-| [callback][callback-github-readme]   | Manages the callback [`function`][js-function].        | [![npm version][callback-npm-badge-png]][callback-npm-badge] |
-| [change-detection][cd-github-readme] | Improves application performance.                      | [![npm version][cd-npm-badge-png]][cd-npm-badge] |
-| [component-loader][cl-github-readme] | Handles dynamic loading components.                    | [![npm version][cl-npm-badge-png]][cl-npm-badge] |
-| [core][core-github-readme]           | Core features.                                         | [![npm version][core-npm-badge-png]][core-npm-badge] |
-| [error][error-github-readme]         | Manages an [`Error`][js-error].                        | [![npm version][error-npm-badge-png]][error-npm-badge] |
-| [prism][prism-github-readme]         | [`Prism`][prism-js] highlighter module.                | [![npm version][prism-npm-badge-png]][prism-npm-badge] |
-| [property][property-github-readme]   | Handles object properties.                             | [![npm version][property-npm-badge-png]][property-npm-badge] |
-| [reactive][reactive-github-readme]   | Automatize the process of creating some rxjs features. | [![npm version][reactive-npm-badge-png]][reactive-npm-badge] |
-| [testing][testing-github-readme]     | Support for testing other packages.                    | [![npm version][testing-npm-badge-png]][testing-npm-badge] |
-| [type][type-github-readme]           | Common types, type guards, and type checkers.          | [![npm version][type-npm-badge-png]][type-npm-badge] |
-| [ui][ui-github-readme]               | User interface.                                        | *In Progress* |
+The angular-package supports the development process of [angular][angulario]-based applications in varied ways through the thoughtful, reusable, easy-to-use small pieces of code called packages.
 
-> Click on the package name to visit its [GitHub](https://github.com/) page.
+[**docs.angular-package.dev**](https://docs.angular-package.dev)
+
+<br>
+
+## Packages
+
+| Package                                      | Description                                                       | Status |
+| :------------------------------------------- | :---------------------------------------------------------------- | -----: |
+| [callback][callback-github-readme]           | Manages the callback [`function`][js-function].                   | [![npm version][callback-npm-badge-png]][callback-npm-badge] |
+| [change-detection][cd-github-readme]         | Improves application performance.                                 | [![npm version][cd-npm-badge-png]][cd-npm-badge] |
+| [component-loader][cl-github-readme]         | Handles dynamic loading components.                               | [![npm version][cl-npm-badge-png]][cl-npm-badge] |
+| [core][core-github-readme]                   | Core features.                                                    | [![npm version][core-npm-badge-png]][core-npm-badge] |
+| **[error][error-github-readme]**             | **Manages an [`Error`][js-error].**                               | [![npm version][error-npm-badge-png]][error-npm-badge] |
+| [name][name-github-readme]                   | The name with prefix and suffix.                                  | [![npm version][name-npm-badge-png]][name-npm-badge] |
+| [preferences][preferences-github-readme]     | Preferences, settings, options, configuration and setup in steps. | [![npm version][preferences-npm-badge-png]][preferences-npm-badge] |
+| [prism][prism-github-readme]                 | [`Prism`][prism-js] highlighter module.                           | [![npm version][prism-npm-badge-png]][prism-npm-badge] |
+| [property][property-github-readme]           | Handles object properties.                                        | [![npm version][property-npm-badge-png]][property-npm-badge] |
+| [range][range-github-readme]                 | The range between a minimum and maximum.                          | [![npm version][range-npm-badge-png]][range-npm-badge] |
+| [reactive][reactive-github-readme]           | Automatize the process of creating some rxjs features.            | [![npm version][reactive-npm-badge-png]][reactive-npm-badge] |
+| [storage][storage-github-readme]             | The storage of data under allowed names.                          | [![npm version][storage-npm-badge-png]][storage-npm-badge] |
+| [tag][tag-github-readme]                     | Any tag with optional attributes.                                 | [![npm version][tag-npm-badge-png]][tag-npm-badge] |
+| [testing][testing-github-readme]             | Support for testing other packages.                               | [![npm version][testing-npm-badge-png]][testing-npm-badge] |
+| [text][text-github-readme]                   | Text on the template with replaceable tags.                       | [![npm version][text-npm-badge-png]][text-npm-badge] |
+| [type][type-github-readme]                   | Common types, type guards, and type checkers.                     | [![npm version][type-npm-badge-png]][type-npm-badge] |
+| [ui][ui-github-readme]                       | User interface.                                                   | *In Progress* |
+| [wrapper][wrapper-github-readme]             | Wrap the text with the opening and closing chars.                 | [![npm version][wrapper-npm-badge-png]][wrapper-npm-badge] |
+
+Click on the package name to visit its [GitHub](https://github.com/) page.
+
+<br>
 
 ## angular-package/error
 
 Manages an [`Error`][js-error].
 
+[![Gitter][gitter-badge]][gitter-chat]
+[![Discord][discord-badge]][discord-channel]
+[![Twitter][twitter-badge]][twitter-follow]
 <!-- npm badge -->
 [![npm version][error-npm-badge-svg]][error-npm-badge]
 <!-- GitHub badges -->
@@ -33,62 +53,52 @@ Manages an [`Error`][js-error].
 [![GitHub sponsors][github-badge-sponsor]][github-sponsor-link]
 [![Support me on Patreon][patreon-badge]][patreon-link]
 
-----
+<br>
+
+## Documentation
+
+For the detailed documentation go to [**https://error.angular-package.dev**](https://error.angular-package.dev)
+
+<br>
 
 ## Table of contents
 
-* [Basic concepts](#basic-concepts)
 * [Skeleton](#skeleton)
 * [Installation](#installation)
-* [Api](#api)
-* [`ValidationError`](#validationerror)
-* [Interface](#interface)
-* [Type](#type)
-* [Experimental](#experimental)
 * [Changelog](#changelog)
 * [Git](#git)
   * [Commit](#commit)
   * [Versioning](#versioning)
 * [License](#license)
 
-----
-
-<br>
-
-## Basic concepts
-
-Checks
-> It's to check the provided value to be **the same** as **expected**.
-
-Type guard (constrain)
-> Constrains the parameter type to **not let** input **unexpected** value in the **code editor**.
-
-Guards
-> It's a **combination** of both above, **constrains** the type of the parameter in the **code editor**, and checks its provided argument.
-
-Defines
-> Returns defined value from a method of an object.  
-> Defines new value in an object and returns a defined value.  
-
-Gets
-> Returns a value from an object.
-
-Sets
-> Adds or updates an element with a specified key and a value to an object and returns an object.  
-
 <br>
 
 ## Skeleton
 
-This package was built by the [library skeleton][skeleton] which was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.1.1.
+This package was built by the [library skeleton][skeleton] which was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.5.
 
 Copy this package to the `packages/error` folder of the [library skeleton][skeleton] then run the commands below.
+
+### Code scaffolding
+
+Run `ng generate component component-name --project error` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project storage`.
+> Note: Don't forget to add `--project error` or else it will be added to the default project in your `angular.json` file.
 
 ### Build
 
 Run `ng build error` to build the package. The build artifacts will be stored in the `dist/` directory.
 
+### Publishing
+
+After building your library with `ng build error`, go to the dist folder `cd dist/error` and run `npm publish`.
+
 ### Running unit tests
+
+Install `@angular-package/testing` with command:
+
+```typescript
+npm i @angular-package/testing --no-save
+```
 
 Run `ng test error` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
@@ -100,1029 +110,6 @@ Install `@angular-package/error` package with command:
 
 ```bash
 npm i @angular-package/error --save
-```
-
-<br>
-
-## Api
-
-```typescript
-import {
-  // Class.
-  ValidationError,
-  // Interface.
-  ErrorMessage,
-} from '@angular-package/error';
-```
-
-```typescript
-/*
- * Experimental.
- */
-import {
-  // Class.
-  MessageBuilder,
-  MessageBuilderTemplate,
-  MessageFunctionBuilder,
-} from '@angular-package/error';
-```
-
-<br>
-
-## `ValidationError`
-
-Manages an [`Error`][js-error] of validation.
-
-**Static properties:**
-
-| ValidationError.                              | Description |
-| :-------------------------------------------- | :---------- |
-| [`template: string`][error-property-template] | A template of the error message guarded by a [`string`][js-string] type with the replaceable `[problem]` and `[fix]` words.  By default, it's set to `'Problem: [problem] => Fix: [fix]'`. |
-
-[error-property-template]: #validationerrortemplate
-
-**Instance properties:**
-
-| ValidationError.prototype.                  | Description |
-| :------------------------------------------ | :---------- |
-| [`fix: string`][error-property-fix]         | A possible solution to the described [`problem`][error-property-problem] of validation that is guarded by a [`string`][js-string] type. |
-| [`message: string`][error-property-message] | A validation error message guarded by a [`string`][js-string] type that can be built with the [`problem`][error-property-problem] and [`fix`][error-property-fix] of [`ValidationError`](#validationerror) on the [`template`][error-property-template] by the [`throw()`][error-method-throw] and [`setMessage()`][error-method-setmessage] method. |
-| [`name: string`][error-property-name]       | Error name of a [`string`][js-string] type that is being thrown. |
-| [`problem: string`][error-property-problem] | Description of a validation [`problem`][error-property-problem] guarded by a [`string`][js-string] type. |
-
-[error-property-fix]: #validationerrorprototypefix
-[error-property-message]: #validationerrorprototypemessage
-[error-property-name]: #validationerrorprototypename
-[error-property-problem]: #validationerrorprototypeproblem
-
-**Static methods:**
-
-| ValidationError.                                   | Description |
-| :------------------------------------------------- | :---------- |
-| [`defineMessage()`](#validationerrordefinemessage) | Defines the validation error message of a [`string`][js-string] type from the provided `message` of the [`ErrorMessage`](#errormessage) interface. |
-
-**Constructor:**
-
-| Constructor                                         | Description |
-| :-------------------------------------------------- | :---------- |
-| [`ValidationError()`](#validationerror-constructor) | Creates a new instance with the message. If the provided `message` is an [`object`][js-object], then its properties are assigned to the instance. |
-
-**Instance methods:**
-
-| ValidationError.prototype.                      | Description |
-| :---------------------------------------------- | :---------- |
-| [`setFix()`][error-method-setfix]               | Sets the fix a possible solution to the described [`problem`][error-property-problem]. |
-| [`setMessage()`][error-method-setmessage]       | Sets the validation error message of a [`string`][js-string] type from the provided `message` of the [`ErrorMessage`](#errormessage) interface. |
-| [`setProblem()`][error-method-setproblem]       | Sets description problem of a validation. |
-| [`setTemplate()`][error-method-settemplate]     | Sets the template of validation error message. |
-| [`throw()`][error-method-throw]                 | Throws an error of [`ValidationError`](#validationerror) with actual settings. |
-| [`updateMessage()`][error-method-updatemessage] | Updates the message with a stored [`fix`][error-property-fix], [`problem`][error-property-problem], and [`template`][error-property-template]. |
-
-[error-method-setfix]: #validationerrorprototypesetfix
-[error-method-setmessage]: #validationerrorprototypesetmessage
-[error-method-setproblem]: #validationerrorprototypesetproblem
-[error-method-settemplate]: #validationerrorprototypesettemplate
-[error-method-throw]: #validationerrorprototypethrow
-[error-method-updatemessage]: #validationerrorprototypeupdatemessage
-
-<br>
-
-### `ValidationError` static properties
-
-----
-
-#### `ValidationError.template`
-
-![update]
-
-**`2.0.0`:** Uses static private property `#template` and guards the value with private static method `#guardTemplate()` to be [`string`][js-string] type that contains `[fix]` and `[problem]` words.
-
-A template of the error message guarded by [`string`][js-string] type with the replaceable `[problem]` and `[fix]` words. By default, it's set to `Problem: [problem] => Fix: [fix]`. It can be set directly or by the [`setTemplate()`][error-method-settemplate] and [`setMessage()`][error-method-setmessage] method. The value is being checked against the existence of `[problem]` and `[fix]` words.
-
-```typescript
-static get template(): string {
-  return ValidationError.#template;
-}
-static set template(value: string) {
-  ValidationError.#template = ValidationError.#guardTemplate(value)
-    ? value
-    : ValidationError.#template;
-}
-```
-
-<br>
-
-### `ValidationError` instance public properties
-
-----
-
-#### `ValidationError.prototype.fix`
-
-![update]
-
-**`2.0.0`:** Uses static private property `#fix` and guards the value to be a [`string`][js-string] type.
-
-A possible solution to the described [`problem`][error-property-problem] of validation that is guarded by a [`string`][js-string] type. By default, it's an empty [`string`][js-string]. It can be set directly or by the [`setFix()`][error-method-setfix] and [`setMessage()`][error-method-setmessage] method.
-
-```typescript
-public get fix(): string {
-  return this.#fix;
-}
-public set fix(value: string) {
-  this.#fix = guard.string(value) ? value : this.#fix;
-}
-```
-
-<br>
-
-#### `ValidationError.prototype.message`
-
-![update]
-
-**`2.0.0`:** Uses inherited from [`Error`][js-error] property and guards the value to be a [`string`][js-string] type.
-
-A validation error message guarded by a [`string`][js-string] type that can be build from the [`problem`][error-property-problem] and [`fix`][error-property-fix] of [`ValidationError`](#validationerror) on the [`template`][error-property-template]. It can be set directly or by the [`throw()`][error-method-throw] and [`setMessage()`][error-method-setmessage] method.
-
-```typescript
-public set message(value: string) {
-  super.message = guard.string(value) ? value : super.message;
-}
-public get message(): string {
-  return super.message;
-}
-```
-
-<br>
-
-#### `ValidationError.prototype.name`
-
-Error name of a [`string`][js-string] type that is being thrown. By default, it's ['ValidationError'](#validationerror).
-
-```typescript
-public name = ValidationError.name;
-```
-
-<br>
-
-#### `ValidationError.prototype.problem`
-
-![update]
-
-Description of a validation [`problem`][error-property-problem] guarded by a [`string`][js-string] type. By default, it's an empty [`string`][js-string]. It can be set directly or by the [`setProblem()`][error-method-setproblem] and [`setMessage()`][error-method-setmessage] method.
-
-```typescript
-public get problem(): string {
-  return this.#problem;
-}
-public set problem(value: string) {
-  this.#problem = guard.string(value) ? value : this.#problem;
-}
-```
-
-<br>
-
-### `ValidationError` static methods
-
-----
-
-#### `ValidationError.defineMessage()`
-
-![update]
-
-**`2.0.0`:** Adds template to the provided `message` instead of separate parameter and guards it with a static `#guardMessage()` method.
-
-Defines the validation error message of a [`string`][js-string] type from the provided `message` of the [`ErrorMessage`](#errormessage) interface.
-
-```typescript
-// Syntax.
-public static defineMessage(
-  message: ErrorMessage,
-  callback?: ResultCallback<CallbackPayload & ErrorMessage>
-): string {
-  return ValidationError.#guardMessage(message, callback)
-    ? (message.template || ValidationError.template)
-        .replace(`[fix]`, message.fix)
-        .replace(`[problem]`, message.problem)
-    : '';
-}
-```
-
-**Parameters:**
-
-| Name: type                  | Description |
-| :-------------------------- | :---------- |
-| `message: ErrorMessage`     | An [`object`][js-object] of the [`ErrorMessage`](#errormessage) interface to build a message of a [`string`][js-string] type. The value is checked against the proper [`object`][js-object] |
-| `callback?: ResultCallback` | An optional callback function of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided message contains required `problem` and `fix` properties |
-
-**Returns:**
-
-The **return value** is a message of a [`string`][js-string] type created from the provided `message` of [`ErrorMessage`](#errormessage) interface, or it's an empty [`string`][js-string] if the provided message [`object`][js-object] isn't proper.
-
-**Usage:**
-
-```typescript
-// Example usage.
-import { ValidationError } from '@angular-package/error';
-
-const fix = 'There is no solution to the described problem.';
-const problem = 'The problem has no solution.';
-
-/*
-  Returns
-  --------
-  Problem: The problem has no solution. => Fix: There is no solution
-  to the described problem.
-*/
-const errorMessage = ValidationError.defineMessage({ fix, problem });
-```
-
-```typescript
-/*
-  Example usage: create an error message of a string type
-  from the provided object with a different template.
-*/
-import { ValidationError } from '@angular-package/error';
-
-const fix = 'There is no solution to the described problem.';
-const problem = 'The problem has no solution.';
-const template = `[problem] ... [fix]`;
-
-/*
-  Returns
-  --------
-  The problem has no solution. ... There is no solution to the described problem.
-*/
-const errorMessage = ValidationError.defineMessage({
-  fix, problem, template
-});
-```
-
-```typescript
-/*
-  Example usage: create an error message of a string type
-  from the provided object and the changed template.
-*/
-import { ValidationError } from '@angular-package/error';
-
-const fix = 'There is no solution to the described problem.';
-const problem = 'The problem has no solution.';
-
-// Change the template by directly assign a new value.
-ValidationError.template = `\nPROBLEM: [problem]\nFIX: [fix] `;
-
-/*
-  Returns
-  -------
-  PROBLEM: The problem has no solution.
-  FIX: There is no solution to the described problem. 
-*/
-const errorMessage = ValidationError.defineMessage({ fix, problem });
-```
-
-```typescript
-/*
-  Example usage: create an error message of a string type
-  from the provided object and the changed template.
-*/
-import { ValidationError } from '@angular-package/error';
-
-const fix = 'There is no solution to the described problem.';
-const problem = 'The problem has no solution.';
-
-const errorMessage = ValidationError.defineMessage(
-  { fix, problem },
-  (result, payload) => {
-    // Do something with the `result` of the `message` check
-    // and `payload`.
-    return result;
-  }
-);
-```
-
-<br>
-
-### `ValidationError` constructor
-
-----
-
-#### `ValidationError()`
-
-![update]
-
-**`2.0.0`:** Adds template to the provided `message` instead of separate parameter and uses a new method [`setMessage()`][error-method-setmessage] to set message. Handle the callback for all instance methods with the callback parameter.
-
-Creates a new instance with the message. If the provided `message` is an [`object`][js-object], then its properties are assigned to the instance.
-
-```typescript
-// Syntax.
-constructor(
-  message: string | ErrorMessage = '',
-  callback?: (callback: Callback<VEAllowedCallback>) => void
-) {
-  super();
-
-  // Sets the callback for an instance methods.
-  if (is.function(callback)) {
-    callback(this.#callback);
-  }
-
-  // Initializes the message and assigns message properties `fix`, `problem` and optionally `template` to a new instance.
-  this.setMessage(message);
-}
-```
-
-**Parameters:**
-
-| Name: type                                                   | Description |
-| :----------------------------------------------------------- | :---------- |
-| `message: string \| ErrorMessage`                            | The message of a [`string`][js-string] type or of an [`ErrorMessage`](#errormessage) interface that is used to throw with an [`Error`][js-error]. |
-| `callback?: (callback: Callback<VEAllowedCallback>) => void` | An optional function to handle the internal instance of [`Callback`][callback-github-readme]. |
-
-**Returns:**
-
-The **return value** is an instance of [`ValidationError`](#validationerror).
-
-**Usage:**
-
-```typescript
-// Example usage.
-import { ValidationError } from '@angular-package/error';
-
-const fix = 'There is no solution to the described problem.';
-const problem = 'The problem has no solution.';
-
-const validationError = new ValidationError({ fix, problem });
-```
-
-```typescript
-// Example usage with callback.
-import { ValidationError } from '@angular-package/error';
-
-// Define a fix.
-const fix = 'There is no solution to the described problem.';
-
-// Define a problem.
-const problem = 'The problem has no solution.';
-
-// Define a template.
-const template = 'PROBLEM: [problem] FIX: [fix]';
-
-// Initialize an instance.
-const validationError = new ValidationError(
-  { fix, problem, template },
-  (callback) => {
-    callback
-      /*
-      Console: false,
-      {
-        "fix": "There is no solution to the described problem.",
-        "problem": "The problem has no solution.",
-        "template": "PROBLEM: [problem] FIX: [fix]"
-      }
-
-      Console: true,
-      {
-        "fix": "There is no solution to the described problem.",
-        "problem": "The problem has no solution.",
-        "template": "PROBLEM: [problem] FIX: [fix]"
-      }
-    */
-      .setResultCallback('setFix', (result, payload) =>
-        console.log(`setFix`, result, payload);
-      )
-
-      // Console: 'setFix true There is no solution to the described problem.'
-      .setResultCallback('setMessage', (result, payload) =>
-        console.log(`setMessage`, result, payload);
-      )
-
-      // Console: 'setProblem true The problem has no solution.'
-      .setResultCallback('setProblem', (result, payload) =>
-        console.log(`setProblem`, result, payload);
-      )
-
-      // Console: 'setTemplate true PROBLEM: [problem] FIX: [fix]'
-      .setResultCallback('setTemplate', (result, payload) =>
-        console.log(`setTemplate`, result, payload);
-      );
-  }
-);
-```
-
-<br>
-
-### `ValidationError` instance public methods
-
-----
-
-#### `ValidationError.prototype.setFix()`
-
-![new]
-
-Sets the [`fix`][error-property-fix] a possible solution to the described [`problem`][error-property-problem].
-
-```typescript
-// Syntax.
-public setFix(
-  fix: string,
-  callback: ResultCallback<CallbackPayload> = this.#callback.getCallback(
-    'setFix'
-  )
-): this {
-  if (guard.string(fix, callback)) {
-    this.#fix = fix;
-  }
-  return this;
-}
-```
-
-**Parameters:**
-
-| Name: type                                   | Description |
-| :------------------------------------------- | :---------- |
-| `fix: string`                                | A possible solution to the described problem guarded by a [`string`][js-string] type. |
-| `callback?: ResultCallback<CallbackPayload>` | An optional callback function of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided [`fix`][error-property-fix] is a [`string`][js-string]. By default, it uses an internal callback under the `'setFix'` name, which can be initially set by the optional `callback` parameter that gives access to the internal instance of [`Callback`][callback-github-readme]. |
-
-**Returns:**
-
-The **return value** is an instance of an [`ValidationError`](#validationerror).
-
-**Usage:**
-
-```typescript
-// Example usage.
-import { ValidationError } from '@angular-package/error';
-
-// Initialize an instance.
-const validationError = new ValidationError();
-
-// Define a fix.
-const fix = 'There is no solution to the described problem.';
-
-// Returns 'There is no solution to the described problem.'
-validationError.setFix(fix).fix;
-```
-
-```typescript
-// Example usage with a callback.
-import { ValidationError } from '@angular-package/error';
-
-// Initialize an instance.
-const validationError = new ValidationError();
-
-// Define a fix.
-const fix = 'There is no solution to the described problem.';
-
-// Set the fix and handle the check of it with a callback.
-validationError.setFix(fix, (result, payload) => {
-  // Returns `true`.
-  result;
-  // Returns `There is no solution to the described problem.`.
-  payload;
-  return result;
-});
-```
-
-<br>
-
-#### `ValidationError.prototype.setMessage()`
-
-![new]
-
-Sets the validation error message of a [`string`][js-string] type from the provided `message` of the [`ErrorMessage`](#errormessage) interface.
-
-```typescript
-// Syntax.
-public setMessage(
-  message: string | ErrorMessage,
-  callback: ResultCallback<
-    CallbackPayload & ErrorMessage
-  > = this.#callback.getCallback('setMessage')
-): this {
-  this.message = is.string(message, callback)
-    ? // Sets a message of a string type from the provided message of `string`.
-      message
-    : // Sets a message of a string type from the provided message of `ErrorMessage`.
-      ValidationError.defineMessage(message, callback);
-
-  // Sets `fix`, `problem` and optionally `template` from the provided `message`.
-  if (is.object(message)) {
-    this.setFix(message.fix).setProblem(message.problem);
-    if (is.defined(message.template)) {
-      this.setTemplate(message.template);
-    }
-  }
-  return this;
-}
-```
-
-**Parameters:**
-
-| Name: type                                   | Description |
-| :------------------------------------------- | :---------- |
-| `message: string \| ErrorMessage`            | An object of an [`ErrorMessage`](#errormessage) interface to build the message of a [`string`][js-string] type. The value is checked against the proper `object`. |
-| `callback?: ResultCallback<CallbackPayload>` | An optional callback function of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided `message` is a [`string`][js-string] type or whether it's an object that contains required [`problem`][error-property-problem] and [`fix`][error-property-fix] properties. By default, it uses an internal callback under the `'setMessage'` name, which can be initially set by the optional `callback` parameter that gives access to the internal instance of [`Callback`][callback-github-readme]. |
-
-**Returns:**
-
-The **return value** is an instance of an [`ValidationError`](#validationerror).
-
-**Usage:**
-
-```typescript
-// Example usage with a callback.
-import { ValidationError } from '@angular-package/error';
-
-// Initialize an instance.
-const validationError = new ValidationError();
-
-// Define a fix.
-const fix = 'There is no solution to the described problem.';
-
-// Define a problem.
-const problem = 'The problem has no solution.';
-
-// Define a template.
-const template = 'PROBLEM: [problem], FIX: [fix]';
-
-// Set the message and handle the check of it with a callback.
-validationError.setMessage({ fix, problem }, (result, payload) => {
-  // Returns `false` then `true`.
-  result;
-  /*
-    Returns {
-      "fix": "There is no solution to the described problem.",
-      "problem": "The problem has no solution.",
-      "template": "PROBLEM: [problem] FIX: [fix]"
-    }
-  */
-  payload;
-  return result;
-});
-/*
-  Returns
-  PROBLEM: The problem has no solution. FIX: There is no solution to the described problem.
-*/
-console.log(validationError.message);
-```
-
-<br>
-
-#### `ValidationError.prototype.setProblem()`
-
-![new]
-
-Sets description [`problem`][error-property-problem] of a validation.
-
-```typescript
-public setProblem(
-  problem: string,
-  callback: ResultCallback<CallbackPayload> = this.#callback.getCallback(
-    'setProblem'
-  )
-): this {
-  this.#problem = guard.string(problem, callback) ? problem : this.#problem;
-  return this;
-}
-```
-
-**Parameters:**
-
-| Name: type                                   | Description |
-| :------------------------------------------- | :---------- |
-| `problem: string`                            | Description of a validation [`problem`][error-property-problem] guarded by a [`string`][js-string] type. |
-| `callback?: ResultCallback<CallbackPayload>` | An optional callback function of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided `problem` is a [`string`][js-string]. By default, it uses an internal callback under the `'setProblem'` name, which can be initially set by the optional `callback` parameter that gives access to the internal instance of [`Callback`][callback-github-readme]. |
-
-**Returns:**
-
-The **return value** is an instance of an [`ValidationError`](#validationerror).
-
-**Usage:**
-
-```typescript
-// Example usage.
-import { ValidationError } from '@angular-package/error';
-
-// Initialize an instance.
-const validationError = new ValidationError();
-
-// Define a problem.
-const problem = 'The problem has no solution.';
-
-// Returns 'The problem has no solution.'
-validationError.setProblem(problem).problem;
-```
-
-```typescript
-// Example usage with a callback.
-import { ValidationError } from '@angular-package/error';
-
-// Initialize an instance.
-const validationError = new ValidationError();
-
-// Define a problem.
-const problem = 'The problem has no solution.';
-
-// Set the problem and handle the check of it with a callback.
-validationError.setProblem(problem, (result, payload) => {
-  // Returns `true`.
-  result;
-  // Returns 'The problem has no solution.'
-  payload;
-  return result;
-});
-```
-
-<br>
-
-#### `ValidationError.prototype.setTemplate()`
-
-![new]
-
-Sets the [`template`][error-property-template] of validation error message.
-
-```typescript
-public setTemplate(
-  template: string,
-  callback: ResultCallback<CallbackPayload> = this.#callback.getCallback(
-    'setTemplate'
-  )
-): this {
-  this.#tpl = ValidationError.#guardTemplate(template, callback)
-    ? template
-    : this.#tpl;
-  return this;
-}
-```
-
-**Parameters:**
-
-| Name: type                                   | Description |
-| :------------------------------------------- | :---------- |
-| `template: string`                           | A message [`template`][error-property-template] guarded by a [`string`][js-string] type with replaceable `[problem]` and `[fix]` words. |
-| `callback?: ResultCallback<CallbackPayload>` | An optional callback function of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided `template` is a [`string`][js-string] that contains `[fix]` and `[problem]` words. By default, it uses an internal callback under the `'setTemplate'` name, which can be initially set by the optional `callback` parameter that gives access to the internal instance of [`Callback`][callback-github-readme]. |
-
-**Returns:**
-
-The **return value** is an instance of an [`ValidationError`](#validationerror).
-
-**Usage:**
-
-```typescript
-// Example usage.
-import { ValidationError } from '@angular-package/error';
-
-// Initialize an instance.
-const validationError = new ValidationError();
-
-// Define a template.
-const template = 'PROBLEM: [problem], FIX: [fix]';
-
-// Set the template.
-validationError.setTemplate(template);
-
-// Returns 'PROBLEM: [problem], FIX: [fix]'
-validationError.template;
-```
-
-```typescript
-// Example usage with a callback.
-import { ValidationError } from '@angular-package/error';
-
-// Initialize an instance.
-const validationError = new ValidationError();
-
-// Define a template.
-const template = 'PROBLEM: [problem], FIX: [fix]';
-
-// Set the template and handle the check of it with a callback.
-validationError.setTemplate(template, (result, payload) => {
-  // Returns `true`.
-  result;
-  // Returns 'PROBLEM: [problem], FIX: [fix]'
-  payload;
-  return result;
-});
-```
-
-<br>
-
-#### `ValidationError.prototype.throw()`
-
-![new]
-
-Throws an error of [`ValidationError`](#validationerror) with the message built from the stored [`fix`][error-property-fix], [`problem`][error-property-problem] and [`template`][error-property-template] or optionally from the provided `message`.
-
-```typescript
-public throw(message?: string | ErrorMessage): void {
-  if (is.defined(message)) {
-    this.setMessage(message);
-  } else {
-    this.updateMessage();
-  }
-  throw this;
-}
-```
-
-**Parameters:**
-
-| Name: type                         | Description |
-| :--------------------------------- | :---------- |
-| `message?: string \| ErrorMessage` | An optional object of an [`ErrorMessage`](#errormessage) interface to build the message of a [`string`][js-string] type. The value is checked against the proper `object`. |
-
-**Returns:**
-
-The **return value** is an instance of an [`ValidationError`](#validationerror).
-
-**Usage:**
-
-```typescript
-// Example usage.
-import { ValidationError } from '@angular-package/error';
-
-// Define a fix.
-const fix = 'There is no solution to the described problem.';
-
-// Define a problem.
-const problem = 'The problem has no solution.';
-
-// Define a template.
-const template = 'PROBLEM: [problem] FIX: [fix]';
-
-// Initialize an instance.
-const validationError = new ValidationError({ fix, problem, template });
-
-// Throw an error.
-validationError.throw();
-```
-
-```typescript
-// Example usage.
-import { ValidationError } from '@angular-package/error';
-
-// Define a fix.
-const fix = 'There is no solution to the described problem.';
-
-// Define a problem.
-const problem = 'The problem has no solution.';
-
-// Define a template.
-const template = 'PROBLEM: [problem] FIX: [fix]';
-
-// Initialize an instance.
-const validationError = new ValidationError();
-
-// Throw an error with message.
-validationError.throw({ fix, problem, template });
-```
-
-<br>
-
-#### `ValidationError.prototype.updateMessage()`
-
-![new]
-
-Updates the message with a stored [`fix`][error-property-fix], [`problem`][error-property-problem], and [`template`][error-property-template].
-
-```typescript
-public updateMessage(): void {
-  this.message = ValidationError.defineMessage({
-    fix: this.#fix,
-    problem: this.#problem,
-    template: this.#tpl,
-  });
-}
-```
-
-**Returns:**
-
-The **return value** is an instance of an [`ValidationError`](#validationerror).
-
-**Usage:**
-
-```typescript
-// Example usage.
-import { ValidationError } from '@angular-package/error';
-
-// Define a fix.
-const fix = 'There is no solution to the described problem.';
-
-// Define a problem.
-const problem = 'The problem has no solution.';
-
-// Define a template.
-const template = 'PROBLEM: [problem] FIX: [fix]';
-
-// Initialize an instance.
-const validationError = new ValidationError();
-
-// Sets defined above fix, problem, and template.
-validationError.setProblem(problem).setFix(fix).setTemplate(template);
-
-// Returns empty string.
-validationError.message;
-
-// Update the message with actual settings.
-validationError.updateMessage();
-
-/*
-  Returns
-  PROBLEM: The problem has no solution. FIX: There is no solution to the described problem.
-*/
-validationError.message;
-
-// Throw.
-validationError.throw();
-
-// or throw
-throw validationError;
-```
-
-<br>
-
-### Another example usage of `ValidationError`
-
-```typescript
-// Example usage.
-import { ValidationError } from '@angular-package/error';
-
-// Declare shape of the person.
-interface Person {
-  firstName: string;
-  lastName: string;
-}
-
-// Initialize an instance.
-const validationErrorOfPerson = new ValidationError();
-
-// Define a fix.
-const fix = 'Please, provide only alphabetical characters.';
-
-// Create an object.
-const personError = {
-  firstName: validationErrorOfPerson.setMessage({
-    problem: 'Provided the first name cannot include special characters.',
-    fix
-  }),
-  lastName: validationErrorOfPerson.setMessage({
-    problem: 'Provided the last name cannot include special characters.',
-    fix
-  })
-};
-
-
-const addPerson = (person: Person) => {
-  if (person.firstName.includes('#')) {
-    personError.firstName.throw();
-  }
-  if (person.firstName.includes('#')) {
-    personError.lastName.throw();
-  }
-};
-
-addPerson({
-  firstName: '#',
-  lastName: '#'
-});
-
-```
-
-<br>
-
-## Interface
-
-#### `ErrorMessage`
-
-![update]
-
-**`2.0.0`:** Adds an optional `template` property.
-
-The shape of an [`object`][js-object] for an [`error`][js-error] message that contains a possible solution to the described problem.
-
-```typescript
-export interface ErrorMessage {
-  fix: string;
-  problem: string;
-  template?: string;
-}
-```
-
-**Properties:**
-
-**`fix: string`**  
-A possible solution to the described problem of a [`string`][js-string] type.
-
-**`problem: string`**  
-Description of validation problem of a [`string`][js-string] type.
-
-**`template?: string`**  
-![new]  
-An optional error message template of a [`string`][js-string] type.
-
-<br>
-
-## Type
-
-#### `VEAllowedCallback`
-
-Allowed callback function names available for the [`ValidationError`](#validationerror).
-
-```typescript
-type VEAllowedCallback = 'setFix' | 'setMessage' | 'setProblem' | 'setTemplate';
-```
-
-<br>
-
-## Experimental
-
-![experimental]
-
-### Message builder
-
-#### `MessageBuilder`
-
-Message builder for error message of a [`string`][js-string] type.
-
-```typescript
-// Example usage of building a function.
-import { MessageBuilder } from '@angular-package/error';
-
-/**
- * Initialize `MessageBuilder`.
- */
-const messageFunctionBuilder = new MessageBuilder('function');
-
-messageFunctionBuilder
-  .setFunctionName('guardString')
-  .setParam('value', 'string')
-  .setReturn('boolean');
-
-// Console returns `guardString(value: string): boolean`
-console.log(messageFunctionBuilder.get);
-```
-
-```typescript
-// Example usage of building a method.
-import { MessageBuilder } from '@angular-package/error';
-
-/**
- * Initialize `MessageBuilder`.
- */
-const messageMethodBuilder = new MessageBuilder('method');
-
-// Build the method of any class.
-messageMethodBuilder
-  .setMethodName('setPerson')
-  .setParam('value', 'string')
-  .setReturn('this');
-
-// Console returns `setPerson(value: string): this`
-console.log(messageMethodBuilder.get);
-```
-
-```typescript
-// Example usage of building a class.
-import { MessageBuilder } from '@angular-package/error';
-
-/**
- * Initialize `MessageBuilder`.
- */
-const messageClassBuilder = new MessageBuilder('class');
-
-// Build the method of a specified class.
-messageClassBuilder
-  .setClassName('Person.prototype.')
-  .setMethodName('setPerson')
-  .setParam('value?', 'object')
-  .setReturn('object');
-
-// Console returns `Person.prototype.setPerson(value?: object): object`
-console.log(messageClassBuilder.get);
-```
-
-<br>
-
-#### `MessageFunctionBuilder`
-
-Message function builder for error message of a [`string`][js-string] type.
-
-```typescript
-// Example usage of building a function.
-import { MessageFunctionBuilder } from '@angular-package/error';
-
-/**
- * Initialize `MessageFunctionBuilder`.
- */
-const messageFunctionBuilder = new MessageFunctionBuilder();
-
-messageFunctionBuilder
-  .setName('guardString')
-  .setParam('value', 'string')
-  .setReturn('boolean')
-  .build();
-
-// Console returns `guardString(value: string): boolean`
-console.log(messageFunctionBuilder.get);
 ```
 
 <br>
@@ -1183,6 +170,18 @@ MIT © angular-package ([license][error-license])
 [new]: https://img.shields.io/badge/-new-green
 [update]: https://img.shields.io/badge/-update-red
 
+<!-- Discord -->
+[discord-badge]: https://img.shields.io/discord/925168966098386944
+[discord-channel]: https://discord.com/channels/925168966098386944/925168966098386948
+
+<!-- Gitter -->
+[gitter-badge]: https://badges.gitter.im/angularpackage/Lobby.svg
+[gitter-chat]: https://gitter.im/angularpackage/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge
+
+<!-- Twitter -->
+[twitter-badge]: https://img.shields.io/twitter/url?style=social&label=Follow%20%40angularpackage&url=https%3A%2F%2Ftwitter.com%2Fangularpackage
+[twitter-follow]: https://twitter.com/angularpackage
+
 <!-- GIT -->
 [git-semver]: http://semver.org/
 
@@ -1203,6 +202,7 @@ MIT © angular-package ([license][error-license])
   [error-license]: https://github.com/angular-package/error/blob/master/LICENSE
   [error-stars]: https://github.com/angular-package/error/stargazers
 <!-- This package -->
+  [error-github-changelog]: https://github.com/angular-package/error/blob/main/CHANGELOG.md
 
 <!-- Package: callback -->
   <!-- npm -->
@@ -1214,6 +214,7 @@ MIT © angular-package ([license][error-license])
   <!-- GitHub -->
   [callback-github-readme]: https://github.com/angular-package/callback#readme
 
+  [package-callback-callbackpayload]: https://github.com/angular-package/callback#callbackpayload
   [package-callback-resultcallback]: https://github.com/angular-package/callback#resultcallback
 
 <!-- Package: change-detection -->
@@ -1256,6 +257,26 @@ MIT © angular-package ([license][error-license])
   <!-- GitHub -->
   [error-github-readme]: https://github.com/angular-package/error#readme
 
+<!-- Package: name -->
+  <!-- npm -->
+  [name-npm-badge-svg]: https://badge.fury.io/js/%40angular-package%2Fname.svg
+  [name-npm-badge-png]: https://badge.fury.io/js/%40angular-package%2Fname.png
+  [name-npm-badge]: https://badge.fury.io/js/%40angular-package%2Fname
+  [name-npm-readme]: https://www.npmjs.com/package/@angular-package/name#readme
+
+  <!-- GitHub -->
+  [name-github-readme]: https://github.com/angular-package/name#readme
+
+<!-- Package: preferences -->
+  <!-- npm -->
+  [preferences-npm-badge-svg]: https://badge.fury.io/js/%40angular-package%2Fpreferences.svg
+  [preferences-npm-badge-png]: https://badge.fury.io/js/%40angular-package%2Fpreferences.png
+  [preferences-npm-badge]: https://badge.fury.io/js/%40angular-package%2Fpreferences
+  [preferences-npm-readme]: https://www.npmjs.com/package/@angular-package/preferences#readme
+
+  <!-- GitHub -->
+  [preferences-github-readme]: https://github.com/angular-package/preferences#readme
+
 <!-- Package: prism -->
   <!-- npm -->
   [prism-npm-badge-svg]: https://badge.fury.io/js/%40angular-package%2Fprism.svg
@@ -1276,6 +297,16 @@ MIT © angular-package ([license][error-license])
   <!-- GitHub -->
   [property-github-readme]: https://github.com/angular-package/property#readme
 
+<!-- Package: range -->
+  <!-- npm -->
+  [range-npm-badge-svg]: https://badge.fury.io/js/%40angular-package%2Frange.svg
+  [range-npm-badge-png]: https://badge.fury.io/js/%40angular-package%2Frange.png
+  [range-npm-badge]: https://badge.fury.io/js/%40angular-package%2Frange
+  [range-npm-readme]: https://www.npmjs.com/package/@angular-package/range#readme
+
+  <!-- GitHub -->
+  [range-github-readme]: https://github.com/angular-package/range#readme
+
 <!-- Package: reactive -->
   <!-- npm -->
   [reactive-npm-badge-svg]: https://badge.fury.io/js/%40angular-package%2Freactive.svg
@@ -1285,6 +316,26 @@ MIT © angular-package ([license][error-license])
 
   <!-- GitHub -->
   [reactive-github-readme]: https://github.com/angular-package/reactive#readme
+
+<!-- Package: storage -->
+  <!-- npm -->
+  [storage-npm-badge-svg]: https://badge.fury.io/js/%40angular-package%2Fstorage.svg
+  [storage-npm-badge-png]: https://badge.fury.io/js/%40angular-package%2Fstorage.png
+  [storage-npm-badge]: https://badge.fury.io/js/%40angular-package%2Fstorage
+  [storage-npm-readme]: https://www.npmjs.com/package/@angular-package/storage#readme
+
+  <!-- GitHub -->
+  [storage-github-readme]: https://github.com/angular-package/storage#readme
+
+<!-- Package: tag -->
+  <!-- npm -->
+  [tag-npm-badge-svg]: https://badge.fury.io/js/%40angular-package%2Ftag.svg
+  [tag-npm-badge-png]: https://badge.fury.io/js/%40angular-package%2Ftag.png
+  [tag-npm-badge]: https://badge.fury.io/js/%40angular-package%2Ftag
+  [tag-npm-readme]: https://www.npmjs.com/package/@angular-package/tag#readme
+
+  <!-- GitHub -->
+  [tag-github-readme]: https://github.com/angular-package/tag#readme
 
 <!-- Package: testing -->
   <!-- npm -->
@@ -1296,6 +347,16 @@ MIT © angular-package ([license][error-license])
   <!-- GitHub -->
   [testing-github-readme]: https://github.com/angular-package/testing#readme
 
+<!-- Package: text -->
+  <!-- npm -->
+  [text-npm-badge-svg]: https://badge.fury.io/js/%40angular-package%2Ftext.svg
+  [text-npm-badge-png]: https://badge.fury.io/js/%40angular-package%2Ftext.png
+  [text-npm-badge]: https://badge.fury.io/js/%40angular-package%2Ftext
+  [text-npm-readme]: https://www.npmjs.com/package/@angular-package/text#readme
+
+  <!-- GitHub -->
+  [text-github-readme]: https://github.com/angular-package/text#readme
+
 <!-- Package: type -->
   <!-- npm -->
   [type-npm-badge-svg]: https://badge.fury.io/js/%40angular-package%2Ftype.svg
@@ -1306,9 +367,6 @@ MIT © angular-package ([license][error-license])
   <!-- GitHub -->
   [type-github-readme]: https://github.com/angular-package/type#readme
 
-  [package-type-resultcallback]: https://github.com/angular-package/type#resultcallback
-  [package-type-key]: https://github.com/angular-package/type#key
-
 <!-- Package: ui -->
   <!-- npm -->
   [ui-npm-badge-svg]: https://badge.fury.io/js/%40angular-package%2Fui.svg
@@ -1318,6 +376,16 @@ MIT © angular-package ([license][error-license])
 
   <!-- GitHub -->
   [ui-github-readme]: https://github.com/angular-package/ui#readme
+
+<!-- Package: wrapper -->
+  <!-- npm -->
+  [wrapper-npm-badge-svg]: https://badge.fury.io/js/%40angular-package%2Fwrapper.svg
+  [wrapper-npm-badge-png]: https://badge.fury.io/js/%40angular-package%2Fwrapper.png
+  [wrapper-npm-badge]: https://badge.fury.io/js/%40angular-package%2Fwrapper
+  [wrapper-npm-readme]: https://www.npmjs.com/package/@angular-package/wrapper#readme
+
+  <!-- GitHub -->
+  [wrapper-github-readme]: https://github.com/angular-package/wrapper#readme
 
 <!-- Angular -->
 [angular-component-factory-resolver]: https://angular.io/api/core/ComponentFactoryResolver
@@ -1346,7 +414,7 @@ MIT © angular-package ([license][error-license])
 [js-error]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error
 
 [js-function]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Functions
-[js-function-rest-parameter]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters
+[js-rest-parameter]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters
 
 [js-getter]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get
 [js-object-getownpropertydescriptor]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyDescriptor
@@ -1398,6 +466,13 @@ MIT © angular-package ([license][error-license])
 [prism-js]: https://prismjs.com/
 
 <!-- Typescript -->
+[ts-any]: https://www.typescriptlang.org/docs/handbook/basic-types.html#any
+[ts-boolean]: https://www.typescriptlang.org/docs/handbook/basic-types.html#boolean
 [ts-classes]: https://www.typescriptlang.org/docs/handbook/2/classes.html
 [ts-function]: https://www.typescriptlang.org/docs/handbook/2/functions.html
 [ts-interface]: https://www.typescriptlang.org/docs/handbook/interfaces.html#our-first-interface
+[ts-never]: https://www.typescriptlang.org/docs/handbook/basic-types.html#never
+[ts-number]: https://www.typescriptlang.org/docs/handbook/basic-types.html#number
+[ts-object]: https://www.typescriptlang.org/docs/handbook/basic-types.html#object
+[ts-string]: https://www.typescriptlang.org/docs/handbook/basic-types.html#string
+[ts-unknown]: https://www.typescriptlang.org/docs/handbook/basic-types.html#unknown

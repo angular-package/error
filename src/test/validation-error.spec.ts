@@ -10,84 +10,95 @@ const toBe = new TestingToBeMatchers();
 /**
  * Tests.
  */
-testing.describe('ValidationError', () => {
-  testing.describe('throw', () => {
-    const problem = 'My callback problem';
-    const fix = 'Possible fix does not exist';
-    try {
-      throw new ValidationError({ problem, fix });
-    } catch (e: any) {
+testing.describe('[counter] ValidationError', () => {
+  // Prepare the values.
+  const fix = 'Provide string type value. Read more: https://duckduckgo.com/';
+  const id = '427';
+  const problem = 'The value must be a string type.';
+  const template = `Problem(VE{id}): {problem}\nFix: {fix}`;
+  const value = Symbol(123);
+  let validationError = new ValidationError(problem, fix, id, template);
+
+  beforeEach(() => validationError = new ValidationError(problem, fix, id, template));
+
+  testing
+
+    /**
+     * Accessors.
+     */
+    .describe(`accessors`, () => {
       testing
-        .toBeClass(ValidationError)
-        .toBe('instanceof ValidationError', e instanceof ValidationError, true)
-        .toBeStringType(
-          e.problem,
-          undefined,
-          '`e.problem` must be of a `string` type'
-        )
-        .toBeStringType(e.fix, undefined, '`e.fix` must be of a `string` type');
-    }
-  });
 
-  testing.describe('instantiate', () => {
-    let fix: any;
-    let problem: any;
-    let validationError: any;
+        /**
+         * ValidationError.prototype.fix
+         */
+        .it(`ValidationError.prototype.fix`, () => expect(validationError.fix).toEqual(fix))
 
-    beforeEach(() => {
-      fix = 'There is no solution to the described problem.';
-      problem = 'The problem has no solution.';
-      validationError = new ValidationError({ fix, problem });
+        /**
+         * ValidationError.prototype.id
+         */
+        .it(`ValidationError.prototype.id`, () => expect(validationError.id).toEqual(id))
+
+        /**
+         * ValidationError.prototype.problem
+         */
+        .it(`ValidationError.prototype.problem`, () => expect(validationError.problem).toEqual(problem))
+
+        /**
+         * ValidationError.prototype.template
+         */
+        .it(`ValidationError.prototype.template`, () => expect(validationError.template).toEqual(template));
+      // .it(`[Symbol.toStringTag]`, () => {});
+    })
+
+    /**
+     * Static methods.
+     */
+    .describe(`Static methods`, () => {
+      testing
+        /**
+         * ValidationError.define()
+         */
+        .it(`ValidationError.define()`, () => {
+          const e = ValidationError.define(problem, fix, id, template);
+          expect(e.message).toEqual(`Problem(VE${id}): ${problem}\nFix: ${fix}`);
+          expect(e.fix).toEqual(fix);
+          expect(e.id).toEqual(id);
+          expect(e.problem).toEqual(problem);
+        })
+
+        /**
+         * ValidationError.isValidationError()
+         */
+        .it(`ValidationError.isValidationError()`, () => {
+          expect(validationError.id).toEqual(id);
+        });
+    })
+
+    /**
+     * Constructor.
+     */
+    .describe(`constructor()`, () => {
+      testing
+        .it(`(problem, fix, id)`, () => {
+          const e = new ValidationError(problem, fix, id);
+          expect(e.message).toEqual(`Problem${id}: ${e.problem} => Fix: ${e.fix}`);
+          expect(e.fix).toEqual(fix);
+          expect(e.id).toEqual(id);
+          expect(e.problem).toEqual(problem);
+        })
+        .it(`(problem, fix, id, template)`, () => {
+          const e = new ValidationError(problem, fix, id, template);
+          expect(e.message).toEqual(`Problem(VE${id}): ${problem}\nFix: ${fix}`);
+          expect(e.fix).toEqual(fix);
+          expect(e.id).toEqual(id);
+          expect(e.problem).toEqual(problem);
+        })
+        .it(`(problem, fix)`, () => {
+          const e = new ValidationError(problem, fix);
+          expect(e.message).toEqual(`Problem: ${e.problem} => Fix: ${e.fix}`);
+          expect(e.fix).toEqual(fix);
+          expect(e.problem).toEqual(problem);
+        });
     });
-
-    testing.it(`with the message of a \`string\` type`, () => {
-      const message = 'Validation error message';
-      validationError = new ValidationError(message);
-      toBe.string(validationError.message);
-      expect(validationError.message).toContain(message);
-    });
-
-    testing.it(`with the message of the \`ErrorMessage\` interface`, () => {
-      toBe
-        .string(validationError.message)
-        .string(validationError.problem)
-        .string(validationError.fix);
-
-      // to Equal.
-      expect(validationError.problem).toEqual(problem);
-      expect(validationError.fix).toEqual(fix);
-      expect(validationError.message).toEqual(
-        ValidationError.template
-          .replace(`[fix]`, fix)
-          .replace(`[problem]`, problem)
-      );
-      // toContain.
-      expect(validationError.message).toContain(fix);
-      expect(validationError.message).toContain(problem);
-    });
-  });
-
-  testing.describe('static defineMessage()', () => {
-    let fix: any;
-    let problem: any;
-    let errorMessage: any;
-
-    beforeEach(() => {
-      fix = 'There is no solution to the described problem.';
-      problem = 'The problem has no solution.';
-      errorMessage = ValidationError.defineMessage({ fix, problem });
-    });
-
-    testing.it(`with the message of the \`ErrorMessage\` interface`, () => {
-      toBe.string(errorMessage);
-      expect(errorMessage).toEqual(
-        ValidationError.template
-          .replace(`[fix]`, fix)
-          .replace(`[problem]`, problem)
-      );
-      // toContain.
-      expect(errorMessage).toContain(fix);
-      expect(errorMessage).toContain(problem);
-    });
-  });
 });
