@@ -57,7 +57,7 @@ Manages an [`Error`][js-error].
 
 ## Documentation
 
-For the detailed documentation go to [**https://error.angular-package.dev/**](https://error.angular-package.dev/)
+For the detailed documentation go to [**https://error.angular-package.dev**](https://error.angular-package.dev)
 
 <br>
 
