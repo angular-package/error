@@ -8,8 +8,8 @@
     "tslib": "^2.3.0"
   },
   "devDependencies": {
-    "@angular-package/testing": "^2.0.0",
-    "@angular-package/type": "^5.0.0"
+    "@angular-package/testing": "^2.0.0-rc",
+    "@angular-package/type": "^5.0.0-rc.0"
   },
   "publishConfig": {
     "access": "public",
