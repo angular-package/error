@@ -10,8 +10,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### [3.0.0-rc] Added
 
-- Add the generic type variable `Id` to the `ValidationError`.
-- Add `[Symbol.toStringTag]()` get accessor to return the object different class name. 
+- Add `define()`, `isValidationError()` static method to the `ValidationError` object. [b261662] [eb2d8e2]
+- Add the generic type variable `Id` to the `ValidationError`. [eb2d8e2]
+- Add `[Symbol.toStringTag]()` get accessor to return the object different class name. [eb2d8e2]
 - Add `ValidationErrors` object that is is an extension of the `CommonErrors` object that represents multiple identification numbers under which the errors of the `ValidationError` type are prepared to throw. [43a0162]
 - Add `TypeErrors` object that is an extension of the `CommonErrors` object that represents multiple identification numbers under which the errors of the `TypeError` type are prepared to throw. [ff2feeb]
 - Add `TypeError` object that is an extension of the `CommonError` class and is thrown when an operation could not be performed, typically(but not exclusively) when a value is not of the expected type, with the message built from the described problem and its solution, optional an explicit identification and type, on the given or stored template. [8112c16]
@@ -31,11 +32,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### [3.0.0-rc] Removed
 
 - Remove `#callback` private property from the `ValidationError` to simplify the object.
-- Remove `VEAllowedCallback` type and `ErrorMessage` interface to simplify the object.
-- Remove `set problem()`, `set message()`, `set fix()`, `set template()` accessors of an instance.
-- Remove `#guardMessage()`, `#guardTemplate()`, `defineMessage()`,  static method from the `ValidationError()`.
-- Remove `updateMessage()`, `throw()`, `setTemplate()`, `setProblem()`, `setMessage()`, `setFix()` instance method from the `ValidationError()`.
+- Remove `VEAllowedCallback` type and `ErrorMessage` interface to simplify the object. [00229cd] [30716b2]
+- Remove `set problem()`, `set message()`, `set fix()`, `set template()` accessors of an `ValidationError` instance. [b261662]
+- Remove `#guardMessage()`, `#guardTemplate()`, `defineMessage()`,  static method from the `ValidationError()`. [b261662]
+- Remove `updateMessage()`, `throw()`, `setTemplate()`, `setProblem()`, `setMessage()`, `setFix()` instance method from the `ValidationError()`. [b261662]
 
+[eb2d8e2]: https://github.com/angular-package/error/commit/eb2d8e243ff6ee5f44fd00e4d462d2b2c175702a
+[b261662]: https://github.com/angular-package/error/commit/b2616625bb80790f97da9138f75305ceb3c55af2
+[30716b2]: https://github.com/angular-package/error/commit/30716b22970218bb4745d0482908e55138467833
+[00229cd]: https://github.com/angular-package/error/commit/00229cda3f116766df5d1872519184332ee0402d
 [43a0162]: https://github.com/angular-package/error/commit/43a01628af2a73aa428d7d6bcb48e9c3a1c755f3
 [ff2feeb]: https://github.com/angular-package/error/commit/ff2feebe48fdb1b3f8bfe3c58cedc09c8b6402df
 [8112c16]: https://github.com/angular-package/error/commit/8112c166a2a7848b166bd4a45996f6e24b42862e
