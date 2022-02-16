@@ -120,6 +120,7 @@ npm i @angular-package/error --save
 import {
   // Class.
   CommonError,
+  CommonErrors,
   Error,
   Errors,
   RangeError,
